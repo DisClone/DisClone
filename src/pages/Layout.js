@@ -1,22 +1,22 @@
 import React from "react";
 import { Link } from "react-router";
-import {Group} from "../components/Groups/Groups";
-import {Channel} from "../components/Channel/Channel";
-import {Navigation} from "../components/Navigation/Navigation";
+import Group from "../components/Groups/Groups";
+import Channel from "../components/Channel/Channel";
+import Navigation from "../components/Navigation/Navigation";
 
-
-export default class Layout extends React.Component {
+class Layout extends React.Component {
   render(){
       const { location } = this.props;
-
+      const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex"};
     //Links to routed paths
     return(
-      <div>
-        <h2>HELLO FROM GROUP</h2>
-          <Group location={location} />
-
-
+      <div style={mainContainer}>
+          <Group  />
+          <Navigation />
+          <Channel />
       </div>
     );
   }
 }
+
+export default Layout;

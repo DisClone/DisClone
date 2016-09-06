@@ -13,5 +13,6 @@ import routes from './routes';
 //connect
 
 ReactDOM.render(
-    <Router history={browserHistory} routes={routes}></Router>,
+    <Router history={browserHistory} routes={routes}>
+    </Router>,
   document.getElementById('disclone'));
