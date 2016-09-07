@@ -1,7 +1,12 @@
+-- UPDATED USERS SCHEMA 9/7
+
 create table users (
   id serial primary key,
   username varchar(50),
-  password varchar(300)
+  password varchar(300),
+  email varchar(80),
+  display_name varchar(40),
+  avatar varchar(255)
 );
 
 create table groups (

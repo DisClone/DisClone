@@ -50,11 +50,6 @@ app.get('/api/test', function(req, res) {
   res.set(200).json("We workin dawg");
 });
 
-app.get('/api/users/all', function(req, res) {
-  db.get_all_users(function(err, response) {
-    res.set(200).json(response);
-  });
-});
 
 
 //Message Endpoints (partially for test purposes and building front end, will do some of this through sockets once I have them working back here)
@@ -66,6 +61,13 @@ app.post('/api/messages/new', messageCtrl.postNewMessage);
 app.put('/api/messages/edit', messageCtrl.editMessage);
 
 app.delete('/api/messages/delete/:id', messageCtrl.deleteMessage);
+
+//User Endpoints
+app.get('/api/users/all', userCtrl.getAllUsers);
+
+app.post('/api/users/new', userCtrl.createNewUser);
+
+app.put('/api/users/update', userCtrl.updateUser);
 
 app.listen(port, function(err) {
   if (err) {
