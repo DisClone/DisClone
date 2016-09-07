@@ -65,6 +65,8 @@ app.delete('/api/messages/delete/:id', messageCtrl.deleteMessage);
 //User Endpoints
 app.get('/api/users/all', userCtrl.getAllUsers);
 
+app.get('/api/users/:id', userCtrl.getUserById);
+
 app.post('/api/users/new', userCtrl.createNewUser);
 
 app.put('/api/users/update', userCtrl.updateUser);

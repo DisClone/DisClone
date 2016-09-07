@@ -51,5 +51,17 @@ module.exports = {
         res.set(200).json("User successfully deleted");
       }
     });
+  },
+  getUserById(req, res, next) {
+    db.get_user_by_id(req.params.id, (err, response) => {
+      if (err) {
+        console.log(err);
+        res.set(401).json("There was an error retrieving that user");
+      }
+      else {
+        res.set(200).json(response);
+        return;
+      }
+    });
   }
 };
