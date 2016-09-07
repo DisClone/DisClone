@@ -6,13 +6,15 @@ import { Router, Route, IndexRoute, browserHistory, DefaultRoute } from "react-r
 import routes from './routes';
 
 //initializing store
-
+const store = configureStore();
 
 //importing Routes
 
 //connect
 
 ReactDOM.render(
+  <Provider store={store}>
     <Router history={browserHistory} routes={routes}>
-    </Router>,
+    </Router>
+  </Provider>,
   document.getElementById('disclone'));
