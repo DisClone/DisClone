@@ -2,3 +2,4 @@
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
+export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';
