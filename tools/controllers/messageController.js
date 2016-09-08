@@ -5,7 +5,7 @@ module.exports = {
   postNewMessage(req, res, next) {
     if (req.body) {
       console.log(req.body);
-      db.post_new_message([req.body.message_text, req.body.message_time, req.body.is_group_message, req.body.author_id, req.body.recipient_id, req.body.group_recipient], function(err, response) {
+      db.messages.post_new_message([req.body.message_text, req.body.message_time, req.body.is_group_message, req.body.author_id, req.body.recipient_id, req.body.group_recipient], function(err, response) {
         if (err) {
           console.log(err);
           res.set(401).send('There was an error handling your request');
@@ -20,7 +20,7 @@ module.exports = {
   },
   editMessage(req, res, next) {
     if(req.body) {
-      db.edit_message([req.body.message_text, req.body.id], function(err, response) {
+      db.messages.edit_message([req.body.message_text, req.body.id], function(err, response) {
         if (err) {
           console.log(err);
           res.set(401).json("There was an error handling your request, nigga");
@@ -39,7 +39,7 @@ module.exports = {
   },
   deleteMessage(req, res, next) {
     if (req) {
-      db.delete_message(req.params.id, function(err, response) {
+      db.messages.delete_message(req.params.id, function(err, response) {
         if (err) {
           console.log(err);
 
@@ -51,8 +51,7 @@ module.exports = {
     }
   },
   getAllMessages(req, res, next) {
-    db.get_all_messages(function(err, response) {
-      console.log(response);
+    db.messages.get_all_messages(function(err, response) {
       res.set(200).json(response);
     });
   }
