@@ -15,6 +15,3 @@ export function sendMessage(messageBoard) {
 //edit message
 
 //remove message
-export function removeMessage(messageboard){
-  return { type: types.REMOVE_MESSAGE, messageBoard}
-}

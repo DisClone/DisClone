@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+import Channel from './channel.json';
+import Messages from './messages.json';
 
 class Channel extends React.Component{
   constructor(){
@@ -24,9 +26,8 @@ class Channel extends React.Component{
   //note - this is the dispatch action that starts the flow
   handleChange(){
     this.props.actions.sendMessage(this.state.messageBoard);
-
-
   }
+
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
@@ -38,12 +39,12 @@ class Channel extends React.Component{
     const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
     const messageBoard = {postion:"relative", width:"100%",height: "80%", overflowY:"scroll", padding:'1rem', color:"#fff"};
     const channelChat = {backgroundColor:"#424549", position:"fixed", bottom:"2rem", width:"70%", height: "2rem"  };
-
+    console.log(this.props);
     return(
       <div style={channelContainer}>
-        <div style={settingsBar}> <span style={lighter}>#</span>general </div>
+        <div style={settingsBar}> <span style={lighter}>#</span>{this.props.channel_id}</div>
         <div style={messageBoard}>
-          <h2>Thug Life</h2>
+          <h2>{this.props.user_id}</h2>
             <h2>{this.props.messages.map(this.messageRow)}</h2>
           <div style={channelChat}>
             <input
