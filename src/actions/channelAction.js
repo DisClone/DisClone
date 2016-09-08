@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-
+import userApi from '../api/mockUserApi';
 //-------------------STEP 2------------------------
 //Actions just return objects with at least two properties
 //{a type, and an identifier}
@@ -15,6 +15,3 @@ export function sendMessage(messageBoard) {
 //edit message
 
 //remove message
-export function removeMessage(messageboard){
-  return { type: types.REMOVE_MESSAGE, messageBoard}
-}
