@@ -1,1 +1,1 @@
-delete from channels where id = $1;
+delete from channels where id = $1
