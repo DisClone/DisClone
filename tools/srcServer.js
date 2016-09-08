@@ -3,12 +3,26 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
+import configSettings from './config.js';
+import massive from 'massive';
+import bodyParser from 'body-parser';
+
+
 
 /* eslint-disable no-console */
 
 const port = 3000;
-const app = express();
 const compiler = webpack(config);
+
+const connectionString = configSettings.connectionString;
+var app = module.exports = express();
+
+var massiveInstance = massive.connectSync({connectionString : connectionString});
+
+app.set('db', massiveInstance);
+
+var db = app.get('db');
+
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -17,9 +31,41 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join( __dirname, '../src/index.html'));
+app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/../src'));
+
+var userCtrl = require('./controllers/userController.js');
+var messageCtrl = require('./controllers/messageController.js');
+var groupCtrl = require('./controllers/groupController.js');
+
+//test endpoints
+app.post('/api/test', (req, res) => {
+  console.log("Whaddup");
+  res.set(200).json("Hi there");
 });
+
+app.get('/api/test', function(req, res) {
+  console.log("Yoyoyomybro");
+  res.set(200).json("We workin dawg");
+});
+
+app.get('/api/users/all', function(req, res) {
+  db.get_all_users(function(err, response) {
+    res.set(200).json(response);
+  });
+});
+
+
+//Message Endpoints (partially for test purposes and building front end, will do some of this through sockets once I have them working back here)
+
+app.get('/api/messages/all', messageCtrl.getAllMessages);
+
+app.post('/api/messages/new', messageCtrl.postNewMessage);
+
+app.put('/api/messages/edit', messageCtrl.editMessage);
+
+app.delete('/api/messages/delete/:id', messageCtrl.deleteMessage);
 
 app.listen(port, function(err) {
   if (err) {
