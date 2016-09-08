@@ -4,7 +4,7 @@ var db = app.get('db');
 module.exports = {
   createNewUser(req, res, next) {
     if (req.body) {
-      db.create_new_user([req.body.username, req.body.password, req.body.email, req.body.display_name, req.body.avatar], (err, response) => {
+      db.users.create_new_user([req.body.username, req.body.password, req.body.email, req.body.display_name, req.body.avatar], (err, response) => {
         if (err) {
           console.log(err);
         }
@@ -19,7 +19,7 @@ module.exports = {
   },
   updateUser(req, res, next) {
     if (req.body) {
-      db.update_user([req.body.username, req.body.password, req.body.email, req.body.display_name, req.body.avatar, req.body.user_id], (err, response) => {
+      db.users.update_user([req.body.username, req.body.password, req.body.email, req.body.display_name, req.body.avatar, req.body.user_id], (err, response) => {
         if (err) {
           console.log(err);
           res.set(401).json("There was an error adding the user");
@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   getAllUsers(req, res, next) {
-    db.get_all_users((err, response) => {
+    db.users.get_all_users((err, response) => {
       if(err) {
         console.log(err);
         res.set(401).json("There was an error getting users");
@@ -42,7 +42,7 @@ module.exports = {
     });
   },
   deleteUser(req, res, next) {
-    db.delete_user(req.params.id, (err, response) => {
+    db.users.delete_user(req.params.id, (err, response) => {
       if (err) {
         console.log(err);
         res.set(401).json("There was an error deleting the user");
@@ -53,7 +53,7 @@ module.exports = {
     });
   },
   getUserById(req, res, next) {
-    db.get_user_by_id(req.params.id, (err, response) => {
+    db.users.get_user_by_id(req.params.id, (err, response) => {
       if (err) {
         console.log(err);
         res.set(401).json("There was an error retrieving that user");
