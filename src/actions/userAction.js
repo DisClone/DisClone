@@ -1,12 +1,14 @@
 import * as types from './actionTypes';
 import userApi from '../api/mockUserApi';
-
+const hostString = "http://localhost:3000";
+import axios from 'axios';
 
 export function loadUsersSuccess(users) {
   //type property is required!!!!
   return { type: types.LOAD_USERS_SUCCESS, users};
 }
 
+let users;
 
 //THUNKS
 
@@ -19,4 +21,32 @@ export function loadUsers(){
       throw(error);
     });
   };
+}
+
+export function grabUsersSuccess(users) {
+  return { type: types.GRAB_USERS, users };
+}
+
+export function grabUsers(users) {
+  // return (dispatch) => {
+  //   fetch('/api/users/broken', {method: 'GET'})
+  //     .then((response) => {
+  //       console.log(response);
+  //       return response;
+  //     }).then( response => {
+  //       dispatch(grabUsersSuccess(response));
+  //     });
+  // };
+  return function (dispatch){
+    return axios({
+    method: "GET",
+    url: "/api/users/all",
+
+  }).then(response => {
+    users = response.data;
+    return response.data;
+  }).then( response => {
+        dispatch(grabUsersSuccess(users));
+      });
+    };
 }
