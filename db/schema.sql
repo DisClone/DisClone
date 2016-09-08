@@ -36,7 +36,7 @@ create table channels (
 )
 
 
--- UPDATED MESSAGES SCHEMA 9/7
+-- UPDATED MESSAGES SCHEMA 9/8
 create table messages (
   id serial primary key,
   message_text varchar(400),
