@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import userApi from '../api/mockUserApi';
+import productApi from '../api/mockProductApi';
 //-------------------STEP 2------------------------
 //Actions just return objects with at least two properties
 //{a type, and an identifier}

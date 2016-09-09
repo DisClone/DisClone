@@ -66,7 +66,7 @@ export default class ProductApi {
           products.push(product);
         }
 
-        resolve(product);
+        resolve(Object.assign({}, product));
       }, delay);
     });
   }
@@ -75,10 +75,10 @@ export default class ProductApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         console.log('product id is: ', productId);
-        const indexOfProductToDelete = products.findIndex(product => product.id == productId);
+        const indexOfProductToDelete = products.findIndex(product => {product.id == productId;});
         console.log('index of product to delete: ',indexOfProductToDelete);
         products.splice(indexOfProductToDelete, 1);
-        resolve(productId);
+        resolve();
       }, delay);
     });
   }

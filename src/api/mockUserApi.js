@@ -7,17 +7,20 @@ const users = [
   {
     id: 'cory-house',
     firstName: 'Cory',
-    lastName: 'House'
+    lastName: 'House',
+    title: "GI Joe"
   },
   {
     id: 'scott-allen',
     firstName: 'Scott',
-    lastName: 'Allen'
+    lastName: 'Allen',
+    title: "Heman"
   },
   {
     id: 'dan-wahlin',
     firstName: 'Dan',
-    lastName: 'Wahlin'
+    lastName: 'Wahlin',
+    title: "Rubix Cube"
   }
 ];
 

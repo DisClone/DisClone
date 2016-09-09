@@ -13,7 +13,8 @@ export default class Group extends React.Component{
 
           <br /><br /><br /><br /><br />
 
-      <Link to={'/channels/5/17'}>Group</Link>
+      <Link to={'/channels/5/'}>Group 5</Link>
+      <Link to={'/channels/7/'}>Group 7</Link>
         </div>
     );
   }
