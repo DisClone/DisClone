@@ -9,7 +9,7 @@ class HomeNav extends React.Component{
     super(props,context);
   }
   userRow(users, index){
-    return  <div key={index}><Link to={'/friend'}>{users.id} </Link></div>;
+    return  <div key={index}><Link to={'/friend/'+users.id}>{users.firstName} </Link></div>;
   }
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};

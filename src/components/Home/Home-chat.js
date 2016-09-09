@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+const friendStyle = {borderBottom:"1px solid #686A6E", display:"flex", justifyContent:"space-around"};
+const friendData = {}
 
 
 class HomeChannel extends React.Component{
@@ -27,40 +29,64 @@ class HomeChannel extends React.Component{
   //note - this is the dispatch action that starts the flow
   handleChange(){
     this.props.actions.sendMessage(this.state.messageBoard);
-
-
   }
-  messageRow(messageBoard, index){
-    return <div key={index}> user <br/> {messageBoard.message} </div>;
+
+  userRow(users, index){
+    return <div style={friendStyle}>
+
+      <h2 key={index}>{users.firstName}</h2>
+      <h2>Hi</h2>
+      <h2>Awesome</h2>
+
+    </div>
   }
 
   render(){
     //styles
 
-    const channelContainer = {width:"85%", height:"100%", overflow:"hidden", backgroundColor: "#36393E"};
-    const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", paddingLeft:"2rem"};
-    const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
-    const messageBoard = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", padding:'1rem', color:"#A7AEBC"};
-    const channelChat = {backgroundColor:"#424549", position:"fixed", bottom:"3rem", width:"70%", height: "2.5rem"  };
+    const channelContainer = {width:"100%", height:"100%", backgroundColor: "#36393E"};
+    const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", justifyContent:"space-between"};
+    const navBar = {paddingLeft:"15px", paddingRight:"15px", listStyle: "none", display: "flex", padding:"0"};
+    const friendsList = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", color:"#A7AEBC"};
     const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
-    const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
+    const friendHeader = {display:"flex", justifyContent:"space-around", borderBottom:"1px solid #686A6E"};
+    // const friendData = {display:"flex", justifyContent:"space-around"}
+
     return(
       <div style={channelContainer}>
-        <div style={settingsBar}> <span style={lighter}>#</span>Friends List</div>
-        <div style={messageBoard}>
-          <h2>Pug Life</h2>
-            <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
-          <div style={channelChat}>
-            <input style={chatInput}
-              type="text"
-              value={this.state.messageBoard.message}
-              onChange={this.onMessageChange}/>
-            <input
-              type="submit"
-              value="+ Message"
-              onClick={this.handleChange}/>
+        <div style={settingsBar}>
+        <div>
+         <ul style={navBar}>
+            <li>Add Friend</li>
+            <li>All</li>
+            <li>Online</li>
+            <li>Pending</li>
+            <li>Blocked</li>
+         </ul>
+        </div>
+
+        <div>
+          <ul style={navBar}>
+            <li>Symbol</li>
+            <li>Symbol</li>
+            <li>Symbol</li>
+          </ul>
+        </div>
+        </div>
+
+        <div style={friendsList}>
+          <div style={friendHeader}>
+            <h2>Name</h2>
+            <h2>Status</h2>
+            <h2>Mutual Servers</h2>
+          </div>
+          <div>
+            <h2>{this.props.users.map(this.userRow)}</h2>
+            {/*<h2>Awesome</h2>
+            <h2>All</h2>*/}
           </div>
         </div>
+
       </div>
     );
   }
@@ -80,7 +106,7 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
   return {
-    messages: state.messages
+    users: state.users
   };
 }
 

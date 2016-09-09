@@ -14,10 +14,10 @@ import FriendsList from "./components/Home/Friends-list";
 export default (
   <Route path="/" component={Layout} >
     <IndexRoute to="/@me" component={Home} />
-    
+
     <Route path="@me(/:userId)" component={Home}>
       <IndexRoute component={HomeChat} />
-      <Route path="/friend" component={FriendsList}></Route>
+      <Route path="/friend(/:friendId)" component={FriendsList}></Route>
     </Route>
 
     <Route path="/channels(/:group)(/:channel)" component={Channels}></Route>

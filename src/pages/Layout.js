@@ -10,9 +10,6 @@ import Navigation from "../components/Navigation/Navigation";
 class Layout extends React.Component {
 
   render(){
-      console.log(this.props.params);
-      console.log(this.props.children);
-
       const { location } = this.props;
       const groupBar = {width:'5rem', height: "100%", color:"#fff", textAlign: "center"};
       const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex"};
