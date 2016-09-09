@@ -4,7 +4,7 @@ insert into messages (
   is_group_message,
   author_id,
   recipient_id,
-  group_recipient
+  channel_recipient
 )
 values (
   $1,

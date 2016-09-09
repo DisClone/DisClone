@@ -42,6 +42,7 @@ app.get('*', function (request, response){
 var userCtrl = require('./controllers/userController.js');
 var messageCtrl = require('./controllers/messageController.js');
 var groupCtrl = require('./controllers/groupController.js');
+var channelCtrl = require('./controllers/channelController.js');
 
 //test endpoints
 app.post('/api/test', (req, res) => {
@@ -74,6 +75,31 @@ app.get('/api/users/:id', userCtrl.getUserById);
 app.post('/api/users/new', userCtrl.createNewUser);
 
 app.put('/api/users/update', userCtrl.updateUser);
+
+//Group Endpoints
+app.post('/api/groups/create', groupCtrl.createNewGroup);
+
+app.get('/api/groups/:id', groupCtrl.getGroupById);
+
+app.delete('/api/groups/:id', groupCtrl.deleteGroupById);
+
+//Group-User-Relations Endpoints
+app.post('/api/group-users/join', groupCtrl.joinGroupByUserId);
+
+app.delete('/api/group-users/remove', groupCtrl.removeFromGroupByUserId);
+
+//Channel Endpoints
+app.get('/api/channels/group/:id', channelCtrl.getChannelsByParentGroup);
+
+app.post('/api/channels/group/create', channelCtrl.createNewGroupChannel);
+
+app.post('/api/channels/private/create', channelCtrl.createNewPrivateChannel);
+
+app.put('/api/channels/group/edit', channelCtrl.editChannelById);
+
+app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
+
+
 
 app.listen(port, function(err) {
   if (err) {
