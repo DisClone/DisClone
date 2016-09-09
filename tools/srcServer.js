@@ -35,6 +35,10 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../src'));
 
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+});
+
 var userCtrl = require('./controllers/userController.js');
 var messageCtrl = require('./controllers/messageController.js');
 var groupCtrl = require('./controllers/groupController.js');
