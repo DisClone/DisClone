@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+import * as usersChat from '../../actions/userAction';
 
 
-class Channel extends React.Component{
+class ChannelChatContainer extends React.Component{
   constructor(){
     super();
 
@@ -33,10 +34,13 @@ class Channel extends React.Component{
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
+  channelName(users){
+    return  <div key={users.id}></div>
+  }
 
   render(){
     //styles
-    
+
     const channelContainer = {width:"85%", height:"100%", overflow:"hidden", backgroundColor: "#36393E"};
     const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", paddingLeft:"2rem"};
     const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
@@ -46,9 +50,11 @@ class Channel extends React.Component{
     const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
     return(
       <div style={channelContainer}>
-        <div style={settingsBar}> <span style={lighter}>#</span>general </div>
+        <div style={settingsBar}>
+         <span style={lighter}>#</span>
+         {this.props.channelName}
+         </div>
         <div style={messageBoard}>
-          <h2>Thug Life</h2>
             <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
           <div style={channelChat}>
             <input style={chatInput}
@@ -80,8 +86,12 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
   return {
-    messages: state.messages
+    messages: state.messages,
+    users: state.users
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Channel);
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelChatContainer);

@@ -5,11 +5,12 @@ import { Route, IndexRoute, DefaultRoute, IndexRedirect } from "react-router";
 import Navigation from "./components/Navigation/Navigation";
 import Layout from "./pages/Layout";
 import Groups from "./components/Groups/Groups";
-import Channels from "./components/Channel/Channel";
+import Channels from "./pages/Channel";
 import Home from "./pages/Home";
 import HomeChat from "./components/Home/Home-chat";
 import HomeNav from "./components/Home/Home-nav";
 import FriendsList from "./components/Home/Friends-list";
+import ChannelNav from "./components/Channel/ChannelNav";
 
 export default (
   <Route path="/" component={Layout} >
@@ -20,7 +21,6 @@ export default (
       <Route path="/friend(/:friendId)" component={FriendsList}></Route>
     </Route>
 
-    <Route path="/channels(/:group)(/:channel)" component={Channels}></Route>
-
+    <Route path="/channels/:group/:channel" component={Channels}></Route>
   </Route>
 );
