@@ -17,7 +17,9 @@ export default {
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: './src'
+    contentBase: './src',
+    historyApiFallback: true,
+    port: 3000
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

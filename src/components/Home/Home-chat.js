@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 
 
-class Channel extends React.Component{
+class HomeChannel extends React.Component{
   constructor(){
     super();
 
@@ -36,7 +36,7 @@ class Channel extends React.Component{
 
   render(){
     //styles
-    
+
     const channelContainer = {width:"85%", height:"100%", overflow:"hidden", backgroundColor: "#36393E"};
     const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", paddingLeft:"2rem"};
     const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
@@ -46,9 +46,9 @@ class Channel extends React.Component{
     const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
     return(
       <div style={channelContainer}>
-        <div style={settingsBar}> <span style={lighter}>#</span>general </div>
+        <div style={settingsBar}> <span style={lighter}>#</span>Friends List</div>
         <div style={messageBoard}>
-          <h2>Thug Life</h2>
+          <h2>Pug Life</h2>
             <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
           <div style={channelChat}>
             <input style={chatInput}
@@ -84,4 +84,4 @@ function mapStateToProps(state, ownProps){
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Channel);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeChannel);
