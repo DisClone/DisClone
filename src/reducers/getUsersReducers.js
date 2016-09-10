@@ -14,7 +14,7 @@ export function loadUsers(state = [], action){
   }
 }
 
-export default function grabUsers(state = {users:[]}, action) {
+export default function grabUsers(state = [], action) {
   switch(action.type){
     case types.GRAB_USERS:
 

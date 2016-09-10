@@ -15,11 +15,12 @@ class Navigation extends React.Component{
 
   render(){
     const naviGation = { width:"15rem", height:"100%", backgroundColor:"#2E3136"};
-    console.log(this.props);
+    const users = this.props.users.users;
+    console.log(users);
     return(
           <div style={naviGation}>
             <h2>NAVIGATION</h2>
-            {this.props.users.users.map((user, index) =>{
+            {users.map((user, index) =>{
                 return <h3 key={index}>-{user.username}-</h3>
               })}
           </div>
