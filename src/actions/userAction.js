@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import userApi from '../api/mockUserApi';
 const hostString = "http://localhost:3000";
 import axios from 'axios';
+import productApi from '../api/mockProductApi';
 
 export function loadUsersSuccess(users) {
   //type property is required!!!!
@@ -9,6 +10,10 @@ export function loadUsersSuccess(users) {
 }
 
 let users;
+export function loadProductsSuccess(products) {
+  //type property is required!!!!
+  return { type: types.LOAD_PRODUCTS_SUCCESS, products};
+}
 
 //THUNKS
 
@@ -49,4 +54,14 @@ export function grabUsers(users) {
         dispatch(grabUsersSuccess(users));
       });
     };
+  }
+export function loadProducts(){
+  //boilerplate
+  return function(dispatch){
+    return productApi.getAllProducts().then(products => {
+      dispatch(loadProductsSuccess(products));
+    }).catch(error => {
+      throw(error);
+    });
+  };
 }
