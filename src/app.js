@@ -5,9 +5,10 @@ import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import configureStore from './store';
 import {loadUsers} from './actions/userAction';
+import {grabUsers} from './actions/userAction';
 
 const store = configureStore();
-store.dispatch(loadUsers());
+store.dispatch(grabUsers());
 
 //importing Routes
 import { Router, Route, IndexRoute, browserHistory, DefaultRoute } from "react-router";
