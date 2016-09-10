@@ -34,7 +34,7 @@ class HomeChannel extends React.Component{
   userRow(users, index){
     return <div style={friendStyle}>
 
-      <h2 key={index}>{users.firstName}</h2>
+      <h2 key={users.id}>{users.firstName}</h2>
       <h2>Hi</h2>
       <h2>Awesome</h2>
 

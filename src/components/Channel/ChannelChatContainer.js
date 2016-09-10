@@ -35,7 +35,7 @@ class ChannelChatContainer extends React.Component{
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
   channelName(users){
-    return  <div key={users.id}></div>
+    return  <div key={users.id}>{users.title}</div>
   }
 
   render(){
@@ -52,7 +52,7 @@ class ChannelChatContainer extends React.Component{
       <div style={channelContainer}>
         <div style={settingsBar}>
          <span style={lighter}>#</span>
-         {this.props.channelName}
+         {this.props.users.map(this.channelName)}
          </div>
         <div style={messageBoard}>
             <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>

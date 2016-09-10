@@ -21,6 +21,6 @@ export default (
       <Route path="/friend(/:friendId)" component={FriendsList}></Route>
     </Route>
 
-    <Route path="/channels/:group/:channel" component={Channels}></Route>
+    <Route path="/channels/(:group)/(:channel)" component={Channels}></Route>
   </Route>
 );
