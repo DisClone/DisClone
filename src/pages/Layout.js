@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router";
+import {Link} from "react-router";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Group from "../components/Groups/Groups";
 import Navigation from "../components/Navigation/Navigation";
-// import HomeNav from "../components/Home/Home-nav.js";
-// import HomeChat from "../components/Home/Home-chat.js";
+import * as userObj from '../actions/userAction';
 
 
 class Layout extends React.Component {
@@ -34,4 +35,19 @@ class Layout extends React.Component {
   }
 }
 
-export default Layout;
+function mapDispatchToProps(dispatch){
+    return {
+      actions: bindActionCreators(userObj,dispatch)
+    };
+}
+
+function mapStateToProps(state, ownProps){
+  return {
+    users: state.users
+  };
+
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

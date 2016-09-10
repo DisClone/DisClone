@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 //imports & initializing store
 import { Provider, connect } from "react-redux";
 import configureStore from './store';
-import {loadUsers} from './actions/userAction';
-import {grabUsers} from './actions/userAction';
+import {loadUsers, grabUsers} from './actions/userAction';
+
 
 const store = configureStore();
 store.dispatch(grabUsers());
