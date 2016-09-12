@@ -9,11 +9,11 @@ export function loadUsersSuccess(users) {
   return { type: types.LOAD_USERS_SUCCESS, users};
 }
 
-let users;
-export function loadProductsSuccess(products) {
-  //type property is required!!!!
-  return { type: types.LOAD_PRODUCTS_SUCCESS, products};
-}
+// let users;
+// export function loadProductsSuccess(products) {
+//   //type property is required!!!!
+//   return { type: types.LOAD_PRODUCTS_SUCCESS, products};
+// }
 
 //THUNKS
 
