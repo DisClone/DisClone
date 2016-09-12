@@ -35,7 +35,8 @@ class HomeNav extends React.Component{
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
     return(
-          <div style={naviGation}>
+          <div className="navigation">
+          <input className="conversation-search" placeholder="Find or start a conversation" />
             <Link to={'/@me'}><h2>Friends</h2></Link>
             <h2>Direct Messages</h2>
            <h3>{users.map(this.userRow)}</h3>
