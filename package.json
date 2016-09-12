@@ -20,6 +20,7 @@
   "author": "Disclone",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.14.0",
     "babel-polyfill": "6.8.0",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",

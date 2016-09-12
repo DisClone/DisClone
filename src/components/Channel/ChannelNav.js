@@ -19,7 +19,7 @@ class ChannelNav extends React.Component{
             <h4>Group Name</h4>
             <br />
             <h4>Talk Channels</h4>
-           <h3>{this.props.users.map(this.channelNames)}</h3>
+           {/*<h3>{this.props.users.map(this.channelNames)}</h3>*/}
           </div>
 
     );
