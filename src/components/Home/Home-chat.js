@@ -81,7 +81,7 @@ class HomeChannel extends React.Component{
             <h2>Mutual Servers</h2>
           </div>
           <div>
-            <h2>{this.props.users.map(this.userRow)}</h2>
+            
             {/*<h2>Awesome</h2>
             <h2>All</h2>*/}
           </div>
