@@ -101,7 +101,7 @@ function mapStateToProps(state, ownProps){
 
   return {
     messages: state.messages,
-    friendId: ownProps.params.friendId,
+    friendId: 2,
     users: state.users
   };
 }
