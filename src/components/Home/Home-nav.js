@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import * as usersChat from '../../actions/userAction';
 import { Link } from "react-router";
 
-<<<<<<< HEAD
-=======
 const users = [
   {
     id: 1,
@@ -26,21 +24,15 @@ const users = [
     title: "Rubix Cube"
   }
 ];
->>>>>>> master
+
 
 class HomeNav extends React.Component{
   constructor(props,context){
     super(props,context);
-<<<<<<< HEAD
 
 
-  userRow(users){
-    return  <div key={users.id}><Link to={'/friend/'+users.id}>{users.firstName} </Link></div>;
-=======
-  }
   userRow(users, index){
     return  <div key={index}><Link to={'/@me/'+users.id}>{users.firstName} </Link></div>;
->>>>>>> master
   }
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};

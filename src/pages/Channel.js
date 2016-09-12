@@ -5,7 +5,7 @@ import ChannelMessage from "../components/Channel/ChannelMessage"
 export default class Channel extends React.Component{
   render(){
 
-    const styles = {display:"flex", width:"100%"}
+    const styles = {display:"flex", width:"100%"};
 
     if(this.props.children === null) {
       return(
