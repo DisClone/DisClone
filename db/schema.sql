@@ -10,7 +10,6 @@ create table users (
 );
 
 
--- UPDATE GROUPS SCHEMA 9/7
 create table groups (
   id serial primary key,
   group_owner integer references users(id),
@@ -24,7 +23,6 @@ create table groups_users_relations (
   group_id integer references groups(id)
 );
 
--- UPDATE - CREATED CHANNELS TABLE 9/7-9/8
 create table channels (
   id serial primary key,
   channel_name varchar(40),
@@ -33,10 +31,9 @@ create table channels (
   private boolean,
   private_recipient1 integer references users(id),
   private_recipient2 integer references users(id)
-)
+);
 
 
--- UPDATED MESSAGES SCHEMA 9/8
 create table messages (
   id serial primary key,
   message_text varchar(400),
@@ -45,7 +42,7 @@ create table messages (
   is_edited boolean,
   author_id integer references users(id),
   recipient_id integer references users(id),
-  channel_recipient integer references channel(id)
+  channel_recipient integer references channels(id)
 );
 
 
@@ -72,7 +69,7 @@ values (
   'craig.walker1123@gmail.com',
   'the_craig',
   'http://vignette4.wikia.nocookie.net/avatar/images/f/f0/Iroh.png/revision/latest?cb=20130102095611'
-)
+);
 
 insert into users (
   username,
