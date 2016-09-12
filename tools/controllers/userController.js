@@ -1,6 +1,7 @@
 import app from "../srcServer";
 const db = app.get('db');
 const BluePromise = require('bluebird');
+// console.log(db);
 
 // let get_channels_promise = () => {
 //   return new BluePromise((resolve, reject) => {
@@ -16,6 +17,7 @@ const BluePromise = require('bluebird');
 
 module.exports = {
   getDataOnLogin(req, res, next) {
+    console.log("The source of the river Nile", req.params.id);
     let dataMonster = {};
     if (req.params.id) {
       db.users.get_user_by_id(req.params.id, (err, response) => {

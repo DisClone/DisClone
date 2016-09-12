@@ -57,9 +57,9 @@ app.use(express.static(__dirname + '/../src'));
 
 
 
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
-});
+// app.get('*', function (request, response){
+//   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+// });
 
 const userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
