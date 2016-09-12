@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 const friendStyle = {borderBottom:"1px solid #686A6E", display:"flex", justifyContent:"space-around"};
-const friendData = {}
+const friendData = {};
 
 
 class HomeChannel extends React.Component{
   constructor(){
     super();
 
-
     this.state = {
       messageBoard : {message:''}
     };
+
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,26 +31,28 @@ class HomeChannel extends React.Component{
     this.props.actions.sendMessage(this.state.messageBoard);
   }
 
-  userRow(users, index){
-    return <div style={friendStyle}>
+userRow(users, index){
+  return (
+    <div style={friendStyle}>
 
-      <h2 key={index}>{users.firstName}</h2>
-      <h2>Hi</h2>
-      <h2>Awesome</h2>
+    <h2 key={index}>{users.firstName}</h2>
+    <h2>Hi</h2>
+    <h2>Awesome</h2>
 
-    </div>
-  }
+   </div>
+ );
+}
 
   render(){
     //styles
 
     const channelContainer = {width:"100%", height:"100%", backgroundColor: "#36393E"};
     const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", justifyContent:"space-between"};
-    const navBar = {paddingLeft:"15px", paddingRight:"15px", listStyle: "none", display: "flex", padding:"0"};
+    const navBar = {paddingLeft:"15px", paddingRight:"15px", listStyle: "none", display: "flex", padding:"0px"};
     const friendsList = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", color:"#A7AEBC"};
     const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
     const friendHeader = {display:"flex", justifyContent:"space-around", borderBottom:"1px solid #686A6E"};
-    // const friendData = {display:"flex", justifyContent:"space-around"}
+    const bell = '../../public/img/bell.svg';
 
     return(
       <div style={channelContainer}>
@@ -67,9 +69,9 @@ class HomeChannel extends React.Component{
 
         <div>
           <ul style={navBar}>
-            <li>Symbol</li>
-            <li>Symbol</li>
-            <li>Symbol</li>
+            <li><img src={require('../../../public/img/newGrp.svg')} /></li>
+            <li><img src={require('../../../public/img/one.svg')} /></li>
+            <li><img src={require('../../../public/img/help.svg')} /></li>
           </ul>
         </div>
         </div>
@@ -81,7 +83,7 @@ class HomeChannel extends React.Component{
             <h2>Mutual Servers</h2>
           </div>
           <div>
-            <h2>{this.props.users.map(this.userRow)}</h2>
+            {/*<h2>{this.props.users.map(this.userRow)}</h2>*/}
             {/*<h2>Awesome</h2>
             <h2>All</h2>*/}
           </div>
