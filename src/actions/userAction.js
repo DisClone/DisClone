@@ -19,11 +19,13 @@ export function loadUser(user) {
   return function (dispatch){
     return axios({
     method: "GET",
-    url: "/api/login/all-data/:id"
+    url: "/api/login/all-data/1"
 
   }).then(response => {
     user = response.data;
+    console.log(response.data);
     return response.data;
+
   }).then( response => {
         dispatch(loadUserSuccess(user));
       });

@@ -9,7 +9,7 @@ class Layout extends React.Component {
    super(props);
 
    this.state = {
-      user: Object.assign({}, this.props.user)
+     user : Object.assign({}, this.props.user)
     };
  }
 
