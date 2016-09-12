@@ -1,6 +1,6 @@
 import React from "react";
 import ChannelNav from "../components/Channel/ChannelNav"
-import ChannelChatContainer from "../components/Channel/ChannelChatContainer"
+import ChannelMessage from "../components/Channel/ChannelMessage"
 
 export default class Channel extends React.Component{
   render(){
@@ -11,7 +11,7 @@ export default class Channel extends React.Component{
       return(
         <div style={styles}>
           <ChannelNav />
-          <ChannelChatContainer />
+          <ChannelMessage />
         </div>
       );
      } else {
