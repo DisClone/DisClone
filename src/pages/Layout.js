@@ -25,6 +25,11 @@ class Layout extends React.Component {
     );
   }
 }
+
+Layout.propTypes = {
+  user: PropTypes.object.isRequired
+};
+
 function mapDispatchToProps(dispatch){
     return {
       actions: bindActionCreators(userObj,dispatch)
