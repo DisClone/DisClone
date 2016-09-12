@@ -1,6 +1,6 @@
 import app from "../srcServer";
-var db = app.get('db');
-var BluePromise = require('bluebird');
+const db = app.get('db');
+const BluePromise = require('bluebird');
 
 // let get_channels_promise = () => {
 //   return new BluePromise((resolve, reject) => {
@@ -63,7 +63,7 @@ module.exports = {
                 });
               //   new BluePromise((resolve, reject) => {
               //     console.log(dataMonster.groups.length);
-              //     for (var j = 0; j < dataMonster.groups.length; j++) {
+              //     for (const j = 0; j < dataMonster.groups.length; j++) {
               //       console.log(j);
               //       // console.log(dataMonster.groups[i].channels);
               //       for(let k = 0; k < dataMonster.groups[j].channels.length; k++) {
