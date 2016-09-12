@@ -1,5 +1,5 @@
-var app = require("../srcServer");
-var db = app.get('db');
+const app = require("../srcServer");
+const db = app.get('db');
 
 module.exports = {
   postNewMessage(req, res, next) {

@@ -15,13 +15,13 @@ const port = 3000;
 const compiler = webpack(config);
 
 const connectionString = configSettings.connectionString;
-var app = module.exports = express();
+const app = module.exports = express();
 
-var massiveInstance = massive.connectSync({connectionString : connectionString});
+const massiveInstance = massive.connectSync({connectionString : connectionString});
 
 app.set('db', massiveInstance);
 
-var db = app.get('db');
+const db = app.get('db');
 
 const http = require('http').Server(app);
 
@@ -61,10 +61,10 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
 });
 
-var userCtrl = require('./controllers/userController.js');
-var messageCtrl = require('./controllers/messageController.js');
-var groupCtrl = require('./controllers/groupController.js');
-var channelCtrl = require('./controllers/channelController.js');
+const userCtrl = require('./controllers/userController.js');
+const messageCtrl = require('./controllers/messageController.js');
+const groupCtrl = require('./controllers/groupController.js');
+const channelCtrl = require('./controllers/channelController.js');
 
 //test endpoints
 app.post('/api/test', (req, res) => {

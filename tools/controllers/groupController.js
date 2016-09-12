@@ -1,6 +1,6 @@
-var app = require('../srcServer');
+const app = require('../srcServer');
 // console.log(app);
-var db = app.get('db');
+const db = app.get('db');
 
 module.exports = {
   createNewGroup(req, res, next) {

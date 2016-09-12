@@ -35,7 +35,7 @@ class ChannelChatContainer extends React.Component{
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
   channelName(users){
-    return  <div key={users.id}></div>
+    return  <div key={users.id}></div>;
   }
 
   render(){
