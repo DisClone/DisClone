@@ -8,8 +8,8 @@ class ChannelNav extends React.Component{
   constructor(props,context){
     super(props,context);
   }
-  channelNames(users, index){
-    return  <div key={index}><Link to={'/channels/5/'+ users.id}>{users.title} </Link></div>;
+  channelNames(users){
+    return  <div key={users.id}><Link to={'/channels/5/'+ users.id}>{users.title} </Link></div>;
   }
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
