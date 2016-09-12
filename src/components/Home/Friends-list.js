@@ -54,7 +54,7 @@ class FriendsList extends React.Component{
     const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
     const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
     const navBar = {paddingLeft:"15px", paddingRight:"15px", listStyle: "none", display: "flex", padding:"0"};
-    const friend = this.getFriend(this.props.friendId, this.props.users);
+    // const friend = this.getFriend(this.props.friendId, this.props.users);
 
     return(
 
@@ -62,12 +62,12 @@ class FriendsList extends React.Component{
         <div style={settingsBar}>
           <div>
              <span style={lighter}>@</span>
-             {friend}
+             {/*{friend}*/}
           </div>
         </div>
         <div style={messageBoard}>
           <h2>Friendship!</h2>
-            <div style={chatPost}>{this.props.messages.map(this.messageRow, [friend])}</div>
+            {/*<div style={chatPost}>{this.props.messages.map(this.messageRow, [friend])}</div>*/}
           <div style={channelChat}>
           <input
             type="submit"
