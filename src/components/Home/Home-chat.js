@@ -83,11 +83,9 @@ userRow(users, index){
             <h2>Mutual Servers</h2>
           </div>
           <div>
-<<<<<<< HEAD
-            
-=======
+
             {/*<h2>{this.props.users.map(this.userRow)}</h2>*/}
->>>>>>> master
+
             {/*<h2>Awesome</h2>
             <h2>All</h2>*/}
           </div>

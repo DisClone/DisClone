@@ -38,12 +38,8 @@ class HomeNav extends React.Component{
           <div style={naviGation}>
             <Link to={'/@me'}><h2>Friends</h2></Link>
             <h2>Direct Messages</h2>
-<<<<<<< HEAD
-      
-=======
            <h3>{users.map(this.userRow)}</h3>
            {this.props.children}
->>>>>>> master
           </div>
     );
   }

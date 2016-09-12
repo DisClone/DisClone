@@ -1,5 +1,5 @@
 import app from "../srcServer";
-var db = app.get('db');
+const db = app.get('db');
 
 module.exports = {
   createNewGroupChannel(req, res, next) {
