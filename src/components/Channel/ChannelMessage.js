@@ -5,7 +5,7 @@ import * as updateChat from '../../actions/channelAction';
 import * as usersChat from '../../actions/userAction';
 
 
-class ChannelChatContainer extends React.Component{
+class ChannelMessage extends React.Component{
   constructor(){
     super();
 
@@ -34,8 +34,8 @@ class ChannelChatContainer extends React.Component{
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
-  channelName(users){
-    return  <div key={users.id}>{users.title}</div>
+  channelName(channels){
+    return  <div key={channels.id}>{channels.title}</div>
   }
 
   render(){
@@ -52,7 +52,6 @@ class ChannelChatContainer extends React.Component{
       <div style={channelContainer}>
         <div style={settingsBar}>
          <span style={lighter}>#</span>
-         {this.props.users.map(this.channelName)}
          </div>
         <div style={messageBoard}>
             <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
@@ -87,11 +86,11 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state, ownProps){
   return {
     messages: state.messages,
-    users: state.users
+    channels: state.channels
   };
 }
 
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelChatContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelMessage);

@@ -31,17 +31,8 @@ class HomeChannel extends React.Component{
     this.props.actions.sendMessage(this.state.messageBoard);
   }
 
-<<<<<<< HEAD
-  userRow(users, index){
-    return (<div style={friendStyle}>
 
-      <h2 key={users.id}>{users.firstName}</h2>
-      <h2>Hi</h2>
-      <h2>Awesome</h2>
 
-    </div>)
-  }
-=======
 userRow(users, index){
   return (
     <div style={friendStyle}>
@@ -53,7 +44,7 @@ userRow(users, index){
    </div>
  );
 }
->>>>>>> master
+
 
   render(){
     //styles
