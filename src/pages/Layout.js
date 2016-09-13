@@ -7,10 +7,6 @@ import * as userObj from '../actions/userAction';
 class Layout extends React.Component {
   constructor(props) {
    super(props);
-
-   this.state = {
-     user : Object.assign({}, this.props.user)
-    };
  }
 
   render(){
@@ -18,6 +14,7 @@ class Layout extends React.Component {
     const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex", color:"#fff"};
 
     return(
+
         <div style={mainContainer}>
             <Navigation />
             {this.props.children}

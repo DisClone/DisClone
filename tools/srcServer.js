@@ -35,11 +35,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../src'));
 
-// app.get('*', function (request, response){
-//   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
-// });
-
-var userCtrl = require('./controllers/userController.js');
+const userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
 const groupCtrl = require('./controllers/groupController.js');
 const channelCtrl = require('./controllers/channelController.js');
@@ -102,6 +98,10 @@ app.put('/api/channels/group/edit', channelCtrl.editChannelById);
 app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
 
 
+//Deals with our server-side browserHistory
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+});
 
 app.listen(port, function(err) {
   if (err) {
