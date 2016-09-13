@@ -11,9 +11,12 @@ class ChannelNav extends React.Component{
 
 }
 
+groupName(groups) {
+return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
+}
+
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
-    const floatLeft = {};
     return(
           <div>
           <div style={naviGation}>
