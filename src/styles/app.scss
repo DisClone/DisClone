@@ -35,8 +35,6 @@ textarea:-ms-input-placeholder {
   margin-left: 5px;
 }
 
-
-
 .conversation-search {
   margin-top: 14px;
   width: 80%;
@@ -48,7 +46,11 @@ textarea:-ms-input-placeholder {
   padding: 4px;
   padding-left: 10px;
   outline: none;
-  background-image:url('../../public/img/search.svg') no-repeat;
+  // input::after {
+  //   content: url('../../public/img/search.svg');
+  // }
+  // background-image:url('../../public/img/search.svg');
+  // background-position: 7px 7px 7px 7px;
 }
 
 .channelContainer {
