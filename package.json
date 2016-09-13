@@ -39,6 +39,7 @@
     "toastr": "2.1.2"
   },
   "devDependencies": {
+    "axios":"^0.14.0",
     "babel-cli": "6.8.0",
     "babel-core": "6.8.0",
     "babel-loader": "6.2.4",
@@ -64,12 +65,14 @@
     "jsdom": "8.5.0",
     "mocha": "2.4.5",
     "nock": "8.0.0",
+    "node-sass": "^3.9.3",
     "npm-run-all": "1.8.0",
     "open": "0.0.5",
     "react-addons-test-utils": "15.0.2",
     "redux-immutable-state-invariant": "1.2.3",
     "redux-mock-store": "1.0.2",
     "rimraf": "2.5.2",
+    "sass-loader": "^4.0.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.0",

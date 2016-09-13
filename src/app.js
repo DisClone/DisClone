@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+require('./styles/app.scss');
 
 //imports & initializing store
 import { Provider, connect } from "react-redux";

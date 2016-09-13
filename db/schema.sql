@@ -185,3 +185,16 @@ values (
   'text',
   'false'
 );
+
+insert into channels (
+  type,
+  private,
+  private_recipient1,
+  private_recipient2
+)
+values (
+  'text',
+  'true',
+  1,
+  2
+);
