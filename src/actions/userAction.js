@@ -10,6 +10,7 @@ export function loadUserSuccess(user) {
 export function grabUsers(users) {
   return { type: types.GRAB_USERS, users};
 }
+
 let user;
 
 

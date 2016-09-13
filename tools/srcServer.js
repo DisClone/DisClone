@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
-import configSettings from './config.js';
+import configSettings from './config1.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
 
@@ -23,6 +23,26 @@ app.set('db', massiveInstance);
 
 const db = app.get('db');
 
+const http = require('http').Server(app);
+
+const io = require('socket.io')(http);
+
+io.on('connection', function(socket) {
+  console.log('we have a connection');
+  socket.on('new-message', function(msg) {
+    console.log(msg);
+    io.emit('recieve-message', msg);
+    db.new_test_msg([msg.body, msg.user], function(err, response) {
+      console.log(err, response);
+    });
+    db.get_all_msgs(function(err, response) {
+      console.log(response);
+    });
+  });
+  socket.on('test', function() {
+    console.log('Mounted');
+  });
+});
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -34,6 +54,10 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../src'));
+
+// app.get('*', function (request, response){
+//   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+// });
 
 var userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
@@ -96,10 +120,6 @@ app.post('/api/channels/private/create', channelCtrl.createNewPrivateChannel);
 app.put('/api/channels/group/edit', channelCtrl.editChannelById);
 
 app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
-
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
-});
 
 app.listen(port, function(err) {
   if (err) {
