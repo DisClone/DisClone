@@ -1,3 +1,3 @@
 module.exports = {
-  connectionString: 'postgress://MichaelDavis@localhost/disclone'
+  connectionString: 'postgress://postgres:vivint346@localhost/postgres'
 };
