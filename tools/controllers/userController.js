@@ -31,13 +31,10 @@ module.exports = {
             }
             else {
               dataMonster.groups = response;
-              // res.set(200).json(dataMonster);
               new BluePromise((resolve, reject) => {
                 for (let i = 0; i < dataMonster.groups.length; i++) {
                   db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
                     dataMonster.groups[i].channels = response;
-                    // console.log(response);
-                      // console.log("Are you watching closely?", dataMonster.groups[i].channels);
                       if (i === dataMonster.groups.length - 1) {
                         resolve(response);
                       }
@@ -58,60 +55,45 @@ module.exports = {
                       }
                     }
                   }
-                  console.log(dataMonster);
-                  res.set(200).json(dataMonster);
+                  db.channels.get_private_channels_by_user_id(req.params.id, (err, response) => {
+                    if (err) {
+                      console.log(err);
+                      res.set(401).json("There was an error retrieving the user's private channels");
+                    }
+                    else {
+                      dataMonster.privateChannels = response;
+                      db.users.get_all_users((err, response) => {
+                        let userArr = response;
+                        dataMonster.friends = [];
+                        for (let i = 0; i < userArr.length; i++) {
+                          if (userArr[i].id == req.params.id) {
+                            userArr.splice(i, 1);
+                            i--;
+                          }
+                        }
+                        if (err) {
+                          console.log(err);
+                          res.set(401).json("There was an error retrieving the user's friends");
+                        }
+                        else {
+                          for(let i = 0; i < userArr.length; i++) {
+
+                            for (let k = 0; k < dataMonster.privateChannels.length; k++) {
+                              if (dataMonster.privateChannels[k].private_recipient2 === userArr[i].id || dataMonster.privateChannels[k].private_recipient1 === userArr[i].id) {
+                                dataMonster.friends.push(userArr[i]);
+                                // console.log(req.params.id);
+                              }
+                            }
+                          }
+                          console.log(dataMonster);
+                          res.set(200).json(dataMonster);
+                        }
+                      });
+                    }
+                  });
+
                 });
-              //   new BluePromise((resolve, reject) => {
-              //     console.log(dataMonster.groups.length);
-              //     for (const j = 0; j < dataMonster.groups.length; j++) {
-              //       console.log(j);
-              //       // console.log(dataMonster.groups[i].channels);
-              //       for(let k = 0; k < dataMonster.groups[j].channels.length; k++) {
-              //         console.log("I'm j, I'm a bastard", j);
-              //         db.messages.get_messages_by_channel_id(dataMonster.groups[j].channels[k].id, function(err, response) {
-              //           console.log("Don't worry ma'am I'm from the database",response, j);
-              //             //   dataMonster.groups[j].channels[k].messages = response;
-              //             //   console.log(response);
-              //             //   if(err) {
-              //             //     console.log(err);
-              //             //   }
-              //             //   else {
-              //             //     dataMonster.groups[j].channels[k].messages = response;
-              //             //     console.log(response);
-              //             //     if (j === dataMonster.groups.length - 1 && k === dataMonster.groups[j].channels.length -1) {
-              //             //       resolve(response);
-              //             //   }
-              //             // }
-              //             });
-              //       }
-              //     //   for (let k = 0; k < dataMonster.groups[i].channels.length; i++) {
-              //     //     db.messages.get_messages_by_channel_id(dataMonster.groups[i].channels[k].id, (err, response) => {
-              //     //       // dataMonster.groups[i].channels[k].messages = response;
-              //     //       console.log(response);
-              //     //       // if(err) {
-              //     //       //   console.log(err);
-              //     //       // }
-              //     //       // else {
-              //     //       //   dataMonster.groups[i].channels[k].messages = response;
-              //     //       //   console.log(response);
-              //     //       //   if (i === dataMonster.groups.length - 1 && k === dataMonster.groups[i].channels.length -1) {
-              //     //       //     resolve(response);
-              //     //       // }
-              //     //     // }
-              //     //     });
-              //     // }
-              //   }
-              // }).then(response => {
-              //   res.set(200).json(dataMonster);
-              // });
               });
-              // setTimeout(() => {
-              //   console.log(dataMonster.groups);
-              //   // res.set(200).json(dataMonster);
-              //   for (let i = 0; i < dataMonster.groups.length; i++) {
-              //
-              //   }
-              // }, 100);
             }
           });
         }
