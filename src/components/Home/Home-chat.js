@@ -2,9 +2,28 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
-const friendStyle = {borderBottom:"1px solid #686A6E", display:"flex", justifyContent:"space-around"};
-const friendData = {};
 
+const friendData = {};
+const users = [
+  {
+    id: 1,
+    firstName: 'Cory',
+    lastName: 'House',
+    title: "GI Joe"
+  },
+  {
+    id: 2,
+    firstName: 'Scott',
+    lastName: 'Allen',
+    title: "Heman"
+  },
+  {
+    id: 3,
+    firstName: 'Dan',
+    lastName: 'Wahlin',
+    title: "Rubix Cube"
+  }
+];
 
 class HomeChannel extends React.Component{
   constructor(){
@@ -35,7 +54,7 @@ class HomeChannel extends React.Component{
 
 userRow(users, index){
   return (
-    <div style={friendStyle}>
+    <div className="friendStyle">
 
     <h2 key={index}>{users.firstName}</h2>
     <h2>Hi</h2>
@@ -47,54 +66,46 @@ userRow(users, index){
 
 
   render(){
-    //styles
-
-    const channelContainer = {width:"100%", height:"100%", backgroundColor: "#36393E"};
-    const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", justifyContent:"space-between"};
-    const navBar = {paddingLeft:"15px", paddingRight:"15px", listStyle: "none", display: "flex", padding:"0px"};
-    const friendsList = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", color:"#A7AEBC"};
-    const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
-    const friendHeader = {display:"flex", justifyContent:"space-around", borderBottom:"1px solid #686A6E"};
-    const bell = '../../public/img/bell.svg';
-
     return(
-      <div style={channelContainer}>
-        <div style={settingsBar}>
+      <div className="channelContainer">
+        <div className="settingsBar">
         <div>
-         <ul style={navBar}>
+         <ul className="navBarLeft">
             <li>Add Friend</li>
+            <div className="verticalLine"></div>
             <li>All</li>
             <li>Online</li>
             <li>Pending</li>
+            <div className="verticalLine"></div>
             <li>Blocked</li>
          </ul>
         </div>
 
         <div>
-          <ul style={navBar}>
+
+          <ul className="navBarRight">
             <li><img src={require('../../../public/img/newGrp.svg')} /></li>
+            <div className="verticalLine"></div>
             <li><img src={require('../../../public/img/one.svg')} /></li>
             <li><img src={require('../../../public/img/help.svg')} /></li>
           </ul>
         </div>
-        </div>
-
-        <div style={friendsList}>
-          <div style={friendHeader}>
-            <h2>Name</h2>
-            <h2>Status</h2>
-            <h2>Mutual Servers</h2>
-          </div>
-          <div>
-
-            {/*<h2>{this.props.users.map(this.userRow)}</h2>*/}
-
-            {/*<h2>Awesome</h2>
-            <h2>All</h2>*/}
-          </div>
-        </div>
-
       </div>
+
+      <div className="friendsList">
+        <div className="friendHeader">
+          <h2>Name</h2>
+          <h2>Status</h2>
+          <h2>Mutual Servers</h2>
+        </div>
+        <div>
+          <h2>{users.map(this.userRow)}</h2>
+          {/*<h2>Awesome</h2>
+          <h2>All</h2>*/}
+        </div>
+      </div>
+
+    </div>
     );
   }
 }

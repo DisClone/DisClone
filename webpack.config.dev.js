@@ -36,7 +36,7 @@ export default {
         }
       },
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-      {test: /(\.css)$/, loaders: ['style', 'css']},
+      {test: /(\.scss)$/, loaders: ['style', 'css', 'sass']},
       //font types
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
       {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
