@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 
 const friendData = {};
+
 const users = [
   {
     id: 1,
