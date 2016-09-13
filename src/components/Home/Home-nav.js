@@ -7,6 +7,7 @@ import FriendsList from "./Friends-list";
 import HomeChat from "./Home-chat.js";
 
 
+
 class HomeNav extends React.Component{
   constructor(props,context){
     super(props,context);
@@ -14,6 +15,7 @@ class HomeNav extends React.Component{
       component : <HomeChat/>
     };
   }
+
 
   shouldComponentUpdate(nextProps, nextState) {
     if(nextProps.props.params.friendId === undefined) {
