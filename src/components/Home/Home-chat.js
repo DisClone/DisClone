@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 
 const friendData = {};
+
 const users = [
   {
     id: 1,
@@ -50,6 +51,8 @@ class HomeChannel extends React.Component{
     this.props.actions.sendMessage(this.state.messageBoard);
   }
 
+
+
 userRow(users, index){
   return (
     <div className="friendStyle">
@@ -61,6 +64,7 @@ userRow(users, index){
    </div>
  );
 }
+
 
   render(){
     return(

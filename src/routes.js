@@ -4,6 +4,8 @@ import { Route, IndexRoute, IndexRedirect } from "react-router";
 import Layout from "./pages/Layout";
 import Channels from "./pages/Channel";
 import Home from "./pages/Home";
+import FriendsList from "./components/Home/Friends-list";
+
 
 export default (
   <Route path="/" component={Layout} >

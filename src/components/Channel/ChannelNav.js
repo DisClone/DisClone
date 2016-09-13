@@ -3,27 +3,36 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import * as usersChat from '../../actions/userAction';
 import { Link } from "react-router";
+import ChannelMessage from './ChannelMessage'
 
 class ChannelNav extends React.Component{
   constructor(props,context){
     super(props,context);
-  }
-  channelNames(users, index){
-    return  <div key={index}><Link to={'/channels/5/'+ users.id}>{users.title} </Link></div>;
-  }
+
+}
+
+groupName(groups) {
+return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
+}
+
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
     return(
-
+          <div>
           <div style={naviGation}>
             <h4>Group Name</h4>
             <br />
             <h4>Talk Channels</h4>
-           {/*<h3>{this.props.users.map(this.channelNames)}</h3>*/}
           </div>
+          <div>
+          <ChannelMessage />
+          </div>
+        </div>
 
-    );
-  }
+
+
+    )};
+
 }
 
 function mapDispatchToProps(dispatch){
@@ -34,7 +43,7 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state, ownProps){
   return {
-    users: state.users
+    userData: state.userData
   };
 }
 
