@@ -16,10 +16,10 @@ class Layout extends React.Component {
   render(){
 
     const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex", color:"#fff"};
-
+    console.log(this.props.user.groups[0].channels[0].channel_name);
     return(
         <div style={mainContainer}>
-            <Navigation />
+            <Navigation {...this.props.user}/>
             {this.props.children}
         </div>
     );

@@ -34,9 +34,6 @@ class ChannelMessage extends React.Component{
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
-  channelName(channels){
-    return  <div key={channels.id}>{channels.title}</div>
-  }
 
   render(){
     //styles

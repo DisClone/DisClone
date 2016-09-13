@@ -4,14 +4,13 @@ import ChannelMessage from "../components/Channel/ChannelMessage"
 
 export default class Channel extends React.Component{
   render(){
-
+    console.log(this.props.children);
     const styles = {display:"flex", width:"100%"};
 
     if(this.props.children === null) {
       return(
         <div style={styles}>
           <ChannelNav />
-          <ChannelMessage />
         </div>
       );
      } else {
