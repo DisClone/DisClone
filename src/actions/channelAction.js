@@ -1,18 +1,98 @@
 import * as types from './actionTypes';
-import userApi from '../api/mockUserApi';
-import productApi from '../api/mockProductApi';
-//-------------------STEP 2------------------------
-//Actions just return objects with at least two properties
-//{a type, and an identifier}
+import axios from 'axios';
 
-//add message - will pass in user and channel as parameters later on
+//ACTION CALLS
+export function getChannels(user) {return {type: types.GET_CHANNELS, user};}
+export function createChannelGroupSuccess(channel) {return {type: types.CREATE_CHANNEL_GROUP_SUCCESS, channel};}
+export function createChannelPrivateSuccess(channel) {return {type: types.CREATE_CHANNEL_PRIVATE_SUCCESS, channel};}
+export function deleteChannelSuccess(channel_id) {return {type: types.DELETE_CHANNEL_SUCCESS, channel_id};}
+export function updateChannelSuccess(channel) {return {type: types.UPDATE_CHANNEL_SUCCESS, channel};}
 
-//this in turn sets an action creator type to be referenced in our ./reducers/createMessage(STEP-3)
-export function sendMessage(messageBoard) {
-  //type property is required!!!!
-  return { type: types.SEND_MESSAGE, messageBoard};
+
+
+
+//THUNKS
+
+//GET CHANNELS BY USER
+export function userChannels(user) {
+  return function(dispatch) {
+    return axios({
+      method: 'GET',
+      url: '/api/channels/group/' + user
+    }).then(response => {
+      return response.json();
+    })
+      .then(channels => dispatch(getChannels(channels)));
+  };
 }
+//SAVE GROUP CHANNEL
+export function saveGroupChannel(channel) {
+  if(!channel.id) {
+    return function (dispatch, getState) {
+      console.log(channel);
 
-//edit message
+      return axios({
+        url: '/api/channels/group/create',
+        method: 'POST',
+        body: JSON.stringify(channel)
+      })
+        .then(response => {
+          console.log(response);
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          dispatch(createChannelGroupSuccess(data));
+        });
+    };
+  }
+}
+//SAVE PRIVATE CHANNEL
+export function savePrivateChannel(channel) {
+  if(!channel.id) {
+    return function (dispatch, getState) {
+      console.log(channel);
 
-//remove message
+      return axios({
+        url: '/api/channels/private/create',
+        method: 'POST',
+        body: JSON.stringify(channel)
+      })
+        .then(response => {
+          console.log(response);
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          dispatch(createChannelPrivateSuccess(data));
+        });
+    };
+  }
+}
+//DELETE CHANNEL
+export function deleteChannel(channel_id){
+  console.log('entered the channel reducer function', channel_id);
+  return function (dispatch, getState) {
+    return axios ({
+      method: 'DELETE',
+      url: '/api/channels/delete/' + channel_id
+
+    }).then( response => {
+          dispatch(deleteChannelSuccess(response));
+        });
+  };
+}
+//UPDATE CHANNEL
+export function updateChannel(){
+  return function(dispatch, getState){
+    return axios ({
+      method: 'PUT',
+      url: '/api/channels/group/edit'
+    }).then( response => {
+      return response.json();
+    })
+    .then(data => {
+      dispatch(updateChannelSuccess(data));
+    });
+  };
+}
