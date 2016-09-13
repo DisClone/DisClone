@@ -14,6 +14,7 @@ class HomeNav extends React.Component{
     this.state = {
       component : <HomeChat/>
     };
+
   }
 
 

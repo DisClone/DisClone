@@ -1,8 +1,7 @@
 import * as types from './actionTypes';
-import userApi from '../api/mockUserApi';
 const hostString = "http://localhost:3000";
 import axios from 'axios';
-import productApi from '../api/mockProductApi';
+
 
 export function loadUserSuccess(user) {
   return { type: types.LOAD_USER_SUCCESS, user};

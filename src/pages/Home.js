@@ -27,7 +27,7 @@ export default class Home extends React.Component{
           title: "Rubix Cube"
         }
       ]
-    }
+    };
   }
 
 
