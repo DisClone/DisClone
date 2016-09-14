@@ -32,17 +32,31 @@ module.exports = {
               console.log(err);
             }
             else {
-              dataMonster.groups = response;
+              let groupIdsArr = response;
+              dataMonster.groups = [];
               new BluePromise((resolve, reject) => {
-                for (let i = 0; i < dataMonster.groups.length; i++) {
-                  db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
-                    dataMonster.groups[i].channels = response;
-                      if (i === dataMonster.groups.length - 1) {
+                for (let i = 0; i < groupIdsArr.length; i++) {
+                  db.groups.get_group_by_id(groupIdsArr[i].group_id, (err, response) => {
+                    dataMonster.groups.push(response[0]);
+                      if (i === groupIdsArr.length - 1) {
                         resolve(response);
                       }
                   });
                 }
 
+              }).then(response => {
+
+                  new BluePromise((resolve, reject) => {
+                    for (let i = 0; i < dataMonster.groups.length; i++) {
+                      db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
+                        dataMonster.groups[i].channels = response;
+                          if (i === dataMonster.groups.length - 1) {
+                            resolve(response);
+                          }
+                      });
+                    }
+
+                  });
               }).then(response => {
                 db.messages.get_all_messages((err, response) => {
 
