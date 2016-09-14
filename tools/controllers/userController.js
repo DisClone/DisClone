@@ -17,7 +17,6 @@ const BluePromise = require('bluebird');
 
 module.exports = {
   getDataOnLogin(req, res, next) {
-    console.log("The source of the river Nile", req.params.id);
     let dataMonster = {};
     if (req.params.id) {
       db.users.get_user_by_id(req.params.id, (err, response) => {
@@ -48,7 +47,7 @@ module.exports = {
 
                   new BluePromise((resolve, reject) => {
                     for (let i = 0; i < dataMonster.groups.length; i++) {
-                      db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
+                      db.channels.get_channels_by_parent_group(dataMonster.groups[i].id, (err, response) => {
                         dataMonster.groups[i].channels = response;
                           if (i === dataMonster.groups.length - 1) {
                             resolve(response);
