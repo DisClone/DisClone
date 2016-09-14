@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from "react";
 import ReactDOM from "react-dom";
 require('./styles/app.scss');
@@ -10,8 +11,9 @@ import {loadUser} from './actions/userAction';
 const store = configureStore();
 store.dispatch(loadUser());
 
+// console.log('This is my store', store.getState());
 //importing Routes
-import { Router, Route, IndexRoute, browserHistory, DefaultRoute } from "react-router";
+import { Router, Route, IndexRoute, browserHistory, hashHistory, DefaultRoute } from "react-router";
 import routes from './routes';
 
 //connect

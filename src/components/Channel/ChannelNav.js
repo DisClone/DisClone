@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import * as usersChat from '../../actions/userAction';
 import { Link } from "react-router";
-import ChannelMessage from './ChannelMessage'
+import ChannelMessage from './ChannelMessage';
 
 class ChannelNav extends React.Component{
   constructor(props,context){
@@ -31,7 +31,8 @@ return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names
 
 
 
-    )};
+    );
+  }
 
 }
 
