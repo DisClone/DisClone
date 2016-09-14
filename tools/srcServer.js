@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
-import configSettings from './config1.js';
+import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
 
@@ -67,11 +67,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../src'));
 
-// app.get('*', function (request, response){
-//   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
-// });
-
-var userCtrl = require('./controllers/userController.js');
+const userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
 const groupCtrl = require('./controllers/groupController.js');
 const channelCtrl = require('./controllers/channelController.js');
@@ -132,6 +128,11 @@ app.post('/api/channels/private/create', channelCtrl.createNewPrivateChannel);
 app.put('/api/channels/group/edit', channelCtrl.editChannelById);
 
 app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
+
+
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+});
 
 app.listen(port, function(err) {
   if (err) {

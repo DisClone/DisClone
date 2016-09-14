@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 
+
 export default class Nav extends React.Component{
 constructor(props){
   super(props);
@@ -9,9 +10,9 @@ constructor(props){
   groupName(groups) {
   return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
   }
-  
+
   userName(userData){
-    return <div key={userData.id}>{userData.display_name}</div>;//Missing
+    return <div key={userData.id}></div>;//Missing
   }
 
   render() {
