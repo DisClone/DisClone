@@ -3,11 +3,37 @@ body{
   font-family: Whitney,"Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
+.groupBar {
+  width:5rem;
+  height: 100%;
+  color:#fff;
+  text-align: center;
+}
+
+.mainNav {
+  list-style: none;
+  padding: 0;
+  li:nth-child(1) {
+    background-color: rgb(114, 137, 218);
+    border-radius: 15px;
+    width: 2rem;
+    padding: 8px;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+}
+
 .navigation {
   text-align:center;
   width:18rem;
   height:100%;
   background-color:#2E3136;
+}
+
+.lighter {
+  font-weight:100;
+  color:#7A868E;
+  margin-right:.25rem;
 }
 
 input::-webkit-input-placeholder,
@@ -46,11 +72,12 @@ textarea:-ms-input-placeholder {
   padding: 4px;
   padding-left: 10px;
   outline: none;
-  // input::after {
-  //   content: url('../../public/img/search.svg');
-  // }
-  // background-image:url('../../public/img/search.svg');
-  // background-position: 7px 7px 7px 7px;
+}
+
+.search-container {
+   height: 3.5rem;
+   width: 100%;
+   border-bottom: 2px solid #272a2e;
 }
 
 .channelContainer {
@@ -59,10 +86,54 @@ textarea:-ms-input-placeholder {
   background-color: #36393E;
 }
 
+.remove-decor {
+  text-decoration: none;
+  font-size: 12px;
+  color: #6e757a;
+}
+
+
+.friends {
+  height: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1.2rem;
+  padding-left: 20px;
+  padding-bottom: 1.2rem;
+  li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+  li:nth-child(1) {
+    background-color: rgb(114, 137, 218);
+    width: 2rem;
+    border-radius: 50%;
+  }
+  li:nth-child(2) {
+    margin-left: 15px;
+    color: white;
+  }
+}
+
+.svg {
+  margin: auto;
+}
+
+.direct-messages {
+  padding-left: 20px;
+  text-align: left;
+  color: #6e757a;
+  h2 {
+    font-size: 11px;
+    font-weight: bolder;
+  }
+}
+
 .settingsBar {
   width: 100%;
   height: 3.5rem;
-  border-bottom: 1px solid #303337;
+  border-bottom: 2px solid #303337;
   display: flex;
   align-items: center;
   font-size: 1.5rem;
@@ -81,7 +152,7 @@ textarea:-ms-input-placeholder {
     margin-left: 10px;
     cursor: pointer;
     padding: 4px 6px 4px 6px;
-    border-radius: 5px;
+    border-radius: 3px;
     min-width: 45px;
     text-align: center;
   }
@@ -143,6 +214,33 @@ textarea:-ms-input-placeholder {
   overflow-y: scroll;
   color: #A7AEBC;
 }
+
+.messageBoard {
+  position:relative;
+  font-size:.85rem;
+  width:100%;
+  height:80%;
+  overflow-y:scroll;
+  color:#A7AEBC;
+}
+
+
+.chatPost {
+  border-bottom: 1px solid #3E4146;
+  padding:1rem;
+}
+
+
+.channelChat {
+  padding-left:15px;
+  display:flex;
+  background-color:#424549;
+  position:fixed;
+  bottom:2rem;
+  width:70%;
+  height:2.5rem;
+}
+
 
 .chatInput {
   height: 100%;

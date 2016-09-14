@@ -55,7 +55,6 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../src'));
 
-
 // app.get('*', function (request, response){
 //   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
 // });
@@ -121,8 +120,6 @@ app.post('/api/channels/private/create', channelCtrl.createNewPrivateChannel);
 app.put('/api/channels/group/edit', channelCtrl.editChannelById);
 
 app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
-
-
 
 app.listen(port, function(err) {
   if (err) {
