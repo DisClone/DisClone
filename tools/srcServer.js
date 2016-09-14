@@ -27,7 +27,10 @@ const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
 
+const connections = [];
+
 io.on('connection', function(socket) {
+  connections.push(socket);
   console.log('we have a connection');
   console.log("Query: ", socket.handshake.query);
   // socket.emit("connect");

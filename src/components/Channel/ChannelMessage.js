@@ -5,13 +5,15 @@ import * as updateChat from '../../actions/channelAction';
 import * as usersChat from '../../actions/userAction';
 
 
+
 class ChannelMessage extends React.Component{
   constructor(){
     super();
 
 
     this.state = {
-      messageBoard : {message:''}
+      messageBoard : {message:''},
+      socket: window.io('http://localhost:3000', { query: "foo=bar" }),
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
