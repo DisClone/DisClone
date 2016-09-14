@@ -13,7 +13,7 @@ class Layout extends React.Component {
   render(){
 
     const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex", color:"#fff"};
-    console.log(this);
+    // console.log(this);
     return(
 
         <div style={mainContainer}>
@@ -34,7 +34,7 @@ function mapDispatchToProps(dispatch){
     };
 }
 function mapStateToProps(state, ownProps){
-  console.log(state, ownProps);
+  // console.log(state, ownProps);
   return {
     user: state.user
   };

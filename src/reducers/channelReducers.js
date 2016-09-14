@@ -21,7 +21,7 @@ export default function channelReducer(state=initialState.channel, action) {
             ...state.filter(channel => channel.id !== action.channel.id),
             Object.assign({}, action.channel)
           ];
-    case types.DELETE_PRODUCT_SUCCESS:
+    case types.DELETE_CHANNEL_SUCCESS:
           return [
             ...state.filter(channel => channel.id !== action.channel.id)
           ];

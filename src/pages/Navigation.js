@@ -16,18 +16,6 @@ constructor(props){
   }
 
   render() {
-<<<<<<< HEAD
-    const groupBar = {width:'5rem', height: "100%", color:"#fff", textAlign: "center"};
-    return(
-      <div style={groupBar}>
-        <br />
-        <Link to="/@me"></Link>
-
-        <br /><br /><br /><br /><br />
-
-        <Link to='/channels/'></Link>
-=======
->>>>>>> master
 
     return(
       <div className="groupBar">

@@ -11,7 +11,7 @@ import {loadUser} from './actions/userAction';
 const store = configureStore();
 store.dispatch(loadUser());
 
-console.log('This is my store', store.getState());
+// console.log('This is my store', store.getState());
 //importing Routes
 import { Router, Route, IndexRoute, browserHistory, hashHistory, DefaultRoute } from "react-router";
 import routes from './routes';

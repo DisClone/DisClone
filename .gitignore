@@ -35,9 +35,7 @@ dist
 # Mac files
 .DS_Store
 
-<<<<<<< HEAD
+
 tools/config.js
-=======
+
 config.js
-config1.js
->>>>>>> master

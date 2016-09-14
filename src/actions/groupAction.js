@@ -3,7 +3,7 @@ const hostString = "http://localhost:3000";
 import axios from 'axios';
 
 //GROUP ACTION CALLS
-export function createGroupSuccess(group){return {type: types.UPDATE_GROUP_SUCCESS, group};}
+export function createGroupSuccess(group){return {type: types.CREATE_GROUP_SUCCESS, group};}
 export function getGroupsSuccess(user){return {type:types.GET_GROUP_SUCCESS, user};}
 export function deleteGroupSuccess(groupId){return {type:types.DELETE_GROUP_SUCCESS, groupId};}
 //GROUP_USER_RELATIONS
@@ -50,15 +50,41 @@ export function getUserGroups(groupId){
   };
 }
 //DELETE GROUP
-export function deleteGroup(groupId){
+export function deleteGroup(group){
   return function (dispatch, getState){
     return axios({
       method: 'DELETE',
-      url: '/api/groups/' + groupId
+      url: '/api/groups/' + group
     })
       .then(response => {
         dispatch(deleteGroupSuccess(response));
       });
   };
 }
-//
+//ADD USER TO GROUP
+export function addUserToGroup(user){
+  return function(dispatch, getState){
+    return axios({
+      method:"POST",
+      url: '/api/group-users/join'
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        dispatch(userAddedToGroupSuccess(data));
+      });
+  };
+}
+//REMOVE USER FROM GROUP
+export function removeUserFromGroup(user){
+  return function(dispatch, getState){
+    return axios({
+      method: 'DELETE',
+      url: '/api/group-users/remove'
+    })
+      .then(response =>{
+        dispatch(userRemovedFromGroupSuccess(response));
+      });
+  };
+}

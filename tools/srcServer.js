@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
-import configSettings from './config1.js';
+import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
 
