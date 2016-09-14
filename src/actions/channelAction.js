@@ -13,6 +13,7 @@ export function updateChannelSuccess(channel) {return {type: types.UPDATE_CHANNE
 
 //THUNKS
 
+/* eslint-disable no-console */
 //GET CHANNELS BY USER
 export function userChannels(user) {
   return function(dispatch) {

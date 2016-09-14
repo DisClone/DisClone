@@ -10,6 +10,7 @@ export function deleteGroupSuccess(groupId){return {type:types.DELETE_GROUP_SUCC
 export function userAddedToGroupSuccess(userId){return {type:types.USER_ADDED_TO_GROUP_SUCCESS, userId};}
 export function userRemovedFromGroupSuccess(userId){return {type:types.USER_REMOVED_FROM_GROUP_SUCCESS, userId};}
 
+/* eslint-disable no-console */
 
 //THUNKS
 
