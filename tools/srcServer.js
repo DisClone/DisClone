@@ -29,9 +29,18 @@ const io = require('socket.io')(http);
 
 io.on('connection', function(socket) {
   console.log('we have a connection');
+  console.log("Query: ", socket.handshake.query);
+  // socket.emit("connect");
+  socket.on('channels', function(userChannels) {
+    console.log(userChannels);
+    for (var i = 0; i < userChannels.length; i++) {
+      socket.join(userChannels[i]);
+      console.log("Joined channel", userChannels[i]);
+    }
+  });
   socket.on('new-message', function(msg) {
     console.log(msg);
-    io.emit('recieve-message', msg);
+    io.to("1").emit('recieve-mess`age', msg);
     db.new_test_msg([msg.body, msg.user], function(err, response) {
       console.log(err, response);
     });
