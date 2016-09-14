@@ -44,8 +44,11 @@ class HomeNav extends React.Component{
               </ul>
              </Link>
 
-            <h2>Direct Messages</h2>
-           <h3><Link to={'/@me/'+this.props.user.userData.id}>{this.props.user.userData.username}</Link></h3>
+         <div className="direct-messages">
+           <h2>DIRECT MESSAGES</h2>
+           <h3><Link className="remove-decor" to={'/@me/'+this.props.user.userData.id}>{this.props.user.userData.username}</Link></h3>
+         </div>
+
            {/*<h3>{this.state.user.userData.userName}</h3>*/}
           </div>
           {this.state.component}
