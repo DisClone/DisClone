@@ -8,7 +8,7 @@ export default class Channel extends React.Component{
   render(){
     console.log(this.props);
     const channelStyle = {display:"flex", width:"100%"};
-    const state = store.getState();
+    // const state = store.getState();
     return(
     <div style={channelStyle}>
       <ChannelNav />

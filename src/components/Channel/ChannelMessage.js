@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 import * as usersChat from '../../actions/userAction';
+import * as messageActions from '../../actions/messageActions';
 
 
 
@@ -12,7 +13,7 @@ class ChannelMessage extends React.Component{
 
 
     this.state = {
-      messageBoard : {message:''},
+      messageBoard : {message_text:''},
       socket: window.io('http://localhost:3000', { query: "foo=bar" }),
     };
     this.onMessageChange = this.onMessageChange.bind(this);
@@ -21,16 +22,24 @@ class ChannelMessage extends React.Component{
   //takes in the element and assigns
   onMessageChange(e) {
     const messageBoard = this.state.messageBoard;
-    messageBoard.message = e.target.value;
+    messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
+  componentDidMount() {
+    var self = this;
+    self.state.socket.on('recieve-message', function(msg) {
+      this.props.actions.addMessage(msg)
+    })
+  }
+
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
   handleChange(){
-    this.props.actions.sendMessage(this.state.messageBoard);
-
+    this.state.messageBoard.author_id = 1;
+    this.state.messageBoard.channel_recipient = 2;
+    this.state.socket.emit('new-message', this.state.messageBoard);
 
   }
   messageRow(messageBoard, index){
@@ -53,7 +62,6 @@ class ChannelMessage extends React.Component{
          <span style={lighter}>#</span>
          </div>
         <div style={messageBoard}>
-            <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
           <div style={channelChat}>
             <input style={chatInput}
               type="text"
@@ -69,13 +77,17 @@ class ChannelMessage extends React.Component{
     );
   }
 }
+
+//
+//
+//
 //---------------------STEP 1.5--------------------------------------
 //binds the dispatch option to our actions *PRETTY DOPE*
 //otherwise we'd have to reference the specific function inside the object we imported and dispatch it manually
 //-- this.props.dispatch(updateChat.sendMessage(this.state.messageBoard));
 function mapDispatchToProps(dispatch){
     return {
-      actions: bindActionCreators(updateChat,dispatch)
+      actions: bindActionCreators(messageActions,dispatch)
     };
 }
 //----------------------STEP 4-------------------------------

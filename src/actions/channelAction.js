@@ -8,6 +8,21 @@ export function createChannelPrivateSuccess(channel) {return {type: types.CREATE
 export function deleteChannelSuccess(channel_id) {return {type: types.DELETE_CHANNEL_SUCCESS, channel_id};}
 export function updateChannelSuccess(channel) {return {type: types.UPDATE_CHANNEL_SUCCESS, channel};}
 
+//ISAAC'S TEST FUNCTIONS FOR SOCKETS
+
+
+// export function updateMessage(message) {
+//   return { type: UPDATE_MESSAGE, message };
+// }
+//
+// export function addMessage() {
+//   return { type: ADD_MESSAGE };
+// }
+//
+// export function addResponse(message) {
+//   return { type: ADD_RESPONSE, message };
+// }
+
 
 
 
