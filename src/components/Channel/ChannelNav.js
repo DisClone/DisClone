@@ -30,14 +30,7 @@ class ChannelNav extends React.Component{
 
     )};
 
-
-
-
-    );
   }
-
-
-}
 
 function mapDispatchToProps(dispatch){
     return {
