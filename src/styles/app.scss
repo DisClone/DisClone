@@ -34,6 +34,7 @@ body{
   font-weight:100;
   color:#7A868E;
   margin-right:.25rem;
+  margin-left: 1.65rem;
 }
 
 input::-webkit-input-placeholder,
@@ -150,6 +151,7 @@ textarea:-ms-input-placeholder {
 .dm-friends:hover {
     border-left: 2px solid #3A425A;
     background: linear-gradient(to right, #1E2124, #2E3136);
+    color: white;
 }
 
 .settingsBar {
@@ -253,21 +255,30 @@ textarea:-ms-input-placeholder {
 .channelChat {
   padding-left:15px;
   display:flex;
-  background-color:#424549;
   position:fixed;
   bottom:2rem;
   width:70%;
   height:2.5rem;
 }
 
+.chat-submit {
+  height: 2.6rem;
+  width: 2.5rem;
+  background: url('../../public/img/submit.svg') no-repeat center;
+  background-size: 50%;
+  border: 2px solid #686A6E;
+  border-right: none;
+  cursor: pointer;
+}
 
 .chatInput {
-  height: 100%;
-  width:95%;
-  margin:auto;
-  background-color:#424549;
-  border:1px solid #686A6E;
+  height: 2.5rem;
+  width: 92%;
+  background-color:#36393E;
+  border: 2px solid #686A6E;
+  border-left: 1px solid #686A6E;
   color:#A7AEBC;
+  outline: none;
 }
 
 
