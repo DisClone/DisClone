@@ -37,7 +37,14 @@ class HomeNav extends React.Component{
 
   render(){
     const test = {display: "flex", width: "100%"};
-    // console.log(this.props.props.params.friendId);
+    let user = []
+
+    if (this.props.user.friends === undefined) {
+      user.push({id: '0', avatar: '../../../public/img/default.png', display_name: 'Loading...'});
+    } else {
+      user = this.props.user.friends;
+    }
+
     return(
       <div style={test}>
           <div className="navigation">
@@ -55,7 +62,7 @@ class HomeNav extends React.Component{
          <div className="direct-messages">
            <h2>DIRECT MESSAGES</h2>
            <h3></h3>
-           <h3>{this.props.user.friends.map(this.userRow)}</h3>
+           <h3>{user.map(this.userRow)}</h3>
          </div>
 
 
