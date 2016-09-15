@@ -62,7 +62,7 @@ class FriendsList extends React.Component{
             <input className="chatInput"
               placeholder="Chat with {this.props.friend.display_name}"
               value={this.state.messageBoard.message}
-              onChange={this.onMessageChange}/>
+              onChange={this.onMessageChange}/>git 
 
           </div>
         </div>
