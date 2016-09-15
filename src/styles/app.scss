@@ -62,6 +62,12 @@ textarea:-ms-input-placeholder {
   margin-left: 5px;
 }
 
+.channelStyle {
+  display:"flex";
+  width:"100%";
+}
+
+
 .conversation-search {
   margin-top: 14px;
   width: 80%;
@@ -73,6 +79,12 @@ textarea:-ms-input-placeholder {
   padding: 4px;
   padding-left: 10px;
   outline: none;
+}
+
+.group-header {
+  height: 1.3rem;
+  margin-top: 0px;
+  padding: 5px;
 }
 
 .search-container {

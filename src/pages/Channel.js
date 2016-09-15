@@ -6,11 +6,9 @@ import store from '../store';
 export default class Channel extends React.Component{
 
   render(){
-
-    const channelStyle = {display:"flex", width:"100%"};
-
+    const styles = {display:"flex", width:"100%"};
     return(
-      <div style={channelStyle}>
+      <div style={styles}>
         <ChannelNav />
       </div>
     );

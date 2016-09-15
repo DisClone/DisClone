@@ -36,32 +36,26 @@ class ChannelMessage extends React.Component{
   }
 
   render(){
-    //styles
 
-    const channelContainer = {width:"85%", height:"100%", overflow:"hidden", backgroundColor: "#36393E"};
-    const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", paddingLeft:"2rem"};
-    const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
-    const messageBoard = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", padding:'1rem', color:"#A7AEBC"};
-    const channelChat = {backgroundColor:"#424549", position:"fixed", bottom:"3rem", width:"70%", height: "2.5rem"  };
-    const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
-    const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
     return(
-      <div style={channelContainer}>
-        <div style={settingsBar}>
-         <span style={lighter}>#</span>
+      <div className="channelContainer">
+        <div className="settingsBar">
+         <span className="lighter">#</span>
          </div>
-        <div style={messageBoard}>
-            <div style={chatPost}>{this.props.messages.map(this.messageRow)}</div>
-          <div style={channelChat}>
-            <input style={chatInput}
-              type="text"
-              value={this.state.messageBoard.message}
-              onChange={this.onMessageChange}/>
-            <input
-              type="submit"
-              value="+ Message"
-              onClick={this.handleChange}/>
-          </div>
+        <div className="messageBoard">
+            <div className="channelChat">
+            <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
+
+            <div>
+              <div className="chat-submit"
+                onClick={this.handleChange}>
+              </div>
+            </div>
+              <input className="chatInput"
+                placeholder="Chat in general..."
+                value={this.state.messageBoard.message}
+                onChange={this.onMessageChange}/>
+            </div>
         </div>
       </div>
     );
