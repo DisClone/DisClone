@@ -8,22 +8,34 @@ constructor(props){
 }
 
   groupName(groups) {
-  return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
+    return <div key={groups.id}>
+      <Link className="remove-decor" to= {'/channels/'+groups.id} >
+        {groups.group_name}
+      </Link>
+    </div>;
   }
 
   userName(userData){
-    return <div key={userData.id}></div>;//Missing
+    return <div key={userData.id}></div>;
   }
 
   render() {
 
-    return(
-      <div className="groupBar">
-        <ul className="mainNav">
-          <li><Link to="/@me" {...this.props}><img src={require('../../public/img/friendsnav.svg')}/></Link></li>
-          <li><Link to='/channels/'>Group</Link></li>
-        </ul>
-      </div>
-   );
+    let groups = []
+
+    if (this.props.groups === undefined) {
+      groups.push({id: '0', group_name: '' });
+    } else {
+      groups = this.props.groups;
+    }
+
+      return(
+        <div className="groupBar">
+          <ul className="mainNav">
+            <li><Link to="/@me" {...this.props}><img src={require('../../public/img/friendsnav.svg')}/></Link></li>
+              <li>{groups.map(this.groupName)}</li>
+          </ul>
+        </div>
+     );
+    }
   }
-}

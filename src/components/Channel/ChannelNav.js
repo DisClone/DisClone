@@ -15,17 +15,18 @@ class ChannelNav extends React.Component{
   }
 
   render(){
-    const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
+
+    const test = {display: "flex", width: "100%"};
     return(
-          <div>
-          <div style={naviGation}>
-            <h4>Group Name</h4>
+          <div style={test}>
+          <div className="navigation">
+            <div className="search-container">
+              <h4 className="group-header">Group Name</h4>
+            </div>
             <br />
             <h4>Talk Channels</h4>
           </div>
-          <div>
           <ChannelMessage />
-          </div>
         </div>
 
     )};
