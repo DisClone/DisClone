@@ -9,7 +9,6 @@ create table users (
   avatar varchar(255)
 );
 
-
 create table groups (
   id serial primary key,
   group_owner integer references users(id),
@@ -32,7 +31,6 @@ create table channels (
   private_recipient1 integer references users(id),
   private_recipient2 integer references users(id)
 );
-
 
 create table messages (
   id serial primary key,
@@ -124,13 +122,24 @@ values (
   'John Cena Fanclub'
 );
 
+insert into groups (
+  group_owner,
+  group_image,
+  group_name
+)
+values (
+  2,
+  'https://hips.hearstapps.com/cos.h-cdn.co/assets/16/22/1600x800/landscape-1464800225-hamarbe.jpeg?resize=768:*',
+  'Justice for Harambe'
+);
+
 insert into groups_users_relations (
   user_id,
   group_id
 )
 values (
   1,
-  1
+  3
 );
 
 insert into groups_users_relations (
@@ -196,5 +205,5 @@ values (
   'text',
   'true',
   1,
-  2
+  3
 );
