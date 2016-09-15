@@ -8,12 +8,11 @@ import ChannelMessage from './ChannelMessage'
 class ChannelNav extends React.Component{
   constructor(props,context){
     super(props,context);
+  }
 
-}
-
-groupName(groups) {
-return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
-}
+  groupName(groups) {
+    return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
+  }
 
   render(){
     const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
@@ -28,9 +27,6 @@ return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names
           <ChannelMessage />
           </div>
         </div>
-
-
-
     )};
 
 }
@@ -46,7 +42,5 @@ function mapStateToProps(state, ownProps){
     userData: state.userData
   };
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelNav);

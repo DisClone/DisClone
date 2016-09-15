@@ -2,29 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+import { Link } from "react-router";
 
 const friendData = {};
-
-const users = [
-  {
-    id: 1,
-    firstName: 'Cory',
-    lastName: 'House',
-    title: "GI Joe"
-  },
-  {
-    id: 2,
-    firstName: 'Scott',
-    lastName: 'Allen',
-    title: "Heman"
-  },
-  {
-    id: 3,
-    firstName: 'Dan',
-    lastName: 'Wahlin',
-    title: "Rubix Cube"
-  }
-];
 
 class HomeChannel extends React.Component{
   constructor(){
@@ -54,19 +34,25 @@ class HomeChannel extends React.Component{
 
 
 userRow(users, index){
+
   return (
-    <div className="friendStyle">
-
-    <h2 key={index}>{users.firstName}</h2>
-    <h2>Hi</h2>
-    <h2>Awesome</h2>
-
-   </div>
+    <div >
+      <div className="friendStyle">
+        <Link className="remove-decor" id={users.id} to={'/@me/'+users.id}>
+         <h2 key={index}><img src={users.avatar}/>{users.display_name}</h2>
+         </Link>
+         <h2>Offline</h2>
+         <h2>Disclone</h2>
+       </div>
+       <div className="border-long">
+       </div>
+    </div>
  );
 }
 
 
   render(){
+
     return(
       <div className="channelContainer">
         <div className="settingsBar">
@@ -95,14 +81,13 @@ userRow(users, index){
 
       <div className="friendsList">
         <div className="friendHeader">
-          <h2>Name</h2>
-          <h2>Status</h2>
-          <h2>Mutual Servers</h2>
+          <h2>NAME</h2>
+          <h2>STATUS</h2>
+          <h2>MUTUAL SERVERS</h2>
         </div>
-        <div>
-          <h2>{users.map(this.userRow)}</h2>
-          {/*<h2>Awesome</h2>
-          <h2>All</h2>*/}
+        <div className="border"></div>
+        <div className="scroll">
+          <h2>{this.props.users.map(this.userRow)}</h2>
         </div>
       </div>
 
@@ -124,8 +109,10 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
+  console.log(state.user.friends);
+
   return {
-    users: state.users
+    users: state.user.friends
   };
 }
 

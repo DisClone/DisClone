@@ -9,7 +9,7 @@ constructor(props){
   groupName(groups) {
   return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
   }
-  
+
   userName(userData){
     return <div key={userData.id}>{userData.display_name}</div>;//Missing
   }

@@ -36,7 +36,7 @@ export default class Home extends React.Component{
 
     const styles = {display:"flex", width:"100%"};
     // console.log(state);
-    console.log(this);
+
     return (
         <div style={styles}>
           <HomeNav {...this}/>

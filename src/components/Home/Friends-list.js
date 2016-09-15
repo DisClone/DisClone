@@ -8,7 +8,6 @@ class FriendsList extends React.Component{
   constructor(){
     super();
 
-
     this.state = {
       messageBoard : {message:''}
     };
@@ -27,8 +26,6 @@ class FriendsList extends React.Component{
   //note - this is the dispatch action that starts the flow
   handleChange(){
     this.props.actions.sendMessage(this.state.messageBoard);
-
-
   }
   messageRow(messageBoard, index) {
     return <div key={index}> {this}  <br/> {messageBoard.message} </div>;
@@ -44,19 +41,19 @@ class FriendsList extends React.Component{
   }
 
   render(){
-    // const friend = this.getFriend(this.props.friendId, this.props.users);
-    const friend = this.props.user;
+
+    console.log(this.props);
     return(
 
       <div className="channelContainer">
         <div className="settingsBar">
           <div>
              <span className="lighter">@ </span>
-             {friend}
+             {this.props.friend.display_name}
           </div>
         </div>
         <div className="messageBoard">
-          <h2>Friendship!</h2>
+          <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
             {/*<div className="chatPost">{this.props.messages.map(this.messageRow, [friend])}</div>*/}
           <div className="channelChat">
           <input
@@ -74,6 +71,10 @@ class FriendsList extends React.Component{
     );
   }
 }
+
+// FriendsList.contextTypes = {
+//   location: React.PropTypes.object
+// }
 //---------------------STEP 1.5--------------------------------------
 //binds the dispatch option to our actions *PRETTY DOPE*
 //otherwise we'd have to reference the specific function inside the object we imported and dispatch it manually
@@ -88,11 +89,21 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-  console.log(state)
+
+  console.log(state);
+
+  let friend = {};
+
+  for (let i = 0; i < state.user.friends.length; i++) {
+    if(state.user.friends[i].id === parseInt(ownProps.id)) {
+      friend = state.user.friends[i];
+    }
+  }
+
   return {
     messages: state.messages,
-    friendId: 2,
-    user: state.user.userData.display_name
+    user: state.user.userData.display_name,
+    friend: friend
   };
 }
 
