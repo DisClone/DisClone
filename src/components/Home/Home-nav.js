@@ -16,21 +16,28 @@ class HomeNav extends React.Component{
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+
     if(nextProps.props.params.friendId === undefined) {
         this.state.component = <HomeChat/>;
         return true;
     }
-        this.state.component = <FriendsList/>;
+        this.state.component = <FriendsList id={nextProps.props.params.friendId}/>;
         return true;
-    }
+   }
+
 
   userRow(users, index){
-    // return  <div key={index}><Link to={'/@me/'+users.id}>{users.firstName} </Link></div>;
+    return  <div key={index}>
+      <Link className="dm-friends remove-decor" id={users.id} to={'/@me/'+users.id}>
+        <img src={users.avatar} />
+        {users.display_name}
+      </Link>
+    </div>;
   }
 
   render(){
     const test = {display: "flex", width: "100%"};
-
+    // console.log(this.props.props.params.friendId);
     return(
       <div style={test}>
           <div className="navigation">
@@ -47,10 +54,11 @@ class HomeNav extends React.Component{
 
          <div className="direct-messages">
            <h2>DIRECT MESSAGES</h2>
-           <h3><Link className="remove-decor" to={'/@me/'+this.props.user.userData.id}>{this.props.user.userData.username}</Link></h3>
+           <h3></h3>
+           <h3>{this.props.user.friends.map(this.userRow)}</h3>
          </div>
 
-           {/*<h3>{this.state.user.userData.userName}</h3>*/}
+
           </div>
           {this.state.component}
       </div>
@@ -66,7 +74,6 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state, ownProps){
-
   return {
     user: state.user
   };

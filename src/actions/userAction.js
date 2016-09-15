@@ -24,7 +24,7 @@ export function loadUser(user) {
 
   }).then(response => {
     user = response.data;
-    // console.log(response.data);
+
     return response.data;
 
   }).then( response => {
