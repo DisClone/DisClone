@@ -120,6 +120,8 @@ function mapStateToProps(state, ownProps){
     }
   }
 
+  // for (let i = 0; i < state.user.)
+
   return {
     messages: state.messages,
     user: state.user,

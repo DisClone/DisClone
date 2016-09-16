@@ -49,7 +49,7 @@ module.exports = {
               }).then(response => {
                 db.messages.get_all_messages((err, response) => {
 
-                  let messageArr = response;
+                  const messageArr = response;
                   for (let i = 0; i < dataMonster.groups.length; i++) {
                     console.log(dataMonster.groups[i]);
                     for (let j = 0; j < dataMonster.groups[i].channels.length; j++) {
@@ -68,6 +68,14 @@ module.exports = {
                     }
                     else {
                       const privateChannels = response;
+                      for (let i = 0; i < privateChannels.length; i++) {
+                        privateChannels[i].messages = [];
+                        for (let k = 0; k < messageArr.length; k++) {
+                          if (messageArr[k].channel_recipient == privateChannels[i].id || messageArr[k].channel_recipient == privateChannels[i].id) {
+                            privateChannels[i].messages.push(messageArr[k]);
+                          }
+                        }
+                      }
                       db.users.get_all_users((err, response) => {
                         let userArr = response;
                         dataMonster.friends = [];
