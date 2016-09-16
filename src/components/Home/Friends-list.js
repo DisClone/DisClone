@@ -25,7 +25,9 @@ class FriendsList extends React.Component{
     this.setState({messageBoard: messageBoard});
   }
   componentDidMount() {
+
     var self = this;
+    self.state.socket.emit('channels', self.props.friend.privateChannel.id);
     self.state.socket.on('recieve-message', function(msg) {
       console.log("This is the message: ", msg)
       self.props.actions.addMessage(msg)
@@ -39,12 +41,16 @@ class FriendsList extends React.Component{
   handleChange(){
     this.state.messageBoard.author_id = 1;
     this.state.messageBoard.channel = this.props.friend.privateChannel.id;
+    this.state.messageBoard.is_private = true;
+    this.state.messageBoard.user = {
+
+    }
     this.state.socket.emit('new-message', this.state.messageBoard);
     // this.props.actions.addMessage(this.state.messageBoard);
 
   }
-  messageRow(messageBoard, index) {
-    return <div key={index}> {this}  <br/> {messageBoard.message_text} </div>;
+  messageRow(message, index) {
+    return <div key={index}> {this}  <br/> {message.message_text} </div>;
   }
 
   getFriend(id, users) {
@@ -69,7 +75,7 @@ class FriendsList extends React.Component{
         </div>
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
-            {/*<div className="chatPost">{this.props.messages.map(this.messageRow, [friend])}</div>*/}
+            <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
           <div className="channelChat">
           <input
             type="submit"

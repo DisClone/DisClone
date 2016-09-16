@@ -1,19 +1,6 @@
 import app from "../srcServer";
 const db = app.get('db');
 const BluePromise = require('bluebird');
-// console.log(db);
-
-// let get_channels_promise = () => {
-//   return new BluePromise((resolve, reject) => {
-//     for (let i = 0; i < dataMonster.groups.length; i++) {
-//       db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
-//         console.log(response);
-//         resolve(response);
-//           // console.log("Are you watching closely?", dataMonster.groups[i].channels);
-//       });
-//     }
-//   });
-// };
 
 module.exports = {
   getDataOnLogin(req, res, next) {
