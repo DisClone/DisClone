@@ -104,7 +104,7 @@ function mapStateToProps(state, ownProps){
 
   return {
     messages: state.messages,
-    user: state.user.userData.display_name,
+    user: state.user,
     friend: friend
   };
 }
