@@ -21,6 +21,11 @@ body{
     margin: auto;
     margin-bottom: 1rem;
   }
+  div:hover {
+    background-color: rgb(114, 137, 218);
+    border-radius: 15px;
+    padding: 0px;
+  }
 }
 
 .navigation {
@@ -384,5 +389,6 @@ textarea:-ms-input-placeholder {
   height: 45px;
   margin-bottom: 15px;
   border-radius: 50%;
+  // padding: 0px 5px 5px 5px;
   }
 }

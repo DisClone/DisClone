@@ -39,12 +39,23 @@ class ChannelMessage extends React.Component{
     return(
       <div className="channelContainer">
         <div className="settingsBar">
-         <span className="lighter"># {this.props.channel.channel_name}</span>
+          <div>
+             <span className="lighter"># {this.props.channel.channel_name}</span>
+           </div>
+           <div >
+              <ul className="navBarRight">
+                <li><img src={require('../../../public/img/bell.svg')} /> </li>
+                <li> <img src={require('../../../public/img/tack.svg')} /></li>
+                <li> <img src={require('../../../public/img/addmembers.svg')} /></li>
+                <div className="verticalLine"></div>
+                <li> <img src={require('../../../public/img/one.svg')} /></li>
+                <li> <img src={require('../../../public/img/help.svg')} /></li>
+              </ul>
+           </div>
          </div>
         <div className="messageBoard">
             <div className="channelChat">
-            <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
-
+              <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
             <div>
               <div className="chat-submit"
                 onClick={this.handleChange}>

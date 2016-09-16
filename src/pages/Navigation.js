@@ -15,10 +15,10 @@ constructor(props){
         channel = groups.channels[i].id;
       }
     }
-    console.log(groups);
+
     return <div key={groups.id}>
       <Link className="remove-decor" to= {'/channels/'+groups.id+'/'+channel} >
-        <img className="flex-img" src={groups.group_image} />
+        <div className="flex-all-mid"><img  src={groups.group_image} /></div>
       </Link>
     </div>;
   }
