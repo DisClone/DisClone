@@ -24,7 +24,7 @@ export function loadUser(user) {
 
   }).then(response => {
     user = response.data;
-
+    user.socket = window.io('http://localhost:3000/');
     return response.data;
 
   }).then( response => {

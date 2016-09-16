@@ -6,7 +6,7 @@ import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
-import moment from 'moment'
+import moment from 'moment';
 
 
 

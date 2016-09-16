@@ -196,6 +196,32 @@ values (
 );
 
 insert into channels (
+  channel_name,
+  parent_group,
+  type,
+  private
+)
+values (
+  'general Harambe',
+  1,
+  'text',
+  'false'
+);
+
+insert into channels (
+  channel_name,
+  parent_group,
+  type,
+  private
+)
+values (
+  'general Mike D',
+  2,
+  'text',
+  'false'
+);
+
+insert into channels (
   type,
   private,
   private_recipient1,
@@ -206,4 +232,17 @@ values (
   'true',
   1,
   3
+);
+
+insert into channels (
+  type,
+  private,
+  private_recipient1,
+  private_recipient2
+)
+values (
+  'text',
+  'true',
+  1,
+  2
 );

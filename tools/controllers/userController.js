@@ -33,8 +33,11 @@ module.exports = {
               }).then(response => {
 
                   new BluePromise((resolve, reject) => {
+
                     for (let i = 0; i < dataMonster.groups.length; i++) {
+
                       db.channels.get_channels_by_parent_group(dataMonster.groups[i].id, (err, response) => {
+
                         dataMonster.groups[i].channels = response;
                           if (i === dataMonster.groups.length - 1) {
                             resolve(response);
@@ -48,6 +51,7 @@ module.exports = {
 
                   let messageArr = response;
                   for (let i = 0; i < dataMonster.groups.length; i++) {
+                    console.log(dataMonster.groups[i]);
                     for (let j = 0; j < dataMonster.groups[i].channels.length; j++) {
                       dataMonster.groups[i].channels[j].messages = [];
                       for (let k = 0; k < messageArr.length; k++) {

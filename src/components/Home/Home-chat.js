@@ -53,6 +53,14 @@ userRow(users, index){
 
   render(){
 
+    let users = [];
+
+    if (this.props.users === undefined) {
+      users.push({id: '0', avatar: '../../../public/img/default.png', display_name: 'Loading...'});
+    } else {
+      users = this.props.users;
+    }
+
     return(
       <div className="channelContainer">
         <div className="settingsBar">
@@ -87,7 +95,7 @@ userRow(users, index){
         </div>
         <div className="border"></div>
         <div className="scroll">
-          <h2>{this.props.users.map(this.userRow)}</h2>
+          <h2>{users.map(this.userRow)}</h2>
         </div>
       </div>
 
@@ -109,8 +117,6 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-  console.log(state.user.friends);
-
   return {
     users: state.user.friends
   };
