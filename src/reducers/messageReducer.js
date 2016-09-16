@@ -12,8 +12,8 @@ export default function messageReducer(state = intialState.message, action){
       case UPDATE_MESSAGE:
         return Object.assign({}, state, { currentMessage: action.msg });
       case ADD_MESSAGE:
-      console.log(state);
-        const text = state.message.message_text.trim();
+      console.log("This is the action of the reducer:", action);
+        const text = action.msg.message_text.trim();
 
         if (text) {
           messages = state.messages.map(message => Object.assign({}, message));

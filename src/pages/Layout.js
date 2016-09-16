@@ -3,10 +3,14 @@ import Navigation from './Navigation';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userObj from '../actions/userAction';
+import * as messageActions from '../actions/messageActions';
+
 
 class Layout extends React.Component {
   constructor(props) {
    super(props);
+   this.state = {
+   }
  }
 
 
@@ -30,14 +34,15 @@ Layout.propTypes = {
 
 function mapDispatchToProps(dispatch){
     return {
-      actions: bindActionCreators(userObj,dispatch)
+      actions: bindActionCreators(Object.assign({}, userObj, messageActions),dispatch)
     };
 }
 
 function mapStateToProps(state, ownProps){
 
   return {
-    user: state.user
+    user: state.user,
+    messages: state.messages,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

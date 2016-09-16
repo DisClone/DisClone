@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
-import configSettings from './config1.js';
+import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
 
@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
     }
   });
   socket.on('new-message', function(msg) {
-    console.log(msg);\
+    console.log(msg);
     io.emit('recieve-message', msg);
     // io.to("1").emit('recieve-message', msg);
     // db.new_test_msg([msg.body, msg.user], function(err, response) {

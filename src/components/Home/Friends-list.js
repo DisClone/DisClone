@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+import * as messageActions from '../../actions/messageActions';
+
 
 
 class FriendsList extends React.Component{
@@ -9,7 +11,9 @@ class FriendsList extends React.Component{
     super();
 
     this.state = {
-      messageBoard : {message:''}
+      messageBoard : {message_text:''},
+      socket: window.io('http://localhost:3000'),
+
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,18 +21,30 @@ class FriendsList extends React.Component{
   //takes in the element and assigns
   onMessageChange(e) {
     const messageBoard = this.state.messageBoard;
-    messageBoard.message = e.target.value;
+    messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
+  componentDidMount() {
+    var self = this;
+    self.state.socket.on('recieve-message', function(msg) {
+      console.log("This is the message: ", msg)
+      self.props.actions.addMessage(msg)
+    })
+  }
+
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
   handleChange(){
-    this.props.actions.sendMessage(this.state.messageBoard);
+    this.state.messageBoard.author_id = 1;
+    this.state.messageBoard.channel = this.props.friend.privateChannel.id;
+    this.state.socket.emit('new-message', this.state.messageBoard);
+    // this.props.actions.addMessage(this.state.messageBoard);
+
   }
   messageRow(messageBoard, index) {
-    return <div key={index}> {this}  <br/> {messageBoard.message} </div>;
+    return <div key={index}> {this}  <br/> {messageBoard.message_text} </div>;
   }
 
   getFriend(id, users) {
@@ -42,7 +58,6 @@ class FriendsList extends React.Component{
 
   render(){
 
-    console.log(this.props);
     return(
 
       <div className="channelContainer">
@@ -81,7 +96,7 @@ class FriendsList extends React.Component{
 //-- this.props.dispatch(updateChat.sendMessage(this.state.messageBoard));
 function mapDispatchToProps(dispatch){
     return {
-      actions: bindActionCreators(updateChat,dispatch)
+      actions: bindActionCreators(messageActions,dispatch)
     };
 }
 //----------------------STEP 4-------------------------------

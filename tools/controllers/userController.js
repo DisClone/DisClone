@@ -76,7 +76,7 @@ module.exports = {
                       res.set(401).json("There was an error retrieving the user's private channels");
                     }
                     else {
-                      dataMonster.privateChannels = response;
+                      const privateChannels = response;
                       db.users.get_all_users((err, response) => {
                         let userArr = response;
                         dataMonster.friends = [];
@@ -93,8 +93,9 @@ module.exports = {
                         else {
                           for(let i = 0; i < userArr.length; i++) {
 
-                            for (let k = 0; k < dataMonster.privateChannels.length; k++) {
-                              if (dataMonster.privateChannels[k].private_recipient2 === userArr[i].id || dataMonster.privateChannels[k].private_recipient1 === userArr[i].id) {
+                            for (let k = 0; k < privateChannels.length; k++) {
+                              if (privateChannels[k].private_recipient2 === userArr[i].id || privateChannels[k].private_recipient1 === userArr[i].id) {
+                                userArr[i].privateChannel = privateChannels[k];
                                 dataMonster.friends.push(userArr[i]);
                                 // console.log(req.params.id);
                               }

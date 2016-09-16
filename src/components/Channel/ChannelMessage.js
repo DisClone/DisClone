@@ -14,7 +14,6 @@ class ChannelMessage extends React.Component{
 
     this.state = {
       messageBoard : {message_text:''},
-      socket: window.io('http://localhost:3000', { query: "foo=bar" }),
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -28,6 +27,7 @@ class ChannelMessage extends React.Component{
   componentDidMount() {
     var self = this;
     self.state.socket.on('recieve-message', function(msg) {
+      console.log(msg);
       this.props.actions.addMessage(msg)
     })
   }
