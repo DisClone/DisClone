@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-  console.log(state);
+  // console.log(1, state, 2, ownProps);
 
   let friend = {};
 
@@ -104,7 +104,7 @@ function mapStateToProps(state, ownProps){
 
   return {
     messages: state.messages,
-    user: state.user.userData.display_name,
+    user: state.user,
     friend: friend
   };
 }

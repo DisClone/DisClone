@@ -9,7 +9,6 @@ class ChannelMessage extends React.Component{
   constructor(){
     super();
 
-
     this.state = {
       messageBoard : {message:''}
     };
@@ -85,15 +84,15 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
+  // console.log('1', state, '2', ownProps)
 
-  let groupId = parseInt(ownProps.props.params.group);
+  let groupId = ownProps.group.Id;
   let channelId = parseInt(ownProps.props.params.channel);
-
   let currentChannel = {};
 
-  for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
-    if (state.user.groups[groupId - 1].channels[i].id === channelId) {
-      currentChannel = state.user.groups[groupId - 1].channels[i];
+  for (let i = 0; i < ownProps.group.channels.length; i++) {
+    if (ownProps.group.channels[i].id === channelId) {
+      currentChannel = ownProps.group.channels[i];
     }
   }
 

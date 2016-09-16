@@ -21,6 +21,8 @@ constructor(props){
         <div className="flex-all-mid"><img  src={groups.group_image} /></div>
       </Link>
     </div>;
+    <br/>
+
   }
 
   userName(userData){

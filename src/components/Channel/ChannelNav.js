@@ -14,7 +14,7 @@ class ChannelNav extends React.Component{
 
     return <div>
       <Link className="remove-decor" id={groups[0].parent_group} to={'/channels/'+groups[0].parent_group+'/'+channels.id}>
-        {channels.channel_name}
+        # {channels.channel_name}
       </Link>
     </div>
   }
@@ -28,12 +28,14 @@ class ChannelNav extends React.Component{
     return(
           <div style={test}>
           <div className="navigation">
-            <div className="search-container flex-all-mid">
-              <h4 className="group-header">{group.group_name}</h4>
+            <div className="search-container flex-vert-cent">
+              <h4 className="group-header left-small-pad">{group.group_name}</h4>
             </div>
             <br />
-            <h4>Text Channels</h4>
-            <h3>{group.channels.map(this.channelName)}</h3>
+            <div className="left-small-pad  add-channel">
+              <div><h4>TEXT CHANNELS  <span type="button" className="float-r">+</span></h4></div>
+              <div className="channel"><h3>{group.channels.map(this.channelName)}</h3></div>
+            </div>
           </div>
           <ChannelMessage {...this.props}/>
         </div>
