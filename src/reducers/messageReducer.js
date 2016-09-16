@@ -5,24 +5,25 @@ import intialState from './initialState.js';
 //-----------------------STEP 3------------------------
 //reducer takes in a action and a copy of current state.
 
-export default function messageReducer(state = intialState.message, action){
+export default function messageReducer(state = [], action){
   var messages;
 
     switch(action.type) {
       case UPDATE_MESSAGE:
         return Object.assign({}, state, { currentMessage: action.msg });
       case ADD_MESSAGE:
-      console.log("This is the action of the reducer:", action);
-        const text = action.msg.message_text.trim();
-
-        if (text) {
-          messages = state.messages.map(message => Object.assign({}, message));
-          messages.push(action.msg);
-
-          return {
-            state
-          };
-        }
+        return [...state, Object.assign({}, action.msg)];
+      // console.log("This is the action of the reducer:", action);
+      //   const text = action.msg.message_text.trim();
+      //
+      //   if (text) {
+      //     messages = state.messages.map(message => Object.assign({}, message));
+      //     messages.push(action.msg);
+      //
+      //     return {
+      //       state
+      //     };
+      //   }
       case ADD_RESPONSE:
         messages = state.messages.map(message => Object.assign({}, message));
         messages.push(Object.assign({isAdmin: true}, action.message));

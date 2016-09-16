@@ -12,7 +12,7 @@ class FriendsList extends React.Component{
 
     this.state = {
       messageBoard : {message_text:''},
-      socket: window.io('http://localhost:3000'),
+      // socket: window.io('http://localhost:3000'),
 
     };
     this.onMessageChange = this.onMessageChange.bind(this);
@@ -25,9 +25,11 @@ class FriendsList extends React.Component{
     this.setState({messageBoard: messageBoard});
   }
   componentDidMount() {
+
     var self = this;
-    self.state.socket.on('recieve-message', function(msg) {
-      console.log("This is the message: ", msg)
+    self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
+    self.props.user.socket.on('recieve-message', function(msg) {
+      console.log("This is a message: ", msg)
       self.props.actions.addMessage(msg)
     })
   }
@@ -37,14 +39,16 @@ class FriendsList extends React.Component{
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
   handleChange(){
-    this.state.messageBoard.author_id = 1;
+    this.state.messageBoard.author_id = this.props.user.userData.id;
     this.state.messageBoard.channel = this.props.friend.privateChannel.id;
-    this.state.socket.emit('new-message', this.state.messageBoard);
+    this.state.messageBoard.is_private = true;
+    this.state.messageBoard.user = this.props.user.userData;
+    this.props.user.socket.emit('new-message', this.state.messageBoard);
     // this.props.actions.addMessage(this.state.messageBoard);
 
   }
-  messageRow(messageBoard, index) {
-    return <div key={index}> {this}  <br/> {messageBoard.message_text} </div>;
+  messageRow(message, index) {
+    return <div key={index}> {this}  <br/> {message.message_text} </div>;
   }
 
   getFriend(id, users) {
@@ -58,7 +62,6 @@ class FriendsList extends React.Component{
 
 
   render(){
-
     let friend = "Chat with " + this.props.friend.display_name;
     return(
 
@@ -71,7 +74,7 @@ class FriendsList extends React.Component{
         </div>
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
-            {/*<div className="chatPost">{this.props.messages.map(this.messageRow, [friend])}</div>*/}
+            <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
           <div className="channelChat">
           <div>
             <div className="chat-submit"
@@ -117,9 +120,11 @@ function mapStateToProps(state, ownProps){
     }
   }
 
+  // for (let i = 0; i < state.user.)
+
   return {
     messages: state.messages,
-    user: state.user.userData.display_name,
+    user: state.user,
     friend: friend
   };
 }

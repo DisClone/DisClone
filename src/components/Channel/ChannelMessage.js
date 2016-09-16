@@ -40,7 +40,6 @@ class ChannelMessage extends React.Component{
     this.state.messageBoard.author_id = 1;
     this.state.messageBoard.channel_recipient = 2;
     this.state.socket.emit('new-message', this.state.messageBoard);
-    this.props.actions.sendMessage(this.state.messageBoard);
   }
 
   messageRow(messageBoard, index){
@@ -75,7 +74,6 @@ class ChannelMessage extends React.Component{
               </ul>
            </div>
          </div>
-
         <Scrollbars
         renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
         renderTrackVertical={props => <div {...props} className="track-vertical"/>}
@@ -94,6 +92,7 @@ class ChannelMessage extends React.Component{
             </div>
           </div>
         </Scrollbars>
+        </div>
       </div>
       );
 
