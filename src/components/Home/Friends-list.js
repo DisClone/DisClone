@@ -56,8 +56,10 @@ class FriendsList extends React.Component{
     }
   }
 
+
   render(){
 
+    let friend = "Chat with " + this.props.friend.display_name;
     return(
 
       <div className="channelContainer">
@@ -71,12 +73,12 @@ class FriendsList extends React.Component{
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
             {/*<div className="chatPost">{this.props.messages.map(this.messageRow, [friend])}</div>*/}
           <div className="channelChat">
-          <input
-            type="submit"
-            value="+ Message"
-            onClick={this.handleChange}/>
+          <div>
+            <div className="chat-submit"
+              onClick={this.handleChange}></div>
+          </div>
             <input className="chatInput"
-              type="text"
+              placeholder={friend}
               value={this.state.messageBoard.message}
               onChange={this.onMessageChange}/>
 

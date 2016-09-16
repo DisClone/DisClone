@@ -10,22 +10,32 @@ class ChannelNav extends React.Component{
     super(props,context);
   }
 
-  groupName(groups) {
-    return <div key={groups.group_id}>{groups.group_id}</div>; //Missing group names...
+  channelName(channels, index, groups) {
+
+    return <div>
+      <Link className="remove-decor" id={groups[0].parent_group} to={'/channels/'+groups[0].parent_group+'/'+channels.id}>
+        {channels.channel_name}
+      </Link>
+    </div>
   }
 
   render(){
-    const naviGation = { textAlign:"center", width:"15rem", height:"100%", backgroundColor:"#2E3136"};
+
+    const test = {display: "flex", width: "100%"};
+    let data = this.props.userData;
+    let group = this.props.group;
+
     return(
-          <div>
-          <div style={naviGation}>
-            <h4>Group Name</h4>
+          <div style={test}>
+          <div className="navigation">
+            <div className="search-container flex-all-mid">
+              <h4 className="group-header">{group.group_name}</h4>
+            </div>
             <br />
-            <h4>Talk Channels</h4>
+            <h4>Text Channels</h4>
+            <h3>{group.channels.map(this.channelName)}</h3>
           </div>
-          <div>
-          <ChannelMessage />
-          </div>
+          <ChannelMessage {...this.props}/>
         </div>
 
     )};
@@ -39,8 +49,20 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state, ownProps){
+
+  let groupId = parseInt(ownProps.props.params.group);
+  let group = {};
+
+  for(let i = 0; i < state.user.groups.length; i++) {
+    if (groupId === state.user.groups[i].id) {
+
+      group = state.user.groups[i];
+    }
+  }
+
   return {
-    userData: state.userData
+    userData: state.user.userData,
+    group: group
   };
 }
 

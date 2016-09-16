@@ -40,26 +40,31 @@ class ChannelMessage extends React.Component{
     this.state.messageBoard.author_id = 1;
     this.state.messageBoard.channel_recipient = 2;
     this.state.socket.emit('new-message', this.state.messageBoard);
-
+    this.props.actions.sendMessage(this.state.messageBoard);
   }
+
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
 
   render(){
-    //styles
 
-    const channelContainer = {width:"85%", height:"100%", overflow:"hidden", backgroundColor: "#36393E"};
-    const settingsBar = {width:"100%",  height:"3.5rem", borderBottom:"1px solid #303337", display:"flex", alignItems:"center", fontSize:"1.5rem", color:"#fff", paddingLeft:"2rem"};
-    const lighter = {fontWeight:"100", color:"#7A868E", marginRight:".25rem"};
-    const messageBoard = {postion:"relative", fontSize:".85rem", width:"100%",height: "80%", overflowY:"scroll", padding:'1rem', color:"#A7AEBC"};
-    const channelChat = {backgroundColor:"#424549", position:"fixed", bottom:"3rem", width:"70%", height: "2.5rem"  };
-    const chatInput = {height:"100%", width:"95%", margin:"auto", backgroundColor:"#424549", border:"1px solid #686A6E", color:"#A7AEBC"};
-    const chatPost = {borderBottom:"1px solid #3E4146", padding:"1rem"};
     return(
-      <div style={channelContainer}>
-        <div style={settingsBar}>
-         <span style={lighter}>#</span>
+      <div className="channelContainer">
+        <div className="settingsBar">
+          <div>
+             <span className="lighter"># {this.props.channel.channel_name}</span>
+           </div>
+           <div >
+              <ul className="navBarRight">
+                <li><img src={require('../../../public/img/bell.svg')} /> </li>
+                <li> <img src={require('../../../public/img/tack.svg')} /></li>
+                <li> <img src={require('../../../public/img/addmembers.svg')} /></li>
+                <div className="verticalLine"></div>
+                <li> <img src={require('../../../public/img/one.svg')} /></li>
+                <li> <img src={require('../../../public/img/help.svg')} /></li>
+              </ul>
+           </div>
          </div>
         <div style={messageBoard}>
           <div style={channelChat}>
@@ -72,6 +77,19 @@ class ChannelMessage extends React.Component{
               value="+ Message"
               onClick={this.handleChange}/>
           </div>
+        <div className="messageBoard">
+            <div className="channelChat">
+              <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
+            <div>
+              <div className="chat-submit"
+                onClick={this.handleChange}>
+              </div>
+            </div>
+              <input className="chatInput"
+                placeholder="Chat in general..."
+                value={this.state.messageBoard.message}
+                onChange={this.onMessageChange}/>
+            </div>
         </div>
       </div>
     );
@@ -95,13 +113,22 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
+
+  let groupId = parseInt(ownProps.props.params.group);
+  let channelId = parseInt(ownProps.props.params.channel);
+
+  let currentChannel = {};
+
+  for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
+    if (state.user.groups[groupId - 1].channels[i].id === channelId) {
+      currentChannel = state.user.groups[groupId - 1].channels[i];
+    }
+  }
+
   return {
     messages: state.messages,
-    channels: state.channels
+    channel: currentChannel
   };
 }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelMessage);
