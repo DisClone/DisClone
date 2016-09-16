@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 import * as usersChat from '../../actions/userAction';
 import * as messageActions from '../../actions/messageActions';
-
+import { Scrollbars } from 'react-custom-scrollbars';
 
 
 class ChannelMessage extends React.Component{
@@ -24,13 +24,13 @@ class ChannelMessage extends React.Component{
     messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
-  componentDidMount() {
-    var self = this;
-    self.state.socket.on('recieve-message', function(msg) {
-      console.log(msg);
-      this.props.actions.addMessage(msg)
-    })
-  }
+  // componentDidMount() {
+  //   var self = this;
+  //   self.state.socket.on('recieve-message', function(msg) {
+  //     console.log(msg);
+  //     this.props.actions.addMessage(msg)
+  //   })
+  // }
 
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
@@ -47,8 +47,17 @@ class ChannelMessage extends React.Component{
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
 
-  render(){
+  renderView({style, ...props}){
+    const viewStyle = {
+      padding: 15,
+      backgroundColor: #A7AEBC;
+      color: white;
+    };
+    return
+  }
 
+
+  render(){
     return(
       <div className="channelContainer">
         <div className="settingsBar">
@@ -66,33 +75,28 @@ class ChannelMessage extends React.Component{
               </ul>
            </div>
          </div>
-        <div style={messageBoard}>
-          <div style={channelChat}>
-            <input style={chatInput}
-              type="text"
-              value={this.state.messageBoard.message}
-              onChange={this.onMessageChange}/>
-            <input
-              type="submit"
-              value="+ Message"
-              onClick={this.handleChange}/>
-          </div>
+
+        <Scrollbars
+        renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
+        renderTrackVertical={props => <div {...props} className="track-vertical"/>}
+        renderThumbHorizontal={props => <div {...props} className="thumb-horizontal"/>}
+        renderThumbVertical={props => <div {...props} className="thumb-vertical"/>}
+        renderView={props => <div {...props} className="render-view"/>}>
         <div className="messageBoard">
             <div className="channelChat">
-              <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
-            <div>
               <div className="chat-submit"
                 onClick={this.handleChange}>
               </div>
-            </div>
               <input className="chatInput"
                 placeholder="Chat in general..."
                 value={this.state.messageBoard.message}
                 onChange={this.onMessageChange}/>
             </div>
-        </div>
+          </div>
+        </Scrollbars>
       </div>
-    );
+      );
+
   }
 }
 
@@ -114,14 +118,13 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-  let groupId = parseInt(ownProps.props.params.group);
+  let groupId = ownProps.group.Id;
   let channelId = parseInt(ownProps.props.params.channel);
-
   let currentChannel = {};
 
-  for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
-    if (state.user.groups[groupId - 1].channels[i].id === channelId) {
-      currentChannel = state.user.groups[groupId - 1].channels[i];
+  for (let i = 0; i < ownProps.group.channels.length; i++) {
+    if (ownProps.group.channels[i].id === channelId) {
+      currentChannel = ownProps.group.channels[i];
     }
   }
 

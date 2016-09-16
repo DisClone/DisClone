@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 import * as messageActions from '../../actions/messageActions';
-
+import { Scrollbars } from 'react-custom-scrollbars'
 
 
 class FriendsList extends React.Component{
