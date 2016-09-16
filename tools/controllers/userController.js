@@ -46,14 +46,28 @@ module.exports = {
               }).then(response => {
 
                   new BluePromise((resolve, reject) => {
-                    for (let i = 0; i < dataMonster.groups.length; i++) {
-                      db.channels.get_channels_by_parent_group(dataMonster.groups[i].id, (err, response) => {
-                        dataMonster.groups[i].channels = response;
-                          if (i === dataMonster.groups.length - 1) {
-                            resolve(response);
+                    db.channels.get_all_channels((err, response) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                      else {
+                        const channels = response;
+                        for (let k = 0; k < dataMonster.groups.length; k++) {
+                          dataMonster.groups[k].channels = [];
+                          for(let i = 0; i < channels.length; i++) {
+                            if (dataMonster.groups[k].id === channels[i].parent_group) {
+                              console.log("THIS IS THE CURRENT CHANNEL",channels[i])
+
+                              dataMonster.groups[k].channels.push(channels[i]);
+                              if (k === dataMonster.groups.length) {
+                                      resolve(response);
+                                     }
+                            }
                           }
-                      });
-                    }
+                        }
+
+                      }
+                    });
 
                   });
               }).then(response => {
@@ -61,6 +75,7 @@ module.exports = {
 
                   let messageArr = response;
                   for (let i = 0; i < dataMonster.groups.length; i++) {
+                    console.log("HERE IS MY DATA", dataMonster.groups[i]);
                     for (let j = 0; j < dataMonster.groups[i].channels.length; j++) {
                       dataMonster.groups[i].channels[j].messages = [];
                       for (let k = 0; k < messageArr.length; k++) {
