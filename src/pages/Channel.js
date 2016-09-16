@@ -9,7 +9,7 @@ export default class Channel extends React.Component{
     const styles = {display:"flex", width:"100%"};
     return(
       <div style={styles}>
-        <ChannelNav />
+        <ChannelNav {...this}/>
       </div>
     );
   }

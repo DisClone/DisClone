@@ -83,7 +83,7 @@ textarea:-ms-input-placeholder {
 
 .group-header {
   height: 1.3rem;
-  margin-top: 0px;
+  margin: 0px;
   padding: 5px;
 }
 
@@ -291,6 +291,7 @@ textarea:-ms-input-placeholder {
   border-left: 1px solid #686A6E;
   color:#A7AEBC;
   outline: none;
+  padding-left: 10px;
 }
 
 
@@ -351,6 +352,12 @@ textarea:-ms-input-placeholder {
 
 }
 
+.flex-all-mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .friendStyle:hover {
   background-color: #414449;
 }
@@ -364,4 +371,18 @@ textarea:-ms-input-placeholder {
   border-bottom: 1px solid #4e4f52;
   width: 92%;
   margin-left: 2rem;
+}
+
+.flex-img {
+  margin: auto;
+  display: flex;
+}
+
+.avatar {
+  img {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  }
 }

@@ -28,9 +28,8 @@ class ChannelMessage extends React.Component{
   //note - this is the dispatch action that starts the flow
   handleChange(){
     this.props.actions.sendMessage(this.state.messageBoard);
-
-
   }
+
   messageRow(messageBoard, index){
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
@@ -40,7 +39,7 @@ class ChannelMessage extends React.Component{
     return(
       <div className="channelContainer">
         <div className="settingsBar">
-         <span className="lighter">#</span>
+         <span className="lighter"># {this.props.channel.channel_name}</span>
          </div>
         <div className="messageBoard">
             <div className="channelChat">
@@ -75,13 +74,22 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
+
+  let groupId = parseInt(ownProps.props.params.group);
+  let channelId = parseInt(ownProps.props.params.channel);
+
+  let currentChannel = {};
+
+  for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
+    if (state.user.groups[groupId - 1].channels[i].id === channelId) {
+      currentChannel = state.user.groups[groupId - 1].channels[i];
+    }
+  }
+
   return {
     messages: state.messages,
-    channels: state.channels
+    channel: currentChannel
   };
 }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelMessage);
