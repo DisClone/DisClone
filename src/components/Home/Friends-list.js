@@ -25,7 +25,7 @@ class FriendsList extends React.Component{
     this.setState({messageBoard: messageBoard});
   }
   componentDidMount() {
-
+    
     var self = this;
     self.state.socket.emit('channels', self.props.friend.privateChannel.id);
     self.state.socket.on('recieve-message', function(msg) {
