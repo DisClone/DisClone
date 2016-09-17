@@ -51,6 +51,8 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state, ownProps){
+console.log(state, ownProps);
+
 
   let groupId = parseInt(ownProps.props.params.group);
   let group = {};

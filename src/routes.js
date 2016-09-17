@@ -10,7 +10,7 @@ import FriendsList from "./components/Home/Friends-list";
 export default (
   <Route path="/" component={Layout} >
     <IndexRoute component={Home}/>
-    <IndexRedirect from="/" to="@me"/>
+    <IndexRedirect to="@me"/>
       <Route path="@me(/:friendId)" component={Home}> </Route>
       <Route path="/channels(/:group)(/:channel)" component={Channels}></Route>
   </Route>

@@ -54,6 +54,7 @@ class ChannelMessage extends React.Component{
          </div>
         <div className="messageBoard">
             <div className="channelChat">
+
               <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
             <div>
               <div className="chat-submit"
