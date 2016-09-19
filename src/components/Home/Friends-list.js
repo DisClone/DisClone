@@ -25,11 +25,11 @@ class FriendsList extends React.Component{
     this.setState({messageBoard: messageBoard});
   }
   componentDidMount() {
-
     var self = this;
-    self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
+    // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
     self.props.user.socket.on('recieve-message', function(msg) {
       console.log("This is a message: ", msg)
+      self.props.friend.privateChannel.messages.push(msg)
       self.props.actions.addMessage(msg)
     })
   }
@@ -74,7 +74,8 @@ class FriendsList extends React.Component{
         </div>
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
-            <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
+            <div className="chatPost">{this.props.friend.privateChannel.messages.map(this.messageRow)}</div>
+
           <div className="channelChat">
           <div>
             <div className="chat-submit"
@@ -110,7 +111,6 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-  console.log(state);
 
   let friend = {};
 

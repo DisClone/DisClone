@@ -26,9 +26,11 @@ class ChannelMessage extends React.Component{
   }
   componentDidMount() {
     var self = this;
-    self.state.socket.on('recieve-message', function(msg) {
-      console.log(msg);
-      this.props.actions.addMessage(msg)
+    // self.props.socket.emit('channels', self.props.channel.id);
+    self.props.socket.on('recieve-message', function(msg) {
+      console.log("This is a message: ", msg);
+      self.props.channel.messages.push(msg)
+      self.props.actions.addMessage(msg);
     })
   }
 
@@ -36,14 +38,21 @@ class ChannelMessage extends React.Component{
   //the actions: is defined at the bottom of the page within mapStateToProps
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
-  handleChange(){
-    this.state.messageBoard.author_id = 1;
-    this.state.messageBoard.channel_recipient = 2;
-    this.state.socket.emit('new-message', this.state.messageBoard);
-  }
 
-  messageRow(messageBoard, index){
-    return <div key={index}> user <br/> {messageBoard.message} </div>;
+    handleChange(){
+      this.state.messageBoard.author_id = this.props.userData.id;
+      this.state.messageBoard.channel = this.props.channel.id;
+      this.state.messageBoard.is_private = false;
+      this.state.messageBoard.user = this.props.userData;
+      this.props.socket.emit('new-message', this.state.messageBoard);
+      console.log("Sending message");
+      // this.props.actions.addMessage(this.state.messageBoard);
+
+    }
+
+  messageRow(message, index){
+    return <div key={index}> {this}  <br/> {message.message_text} </div>;
+
   }
 
   render(){
@@ -66,8 +75,8 @@ class ChannelMessage extends React.Component{
            </div>
          </div>
         <div className="messageBoard">
+          <div className="chatPost">{this.props.channel.messages.map(this.messageRow)}</div>
             <div className="channelChat">
-              <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
             <div>
               <div className="chat-submit"
                 onClick={this.handleChange}>
@@ -106,6 +115,7 @@ function mapStateToProps(state, ownProps){
   let channelId = parseInt(ownProps.props.params.channel);
 
   let currentChannel = {};
+  console.log(state.user);
 
   for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
     if (state.user.groups[groupId - 1].channels[i].id === channelId) {
@@ -115,7 +125,8 @@ function mapStateToProps(state, ownProps){
 
   return {
     messages: state.messages,
-    channel: currentChannel
+    channel: currentChannel,
+    socket: state.user.socket
   };
 }
 
