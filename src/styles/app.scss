@@ -9,7 +9,6 @@ body{
   width:5rem;
   height: 100%;
   color:#fff;
-  text-align: center;
 }
 
 .mainNav {
@@ -24,10 +23,10 @@ body{
     margin-bottom: 1rem;
   }
   div:hover {
-    background-color: #40434a;
+    background-color: rgb(114, 137, 218);
     border-radius: 15px;
     padding: 0px;
-    border: 1px solid #141414;
+    border: 1px solid rgb(114, 137, 218);
   }
 }
 
@@ -461,7 +460,7 @@ textarea:-ms-input-placeholder {
 
 .login-logo {
   padding: 30px;
-  background-color: rgba(227, 212, 209, .95);
+  background-color: rgba(217, 222, 227, .95);
   display: flex;
   flex-direction: column;
   justify-content: center;

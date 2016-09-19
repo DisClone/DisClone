@@ -18,7 +18,7 @@ class Landing extends React.Component{
 handleChange () {
   store.dispatch(loadUser());
   this.props.state.num = 2;
-  // this.props.num = 2;
+  console.log(this.props.state.num);
   }
 
 render() {
@@ -43,9 +43,9 @@ render() {
           <label>PASSWORD</label>
           <input className="max-w"></input>
 
-          <button  onClick={this.handleChange}>
+          <Link to="/@me" ><button onClick={this.handleChange}>
             Login
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>

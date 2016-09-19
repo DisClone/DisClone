@@ -9,7 +9,7 @@ import Landing from './Landing';
 class Layout extends React.Component {
   constructor(props) {
    super(props);
-
+   console.log(this.state);
 
    this.state = {
      num: 1

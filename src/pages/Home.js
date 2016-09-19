@@ -6,7 +6,7 @@ import FriendsList from "../components/Home/Friends-list";
 export default class Home extends React.Component{
   constructor(props,context){
     super(props,context);
-  }
+}
 
 
   render(){
