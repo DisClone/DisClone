@@ -250,8 +250,9 @@ textarea:-ms-input-placeholder {
 .messageBoard {
   position:relative;
   font-size:.85rem;
-  width:20%;
-  height:30%;
+  width:100%;
+  height:80%;
+  overflow-y:scroll;
   color:#A7AEBC;
   h2 {
     font-size: 14px;

@@ -51,6 +51,10 @@ class FriendsList extends React.Component{
     return <div key={index}> {this}  <br/> {message.message_text} </div>;
   }
 
+  oldMessages(oldMessages){
+    return <div key={oldMessages.id}> {oldMessages.messages}</div>
+  }
+
   getFriend(id, users) {
 
     for (let i = 0; i < users.length; i++) {
@@ -73,7 +77,7 @@ class FriendsList extends React.Component{
           </div>
         </div>
         <div className="messageBoard">
-          <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
+          <h2>{this.props.friend.privateChannel.messages.map(this.oldMessages)}</h2>
             <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
           <div className="channelChat">
           <div>
@@ -110,8 +114,6 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-  console.log(state);
-
   let friend = {};
 
   for (let i = 0; i < state.user.friends.length; i++) {
@@ -119,11 +121,11 @@ function mapStateToProps(state, ownProps){
       friend = state.user.friends[i];
     }
   }
-
+  let friendMessages = friend.privateChannel;
   // for (let i = 0; i < state.user.)
-
   return {
     messages: state.messages,
+    oldMessages: friendMessages,
     user: state.user,
     friend: friend
   };

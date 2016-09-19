@@ -46,15 +46,6 @@ class ChannelMessage extends React.Component{
     return <div key={index}> user <br/> {messageBoard.message} </div>;
   }
 
-  renderView({style, ...props}){
-    const viewStyle = {
-      padding: 15,
-      backgroundColor: #A7AEBC;
-      color: white;
-    };
-    return
-  }
-
 
   render(){
     return(
@@ -74,13 +65,9 @@ class ChannelMessage extends React.Component{
               </ul>
            </div>
          </div>
-        <Scrollbars
-        renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
-        renderTrackVertical={props => <div {...props} className="track-vertical"/>}
-        renderThumbHorizontal={props => <div {...props} className="thumb-horizontal"/>}
-        renderThumbVertical={props => <div {...props} className="thumb-vertical"/>}
-        renderView={props => <div {...props} className="render-view"/>}>
+        <Scrollbars>
         <div className="messageBoard">
+          {}
             <div className="channelChat">
               <div className="chat-submit"
                 onClick={this.handleChange}>
@@ -93,7 +80,6 @@ class ChannelMessage extends React.Component{
           </div>
         </Scrollbars>
         </div>
-      </div>
       );
 
   }
