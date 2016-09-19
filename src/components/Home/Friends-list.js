@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
+import * as messageActions from '../../actions/messageActions';
+
 
 
 class FriendsList extends React.Component{
@@ -9,7 +11,9 @@ class FriendsList extends React.Component{
     super();
 
     this.state = {
-      messageBoard : {message:''}
+      messageBoard : {message_text:''},
+      // socket: window.io('http://localhost:3000'),
+
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,18 +21,34 @@ class FriendsList extends React.Component{
   //takes in the element and assigns
   onMessageChange(e) {
     const messageBoard = this.state.messageBoard;
-    messageBoard.message = e.target.value;
+    messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
+  componentDidMount() {
+    var self = this;
+    // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
+    self.props.user.socket.on('recieve-message', function(msg) {
+      console.log("This is a message: ", msg)
+      self.props.friend.privateChannel.messages.push(msg)
+      self.props.actions.addMessage(msg)
+    })
+  }
+
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
   handleChange(){
-    this.props.actions.sendMessage(this.state.messageBoard);
+    this.state.messageBoard.author_id = this.props.user.userData.id;
+    this.state.messageBoard.channel = this.props.friend.privateChannel.id;
+    this.state.messageBoard.is_private = true;
+    this.state.messageBoard.user = this.props.user.userData;
+    this.props.user.socket.emit('new-message', this.state.messageBoard);
+    // this.props.actions.addMessage(this.state.messageBoard);
+
   }
-  messageRow(messageBoard, index) {
-    return <div key={index}> {this}  <br/> {messageBoard.message} </div>;
+  messageRow(message, index) {
+    return <div key={index}> {this}  <br/> {message.message_text} </div>;
   }
 
   getFriend(id, users) {
@@ -42,9 +62,7 @@ class FriendsList extends React.Component{
 
 
   render(){
-
     let friend = "Chat with " + this.props.friend.display_name;
-
     return(
 
       <div className="channelContainer">
@@ -56,7 +74,8 @@ class FriendsList extends React.Component{
         </div>
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
-            {/*<div className="chatPost">{this.props.messages.map(this.messageRow, [friend])}</div>*/}
+            <div className="chatPost">{this.props.friend.privateChannel.messages.map(this.messageRow)}</div>
+
           <div className="channelChat">
           <div>
             <div className="chat-submit"
@@ -83,7 +102,7 @@ class FriendsList extends React.Component{
 //-- this.props.dispatch(updateChat.sendMessage(this.state.messageBoard));
 function mapDispatchToProps(dispatch){
     return {
-      actions: bindActionCreators(updateChat,dispatch)
+      actions: bindActionCreators(messageActions,dispatch)
     };
 }
 //----------------------STEP 4-------------------------------
@@ -92,7 +111,6 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-  console.log(state);
 
   let friend = {};
 
@@ -102,9 +120,11 @@ function mapStateToProps(state, ownProps){
     }
   }
 
+  // for (let i = 0; i < state.user.)
+
   return {
     messages: state.messages,
-    user: state.user.userData.display_name,
+    user: state.user,
     friend: friend
   };
 }

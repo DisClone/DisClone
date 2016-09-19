@@ -6,6 +6,7 @@ import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
+import moment from 'moment';
 
 
 
@@ -27,26 +28,52 @@ const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
 
+const connections = [];
+
 io.on('connection', function(socket) {
+  connections.push(socket);
   console.log('we have a connection');
   console.log("Query: ", socket.handshake.query);
   // socket.emit("connect");
-  socket.on('channels', function(userChannels) {
-    console.log(userChannels);
-    for (var i = 0; i < userChannels.length; i++) {
-      socket.join(userChannels[i]);
-      console.log("Joined channel", userChannels[i]);
-    }
+  socket.on('channels', function(userChannel) {
+    // console.log(userChannel);
+    // for (var i = 0; i < userChannels.length; i++) {
+      socket.join(userChannel);
+      console.log("Joined channel", userChannel);
+    // }
   });
   socket.on('new-message', function(msg) {
+    msg.message_time = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+    if (msg.is_private) {
+      db.messages.post_new_message([msg.message_text, msg.message_time, false, msg.author_id, null, msg.channel], (err, response) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          io.to(msg.channel).emit('recieve-message', msg);
+        }
+      });
+
+    }
+    else {
+      db.messages.post_new_message([msg.message_text, msg.message_time, true, msg.author_id, null, msg.channel], (err, response) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          io.to(msg.channel).emit('recieve-message', msg);
+        }
+      });
+    }
     console.log(msg);
-    io.to("1").emit('recieve-mess`age', msg);
-    db.new_test_msg([msg.body, msg.user], function(err, response) {
-      console.log(err, response);
-    });
-    db.get_all_msgs(function(err, response) {
-      console.log(response);
-    });
+
+    // io.to("1").emit('recieve-message', msg);
+    // db.new_test_msg([msg.body, msg.user], function(err, response) {
+    //   console.log(err, response);
+    // });
+    // db.get_all_msgs(function(err, response) {
+    //   console.log(response);
+    // });
   });
   socket.on('test', function() {
     console.log('Mounted');
@@ -131,7 +158,7 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
 });
 
-app.listen(port, function(err) {
+http.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {

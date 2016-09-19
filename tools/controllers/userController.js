@@ -1,19 +1,6 @@
 import app from "../srcServer";
 const db = app.get('db');
 const BluePromise = require('bluebird');
-// console.log(db);
-
-// let get_channels_promise = () => {
-//   return new BluePromise((resolve, reject) => {
-//     for (let i = 0; i < dataMonster.groups.length; i++) {
-//       db.channels.get_channels_by_parent_group(dataMonster.groups[i].group_id, (err, response) => {
-//         console.log(response);
-//         resolve(response);
-//           // console.log("Are you watching closely?", dataMonster.groups[i].channels);
-//       });
-//     }
-//   });
-// };
 
 module.exports = {
   getDataOnLogin(req, res, next) {
@@ -62,8 +49,9 @@ module.exports = {
               }).then(response => {
                 db.messages.get_all_messages((err, response) => {
 
-                  let messageArr = response;
+                  const messageArr = response;
                   for (let i = 0; i < dataMonster.groups.length; i++) {
+                    console.log(dataMonster.groups[i]);
                     for (let j = 0; j < dataMonster.groups[i].channels.length; j++) {
                       dataMonster.groups[i].channels[j].messages = [];
                       for (let k = 0; k < messageArr.length; k++) {
@@ -79,7 +67,15 @@ module.exports = {
                       res.set(401).json("There was an error retrieving the user's private channels");
                     }
                     else {
-                      dataMonster.privateChannels = response;
+                      const privateChannels = response;
+                      for (let i = 0; i < privateChannels.length; i++) {
+                        privateChannels[i].messages = [];
+                        for (let k = 0; k < messageArr.length; k++) {
+                          if (messageArr[k].channel_recipient == privateChannels[i].id || messageArr[k].channel_recipient == privateChannels[i].id) {
+                            privateChannels[i].messages.push(messageArr[k]);
+                          }
+                        }
+                      }
                       db.users.get_all_users((err, response) => {
                         let userArr = response;
                         dataMonster.friends = [];
@@ -96,8 +92,9 @@ module.exports = {
                         else {
                           for(let i = 0; i < userArr.length; i++) {
 
-                            for (let k = 0; k < dataMonster.privateChannels.length; k++) {
-                              if (dataMonster.privateChannels[k].private_recipient2 === userArr[i].id || dataMonster.privateChannels[k].private_recipient1 === userArr[i].id) {
+                            for (let k = 0; k < privateChannels.length; k++) {
+                              if (privateChannels[k].private_recipient2 === userArr[i].id || privateChannels[k].private_recipient1 === userArr[i].id) {
+                                userArr[i].privateChannel = privateChannels[k];
                                 dataMonster.friends.push(userArr[i]);
                                 // console.log(req.params.id);
                               }

@@ -1,5 +1,7 @@
 export default {
   user: {},
   channel: [],
-  group: []
+  group: [],
+  message: {},
+  messages: [],
 };
