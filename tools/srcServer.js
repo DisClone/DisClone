@@ -6,6 +6,7 @@ import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
+
 import moment from "moment";
 
 /* eslint-disable no-console */
@@ -52,6 +53,17 @@ io.on('connection', function(socket) {
       });
 
     }
+    else {
+      db.messages.post_new_message([msg.message_text, msg.message_time, true, msg.author_id, null, msg.channel], (err, response) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          io.to(msg.channel).emit('recieve-message', msg);
+        }
+      });
+    }
+
     console.log(msg);
 
     // io.to("1").emit('recieve-message', msg);

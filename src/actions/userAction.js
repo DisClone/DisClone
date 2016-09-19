@@ -24,7 +24,16 @@ export function loadUser(user) {
 
   }).then(response => {
     user = response.data;
-
+    console.log(user);
+    user.socket = window.io('http://localhost:3000/');
+    for (let i = 0; i < user.friends.length; i++) {
+      user.socket.emit('channels', user.friends[i].privateChannel.id);
+    }
+    for (let i = 0; i < user.groups.length; i++) {
+      for (let k = 0; k < user.groups[i].channels.length; k++) {
+        user.socket.emit('channels', user.groups[i].channels[k].id);
+      }
+    }
     return response.data;
 
   }).then( response => {
