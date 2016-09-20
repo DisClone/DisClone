@@ -6,9 +6,8 @@ import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
-import moment from 'moment';
 
-
+import moment from "moment";
 
 /* eslint-disable no-console */
 
@@ -23,7 +22,6 @@ const massiveInstance = massive.connectSync({connectionString : connectionString
 app.set('db', massiveInstance);
 
 const db = app.get('db');
-
 const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
@@ -65,6 +63,7 @@ io.on('connection', function(socket) {
         }
       });
     }
+
     console.log(msg);
 
     // io.to("1").emit('recieve-message', msg);

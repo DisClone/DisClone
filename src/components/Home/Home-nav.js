@@ -48,7 +48,7 @@ class HomeNav extends React.Component{
     return(
       <div style={test}>
           <div className="navigation">
-           <div className="search-container">
+           <div className="search-container flex-horz-cent">
               <input className="conversation-search" placeholder="Find or start a conversation" />
             </div>
 

@@ -111,7 +111,6 @@ function mapDispatchToProps(dispatch){
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
 
-
   let friend = {};
 
   for (let i = 0; i < state.user.friends.length; i++) {
