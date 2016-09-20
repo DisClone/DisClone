@@ -1,30 +1,32 @@
 import webpack from 'webpack';
 import path from 'path';
 
-export default {
+module.exports = {
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   noInfo: false,
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-    './src/app'
+    'webpack-hot-middleware/client?reload=true',//note that it reloads the page if hot module reloading fails.
+    path.join(__dirname, 'src/app.js')
   ],
   target: 'web', //can change to node to run with backend
   output: {
-    path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+    path: path.join(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: './src',
-    historyApiFallback: true,
-    port: 3000
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+  // devServer: {
+  //   contentBase: __dirname + './src',
+  //   historyApiFallback: true,
+  //   proxy: {
+  //    '*' : 'http://localhost:3000'
+  //  }
+  // },
+ //  plugins: [
+ //    new webpack.optimize.OccurenceOrderPlugin(),
+ //    new webpack.HotModuleReplacementPlugin()
+ // ],
   module: {
     loaders: [
       {
@@ -32,7 +34,7 @@ export default {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', "react-hmre"]
         }
       },
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},

@@ -3,6 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 require('./styles/app.scss');
 
+console.log("I be loaded");
+
 //imports & initializing store
 import { Provider, connect } from "react-redux";
 import configureStore from './store';

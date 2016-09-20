@@ -1,7 +1,7 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config.dev';
+import config from '../webpack.config.js';
 import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
@@ -12,6 +12,7 @@ import bodyParser from 'body-parser';
 /* eslint-disable no-console */
 
 const port = 3000;
+
 const compiler = webpack(config);
 
 const connectionString = configSettings.connectionString;
@@ -22,6 +23,18 @@ const massiveInstance = massive.connectSync({connectionString : connectionString
 app.set('db', massiveInstance);
 
 const db = app.get('db');
+
+// app.use(require('webpack-dev-middleware')(compiler, {
+//   noInfo: true,
+//   publicPath: config.output.publicPath,
+//   contentBase: 'src'
+// }));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/../public'));
 
 const http = require('http').Server(app);
 
@@ -53,16 +66,7 @@ io.on('connection', function(socket) {
   });
 });
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
 
-app.use(require('webpack-hot-middleware')(compiler));
-
-app.use(bodyParser.json());
-
-app.use(express.static(__dirname + '/../src'));
 
 const userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
@@ -128,7 +132,7 @@ app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
 
 
 app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+  response.sendFile(path.join(__dirname,'../src/index.html'));
 });
 
 app.listen(port, function(err) {
