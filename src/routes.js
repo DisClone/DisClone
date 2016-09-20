@@ -9,20 +9,9 @@ import Landing from './pages/Landing';
 
 export default (
   <Route path="/" component={Layout} >
-    <IndexRoute component={Layout}/>
         <IndexRedirect to='/login'/>
-      <Route path="/login" component={Layout}> </Route>
+      <Route path="/login"> </Route>
       <Route path="@me(/:friendId)" component={Home}> </Route>
       <Route path="/channels(/:group)(/:channel)" component={Channels}></Route>
   </Route>
 );
-
-
-// export default (
-//   <Route path="/" component={Layout} >
-//     <IndexRoute component={Home}/>
-//     <IndexRedirect from="/" to="@me"/>
-//       <Route path="@me(/:friendId)" component={Home}> </Route>
-//       <Route path="/channels(/:group)(/:channel)" component={Channels}></Route>
-//   </Route>
-// );

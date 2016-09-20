@@ -3,44 +3,48 @@ import Navigation from './Navigation';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userObj from '../actions/userAction';
-<<<<<<< HEAD
 import Landing from './Landing';
-=======
 import * as messageActions from '../actions/messageActions';
->>>>>>> master
-
+import { loadState } from '../localstorage';
+// import { loadUser } from '../actions/userAction';
+import store from '../app';
 
 class Layout extends React.Component {
   constructor(props) {
    super(props);
+   const persistedState = loadState();
 
-   this.state = {
+   if (persistedState !== undefined) {
+     store.dispatch(userObj.loadUser());
    }
+   this.state = {
+     persistedState: persistedState
+   };
  }
 
-
-   this.state = {
-     num: 1
+ componentWillMount () {
+   if (this.state.persistedState !== undefined) {
+     this.props.history.pushState(null, '/@me')
    }
  }
 
   render(){
 
     const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex", color:"#fff"};
-
-    if (this.state.num === 1) {
+    this.state.persistedState = loadState();
+    if (this.state.persistedState === undefined) {
       return(
           <div style={mainContainer}>
             <Landing {...this}/>
           </div>
       );
-    } else if (this.state.num === 2) {
+    } else if (this.state.persistedState !== undefined) {
       return (
           <div style={mainContainer}>
-            <Navigation to="/@me" {...this.props.user}/>
+            <Navigation {...this.props.user} />
             {this.props.children}
           </div>
-        )
+        );
     }
 
 
@@ -61,7 +65,7 @@ function mapStateToProps(state, ownProps){
 
   return {
     user: state.user,
-    messages: state.messages,
+    messages: state.messages
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

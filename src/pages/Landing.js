@@ -17,9 +17,7 @@ class Landing extends React.Component{
 
 handleChange () {
   store.dispatch(loadUser());
-  this.props.state.num = 2;
-  console.log(this.props.state.num);
-  }
+}
 
 render() {
 
@@ -59,10 +57,7 @@ function mapDispatchToProps(dispatch){
       // actions: bindActionCreators(updateChat,dispatch)
     };
 }
-//----------------------STEP 4-------------------------------
-//messages references the imported name in ./reducers/index.js
-//You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
-//the state parameter here is the state in our actual store or (updated state).
+
 function mapStateToProps(state, ownProps){
   return {
     // users: state.user.friends

@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router";
-
+import { logOut } from '../localstorage';
 
 export default class Nav extends React.Component{
 constructor(props){
   super(props);
+  this.handleChange= this.handleChange.bind(this);
 }
 
   groupName(groups) {
@@ -29,6 +30,10 @@ constructor(props){
     return <div key={userData.id}></div>;
   }
 
+  handleChange() {
+    logOut();
+  }
+
   render() {
 
     let groups = []
@@ -45,6 +50,10 @@ constructor(props){
             <li><Link to="/@me" {...this.props}><img src={require('../../public/img/friendsnav.svg')}/></Link></li>
               <li className="avatar">{groups.map(this.groupName)}</li>
           </ul>
+          <Link to="/login">
+            <div className="exit" onClick={this.handleChange}>Exit
+            </div>
+          </Link>
         </div>
      );
     }

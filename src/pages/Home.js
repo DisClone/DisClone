@@ -8,7 +8,6 @@ export default class Home extends React.Component{
     super(props,context);
 }
 
-
   render(){
 
     const styles = {display:"flex", width:"100%"};
