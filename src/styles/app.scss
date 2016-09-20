@@ -22,8 +22,8 @@ body{
     margin-bottom: 1rem;
   }
   div:hover {
-    background-color: rgb(114, 137, 218);
-    border-radius: 15px;
+    // background-color: rgb(114, 137, 218);
+    // border-radius: 15px;
     padding: 0px;
   }
 }
@@ -163,6 +163,7 @@ textarea:-ms-input-placeholder {
   align-items: center;
   margin-bottom: 8px;
   padding: 5px 0px 5px 20px;
+  border-left: 2px solid transparent;
 }
 
 .dm-friends:hover {
@@ -390,5 +391,10 @@ textarea:-ms-input-placeholder {
   margin-bottom: 15px;
   border-radius: 50%;
   // padding: 0px 5px 5px 5px;
+  transition: all 0.4s cubic-bezier(0.69, -1.89, 0.31, 2.81);
+
+  }
+  img:hover {
+    border-radius: 15px;
   }
 }
