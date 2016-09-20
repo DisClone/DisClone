@@ -3,6 +3,22 @@ const db = app.get('db');
 const BluePromise = require('bluebird');
 
 module.exports = {
+
+  verifyLogin(req, res, next) {
+    db.users.verify_login([req.body.email, req.body.password], (err, response) => {
+      if (err) {
+        res.set(401).json("User does not exist");
+      } else {
+        if (response[0]){
+          res.set(200).json(response);
+        } else {
+          res.sendStatus(401);
+        }
+      }
+    })
+
+  },
+
   getDataOnLogin(req, res, next) {
     let dataMonster = {};
     if (req.params.id) {

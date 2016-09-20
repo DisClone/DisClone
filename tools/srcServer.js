@@ -109,6 +109,7 @@ app.get('/api/test', function(req, res) {
 
 //BIG MONSTER ENDPOINT FOR DATA COLLECTION ON LOGIN
 app.get('/api/login/all-data/:id', userCtrl.getDataOnLogin);
+app.put('/api/login/auth', userCtrl.verifyLogin);
 
 //Message Endpoints (partially for test purposes and building front end, will do some of this through sockets once I have them working back here)
 
