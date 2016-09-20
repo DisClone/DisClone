@@ -76,7 +76,7 @@ class ChannelMessage extends React.Component{
         <div className="messageBoard">
           <div className="chatPost">{this.props.channel.messages.map(this.messageRow)}</div>
             <div className="channelChat">
-              <div className="chatPost">{this.props.messages.map(this.messageRow)}</div>
+              {/*<div className="chatPost">{this.props.messages.map(this.messageRow)}</div>*/}
             <div>
               <div className="chat-submit"
                 onClick={this.handleChange}>

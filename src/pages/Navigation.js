@@ -51,7 +51,7 @@ constructor(props){
               <li className="avatar">{groups.map(this.groupName)}</li>
           </ul>
           <Link to="/login">
-            <div className="exit" onClick={this.handleChange}>Exit
+            <div className="exit remove-decor" onClick={this.handleChange}>Logout
             </div>
           </Link>
         </div>

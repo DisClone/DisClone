@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../actions/channelAction';
 import { Link } from "react-router";
 import configureStore from '../store';
-import {loadUser} from '../actions/userAction';
+import {loadUser, authenticate} from '../actions/userAction';
 import store from '../app';
 
 
@@ -12,11 +12,36 @@ class Landing extends React.Component{
   constructor(props){
     super(props);
      this.handleChange= this.handleChange.bind(this);
+     this.onPasswordChange = this.onPasswordChange.bind(this);
+     this.onEmailChange = this.onEmailChange.bind(this);
+
+     this.state = {
+       email: "",
+       password: ""
+     }
   }
 
 
+onPasswordChange (e) {
+  let password = this.state.password;
+  password = e.target.value;
+  this.setState({password: password});
+}
+
+onEmailChange (e) {
+  let email = this.state.email;
+  email = e.target.value;
+  this.setState({email: email});
+}
+
 handleChange () {
-  store.dispatch(loadUser());
+  if (this.state.password && this.state.email) {
+    let dataObj = {}
+    dataObj.password = this.state.password;
+    dataObj.email = this.state.email;
+    store.dispatch(authenticate(dataObj))
+  }
+
 }
 
 render() {
@@ -36,10 +61,10 @@ render() {
           <h3 className="flex-horz-cent margin-bottom">WELCOME BACK.</h3>
 
           <label>EMAIL</label>
-          <input className="max-w"></input>
+          <input value={this.state.email}  onChange={this.onEmailChange} className="max-w"></input>
 
           <label>PASSWORD</label>
-          <input className="max-w"></input>
+          <input type="password" value={this.state.password} onChange={this.onPasswordChange} className="max-w"></input>
 
           <Link to="/@me" ><button onClick={this.handleChange}>
             Login
