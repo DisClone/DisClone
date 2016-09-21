@@ -20,7 +20,7 @@ export function loadUser(user) {
   return function (dispatch){
     return axios({
     method: "GET",
-    url: "/api/login/all-data/1"
+    url: "/api/login/all-data/" + user
   }).then(response => {
     user = response.data;
     console.log(user);

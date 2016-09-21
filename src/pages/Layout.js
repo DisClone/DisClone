@@ -12,10 +12,10 @@ import store from '../app';
 class Layout extends React.Component {
   constructor(props) {
    super(props);
-   const persistedState = loadState();
-
+   const persistedState = parseInt(loadState());
+   
    if (persistedState !== undefined) {
-     store.dispatch(userObj.loadUser());
+     store.dispatch(userObj.loadUser(persistedState));
    }
    this.state = {
      persistedState: persistedState

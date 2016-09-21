@@ -4,8 +4,6 @@ import {bindActionCreators} from 'redux';
 import * as updateChat from '../../actions/channelAction';
 import * as messageActions from '../../actions/messageActions';
 
-
-
 class FriendsList extends React.Component{
   constructor(){
     super();
@@ -13,22 +11,21 @@ class FriendsList extends React.Component{
     this.state = {
       messageBoard : {message_text:''},
       // socket: window.io('http://localhost:3000'),
-
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   //takes in the element and assigns
   onMessageChange(e) {
-    const messageBoard = this.state.messageBoard;
-    messageBoard.message_text = e.target.value;
-    this.setState({messageBoard: messageBoard});
+      const messageBoard = this.state.messageBoard;
+      messageBoard.message_text = e.target.value;
+      this.setState({messageBoard: messageBoard});
   }
+  
   componentDidMount() {
     var self = this;
     // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
     self.props.user.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg)
       self.props.friend.privateChannel.messages.push(msg)
       self.props.actions.addMessage(msg)
     })
@@ -39,14 +36,20 @@ class FriendsList extends React.Component{
   //calls the function we set in ./actions/channelAction - (STEP-2)
   //note - this is the dispatch action that starts the flow
   handleChange(){
-    this.state.messageBoard.author_id = this.props.user.userData.id;
-    this.state.messageBoard.channel = this.props.friend.privateChannel.id;
-    this.state.messageBoard.is_private = true;
-    this.state.messageBoard.user = this.props.user.userData;
-    this.props.user.socket.emit('new-message', this.state.messageBoard);
-    // this.props.actions.addMessage(this.state.messageBoard);
+    if (this.state.messageBoard.message_text){
+      let input = this.refs.input;
+      this.state.messageBoard.author_id = this.props.user.userData.id;
+      this.state.messageBoard.channel = this.props.friend.privateChannel.id;
+      this.state.messageBoard.is_private = true;
+      this.state.messageBoard.user = this.props.user.userData;
+      this.props.user.socket.emit('new-message', this.state.messageBoard);
+      // this.props.actions.addMessage(this.state.messageBoard);
 
+      input.value = "";
+      this.state.messageBoard.message_text = "";
+    }
   }
+
   messageRow(message, index) {
     return <div key={index}> {this}  <br/> {message.message_text} </div>;
   }
@@ -63,8 +66,8 @@ class FriendsList extends React.Component{
 
   render(){
     let friend = "Chat with " + this.props.friend.display_name;
-    return(
 
+    return(
       <div className="channelContainer">
         <div className="settingsBar">
           <div>
@@ -75,17 +78,15 @@ class FriendsList extends React.Component{
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
             <div className="chatPost">{this.props.friend.privateChannel.messages.map(this.messageRow)}</div>
-
           <div className="channelChat">
           <div>
             <div className="chat-submit"
               onClick={this.handleChange}></div>
           </div>
-            <input className="chatInput"
+            <input className="chatInput" ref="input"
               placeholder={friend}
               value={this.state.messageBoard.message}
               onChange={this.onMessageChange}/>
-
           </div>
         </div>
       </div>
@@ -93,9 +94,7 @@ class FriendsList extends React.Component{
   }
 }
 
-// FriendsList.contextTypes = {
-//   location: React.PropTypes.object
-// }
+
 //---------------------STEP 1.5--------------------------------------
 //binds the dispatch option to our actions *PRETTY DOPE*
 //otherwise we'd have to reference the specific function inside the object we imported and dispatch it manually
@@ -118,8 +117,6 @@ function mapStateToProps(state, ownProps){
       friend = state.user.friends[i];
     }
   }
-
-  // for (let i = 0; i < state.user.)
 
   return {
     messages: state.messages,

@@ -5,8 +5,6 @@ import * as updateChat from '../../actions/channelAction';
 import * as usersChat from '../../actions/userAction';
 import * as messageActions from '../../actions/messageActions';
 
-
-
 class ChannelMessage extends React.Component{
   constructor(){
     super();
@@ -27,7 +25,6 @@ class ChannelMessage extends React.Component{
     var self = this;
     // self.props.socket.emit('channels', self.props.channel.id);
     self.props.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg);
       self.props.channel.messages.push(msg)
       self.props.actions.addMessage(msg);
     })
@@ -39,14 +36,17 @@ class ChannelMessage extends React.Component{
   //note - this is the dispatch action that starts the flow
 
     handleChange(){
-      this.state.messageBoard.author_id = this.props.userData.id;
-      this.state.messageBoard.channel = this.props.channel.id;
-      this.state.messageBoard.is_private = false;
-      this.state.messageBoard.user = this.props.userData;
-      this.props.socket.emit('new-message', this.state.messageBoard);
-      console.log("Sending message");
-      // this.props.actions.addMessage(this.state.messageBoard);
-
+      if (this.state.messageBoard.message_text) {
+        let input = this.refs.input;
+        this.state.messageBoard.author_id = this.props.userData.id;
+        this.state.messageBoard.channel = this.props.channel.id;
+        this.state.messageBoard.is_private = false;
+        this.state.messageBoard.user = this.props.userData;
+        this.props.socket.emit('new-message', this.state.messageBoard);
+        // this.props.actions.addMessage(this.state.messageBoard);
+        input.value = "";
+        this.state.messageBoard.message_text = "";
+      }
     }
 
   messageRow(message, index){
@@ -83,6 +83,7 @@ class ChannelMessage extends React.Component{
               </div>
             </div>
               <input className="chatInput"
+                ref="input"
                 placeholder="Chat in general..."
                 value={this.state.messageBoard.message}
                 onChange={this.onMessageChange}/>
@@ -110,12 +111,10 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-  // console.log('1', state, '2', ownProps)
 
   let groupId = ownProps.group.Id;
   let channelId = parseInt(ownProps.props.params.channel);
   let currentChannel = {};
-  console.log(state.user);
 
   for (let i = 0; i < ownProps.group.channels.length; i++) {
     if (ownProps.group.channels[i].id === channelId) {

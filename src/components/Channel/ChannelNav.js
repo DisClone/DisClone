@@ -51,15 +51,12 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state, ownProps){
-console.log(state, ownProps);
-
 
   let groupId = parseInt(ownProps.props.params.group);
   let group = {};
 
   for(let i = 0; i < state.user.groups.length; i++) {
     if (groupId === state.user.groups[i].id) {
-
       group = state.user.groups[i];
     }
   }
