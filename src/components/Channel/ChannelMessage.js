@@ -11,12 +11,12 @@ class ChannelMessage extends React.Component{
   constructor(){
     super();
 
-
     this.state = {
       messageBoard : {message_text:''},
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.messageRow = this.messageRow.bind(this);
   }
   //takes in the element and assigns
   onMessageChange(e) {
@@ -28,10 +28,24 @@ class ChannelMessage extends React.Component{
     var self = this;
     // self.props.socket.emit('channels', self.props.channel.id);
     self.props.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg);
-      self.props.channel.messages.push(msg)
-      self.props.actions.addMessage(msg);
+      if (self.props.channel.id == msg.channel) {
+        console.log("This is a message: ", msg);
+        self.props.channel.messages.push(msg)
+        self.props.actions.addMessage(msg);
+      }
+      else {
+        console.log(msg, self.props.channel.id);
+      }
     })
+
+    user.socket.on('group-users', function(users) {
+      consol.log(users);
+      // for (let i = 0; i < user.groups.length; i++) {
+      //   if (user.groups[i].id === users.groupId) {
+      //     users.groups[i].online_users = users.groupUsers;
+      //   }
+      // }
+    });
   }
 
   //---------------------------STEP 1---------------------------------
@@ -51,8 +65,7 @@ class ChannelMessage extends React.Component{
     }
 
   messageRow(message, index){
-    return <div key={index}> {this}  <br/> {message.message_text} </div>;
-
+      return <div key={message.id}>  <br/> {message.message_text} </div>;
   }
 
   render(){
@@ -77,6 +90,7 @@ class ChannelMessage extends React.Component{
         <div className="messageBoard">
           <div className="chatPost">{this.props.channel.messages.map(this.messageRow)}</div>
             <div className="channelChat">
+              {/*<div className="chatPost">{this.props.messages.map(this.messageRow)}</div>*/}
             <div>
               <div className="chat-submit"
                 onClick={this.handleChange}>
@@ -110,16 +124,16 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
+  // console.log('1', state, '2', ownProps)
 
-  let groupId = parseInt(ownProps.props.params.group);
+  let groupId = ownProps.group.Id;
   let channelId = parseInt(ownProps.props.params.channel);
-
   let currentChannel = {};
   console.log(state.user);
 
-  for (let i = 0; i < state.user.groups[groupId - 1].channels.length; i++) {
-    if (state.user.groups[groupId - 1].channels[i].id === channelId) {
-      currentChannel = state.user.groups[groupId - 1].channels[i];
+  for (let i = 0; i < ownProps.group.channels.length; i++) {
+    if (ownProps.group.channels[i].id === channelId) {
+      currentChannel = ownProps.group.channels[i];
     }
   }
 

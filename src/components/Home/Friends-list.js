@@ -25,12 +25,18 @@ class FriendsList extends React.Component{
     this.setState({messageBoard: messageBoard});
   }
   componentDidMount() {
+    console.log("Component mounted")
     var self = this;
     // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
     self.props.user.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg)
-      self.props.friend.privateChannel.messages.push(msg)
-      self.props.actions.addMessage(msg)
+      if (self.props.friend.privateChannel.id === msg.channel) {
+        console.log("This is a message: ", msg)
+        self.props.friend.privateChannel.messages.push(msg)
+        self.props.actions.addMessage(msg)
+      }
+      else {
+        console.log(msg.channel, self.props.friend.privateChannel.id);
+      }
     })
   }
 
@@ -110,7 +116,6 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-
 
   let friend = {};
 

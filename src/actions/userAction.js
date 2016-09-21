@@ -21,7 +21,6 @@ export function loadUser(user) {
     return axios({
     method: "GET",
     url: "/api/login/all-data/1"
-
   }).then(response => {
     user = response.data;
     console.log(user);
@@ -35,13 +34,6 @@ export function loadUser(user) {
         user.socket.emit('channels', user.groups[i].channels[k].id);
       }
     }
-    user.socket.on('group-users', function(users) {
-      for (let i = 0; i < user.groups.length; i++) {
-        if (user.groups[i].id === users.groupId) {
-          users.groups[i].online_users = users.groupUsers;
-        }
-      }
-    });
     return response.data;
 
   }).then( response => {
@@ -49,3 +41,41 @@ export function loadUser(user) {
       });
     };
   }
+
+export function authenticate(data) {
+
+  return function(dispatch) {
+    return axios({
+      method: "PUT",
+      url: "/api/login/auth",
+      data: data
+    }).then(response => {
+      let userId = response.data[0].id
+      if (response.status == 200) {
+        return axios({
+        method: "GET",
+        url: "/api/login/all-data/" + userId
+      }).then(response => {
+        user = response.data;
+        console.log(user);
+        user.socket = window.io('http://localhost:3000/');
+        for (let i = 0; i < user.friends.length; i++) {
+          user.socket.emit('channels', user.friends[i].privateChannel.id);
+        }
+        for (let i = 0; i < user.groups.length; i++) {
+          for (let k = 0; k < user.groups[i].channels.length; k++) {
+            user.socket.emit('channels', user.groups[i].channels[k].id);
+          }
+        }
+        return response.data;
+      }).then( response => {
+            dispatch(loadUserSuccess(user));
+          });
+        } else {
+        return response;
+      }
+
+    })
+  }
+
+}

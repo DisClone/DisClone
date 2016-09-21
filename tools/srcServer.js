@@ -6,9 +6,8 @@ import open from 'open';
 import configSettings from './config.js';
 import massive from 'massive';
 import bodyParser from 'body-parser';
-import moment from 'moment';
 
-
+import moment from "moment";
 
 /* eslint-disable no-console */
 
@@ -23,7 +22,6 @@ const massiveInstance = massive.connectSync({connectionString : connectionString
 app.set('db', massiveInstance);
 
 const db = app.get('db');
-
 const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
@@ -65,10 +63,10 @@ io.on('connection', function(socket) {
     console.log("Joined " + groupNum);
     for (let i = 0;  i < connections.length; i++) {
       if (connections[i].groups[groupNum]) {
-        groupUsers.push(connections[i].user_id);
+        returnObj.groupUsers.push(connections[i].user_id);
       }
     }
-    socket.emit('group-users');
+    // socket.emit('group-users', returnObj);
     // let groupUsers = getAllRoomMembers('group' + group);
     console.log("Users in group:", returnObj);
 
@@ -96,6 +94,7 @@ io.on('connection', function(socket) {
         }
       });
     }
+
     console.log(msg);
 
     // io.to("1").emit('recieve-message', msg);
@@ -141,6 +140,7 @@ app.get('/api/test', function(req, res) {
 
 //BIG MONSTER ENDPOINT FOR DATA COLLECTION ON LOGIN
 app.get('/api/login/all-data/:id', userCtrl.getDataOnLogin);
+app.put('/api/login/auth', userCtrl.verifyLogin);
 
 //Message Endpoints (partially for test purposes and building front end, will do some of this through sockets once I have them working back here)
 
