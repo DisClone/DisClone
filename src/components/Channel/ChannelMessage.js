@@ -12,25 +12,26 @@ class ChannelMessage extends React.Component{
     super();
 
     this.state = {
-      messageBoard : {message_text:''},
+      messageBoard : {message_text:''}
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   //takes in the element and assigns
+
+  componentDidMount() {
+    const self = this;
+    // self.props.socket.emit('channels', self.props.channel.id);
+    self.props.socket.on('recieve-message', function(msg) {
+      console.log("This is a message: ", msg);
+      self.props.channel.messages.push(msg);
+      self.props.actions.addMessage(msg);
+    });
+  }
   onMessageChange(e) {
     const messageBoard = this.state.messageBoard;
     messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
-  }
-  componentDidMount() {
-    var self = this;
-    // self.props.socket.emit('channels', self.props.channel.id);
-    self.props.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg);
-      self.props.channel.messages.push(msg)
-      self.props.actions.addMessage(msg);
-    })
   }
 
   //---------------------------STEP 1---------------------------------
