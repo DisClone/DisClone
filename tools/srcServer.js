@@ -12,6 +12,7 @@ import moment from "moment";
 /* eslint-disable no-console */
 
 const port = 3000;
+
 const compiler = webpack(config);
 
 const connectionString = configSettings.connectionString;
@@ -20,22 +21,25 @@ const app = module.exports = express();
 const massiveInstance = massive.connectSync({connectionString : connectionString});
 
 app.set('db', massiveInstance);
-
 const db = app.get('db');
+
+
+app.use(require('webpack-hot-middleware')(compiler));
+
+app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/../public'));
+
 const http = require('http').Server(app);
 
 const io = require('socket.io')(http);
-
 const connections = [];
 
 io.on('connection', function(socket) {
   connections.push(socket);
   console.log('we have a connection');
   console.log("Query: ", socket.handshake.query);
-  // socket.emit("connect");
   socket.on('channels', function(userChannel) {
-    // console.log(userChannel);
-    // for (var i = 0; i < userChannels.length; i++) {
       socket.join(userChannel);
       console.log("Joined channel", userChannel);
     // }
@@ -51,7 +55,6 @@ io.on('connection', function(socket) {
           io.to(msg.channel).emit('recieve-message', msg);
         }
       });
-
     }
     else {
       db.messages.post_new_message([msg.message_text, msg.message_time, true, msg.author_id, null, msg.channel], (err, response) => {
@@ -78,17 +81,6 @@ io.on('connection', function(socket) {
     console.log('Mounted');
   });
 });
-
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
-
-app.use(require('webpack-hot-middleware')(compiler));
-
-app.use(bodyParser.json());
-
-app.use(express.static(__dirname + '/../src'));
 
 const userCtrl = require('./controllers/userController.js');
 const messageCtrl = require('./controllers/messageController.js');
@@ -155,7 +147,7 @@ app.delete('/api/channels/delete/:channel_id', channelCtrl.deleteChannelById);
 
 
 app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname + '/../src', 'index.html'));
+  response.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
 http.listen(port, function(err) {

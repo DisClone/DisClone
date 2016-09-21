@@ -18,7 +18,7 @@ class Landing extends React.Component{
      this.state = {
        email: "",
        password: ""
-     }
+     };
   }
 
 

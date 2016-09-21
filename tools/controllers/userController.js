@@ -15,7 +15,7 @@ module.exports = {
           res.sendStatus(401);
         }
       }
-    })
+    });
 
   },
 
@@ -67,7 +67,7 @@ module.exports = {
 
                   const messageArr = response;
                   for (let i = 0; i < dataMonster.groups.length; i++) {
-                    console.log(dataMonster.groups[i]);
+                    if(!dataMonster.groups[i].channels){continue;}
                     for (let j = 0; j < dataMonster.groups[i].channels.length; j++) {
                       dataMonster.groups[i].channels[j].messages = [];
                       for (let k = 0; k < messageArr.length; k++) {

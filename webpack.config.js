@@ -1,47 +1,22 @@
-module.exports = [{
-    entry: {
-        main: './src/app.js'
-    },
-    output: {
-        filename: 'bundle.js',
-        path: './public/script'
-    },
-    devtool: 'sourcemap',
-    module: {
-        loaders: [{
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            loader: 'babel'
-        }, {
-            test: /\.css$/,
-            exclude: /node_modules/,
-            loader: 'css'
-        }]
-    },
-    node: {
-        fs: "empty"
-    }
-}, {
-    entry: {
-        main: './tools/srcServer.js'
-    },
-    output: {
-        filename: 'bundle.js',
-        path: './'
-    },
-    devtool: 'sourcemap',
-    module: {
-        loaders: [{
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            loader: 'babel'
-        }, {
-            test: /\.css$/,
-            exclude: /node_modules/,
-            loader: 'css'
-        }]
-    },
-    node: {
-        fs: "empty"
-    }
-}];
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.dev');
+
+const config = Object.create(baseConfig);
+config.debug = true;
+
+config.entry = [
+  'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+  './src/app'
+];
+
+
+config.module.loaders.push({
+  test: /\.module\.css$/,
+  loaders: [
+    'style-loader',
+    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!'
+  ]
+});
+
+
+module.exports = config;

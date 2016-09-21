@@ -7,8 +7,8 @@ export default {
   noInfo: false,
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-    './src/app'
+    'webpack-hot-middleware/client?reload=true',//note that it reloads the page if hot module reloading fails.
+    path.join(__dirname, 'src/app.js')
   ],
   target: 'web', //can change to node to run with backend
   output: {
@@ -16,15 +16,15 @@ export default {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: './src',
-    historyApiFallback: true,
-    port: 3000
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+  // devServer: {
+  //   contentBase: './src',
+  //   historyApiFallback: true,
+  //   port: 3000
+  // },
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin(),
+  //   new webpack.NoErrorsPlugin()
+  // ],
   module: {
     loaders: [
       {
