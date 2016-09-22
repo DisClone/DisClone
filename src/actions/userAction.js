@@ -28,13 +28,13 @@ export function loadUser(user) {
     user.socket = window.io('http://localhost:3000/', {query: "user_id=" + user.userData.id});
       user.socket.on('recieve-message', (msg) => {
         if (msg.is_private) {
-          // console.log("Private message:",msg);
+          console.log("Private message:",msg);
           user.friends[msg.channel_index].privateChannel.messages.push(msg);
           dispatch(messageActions.addMessage(msg));
 
         }
         else {
-          // console.log("Group message:",msg);
+          console.log("Group message:",msg);
           user.groups[msg.group_index].channels[msg.channel_index].messages.push(msg);
           dispatch(messageActions.addMessage(msg));
         }
