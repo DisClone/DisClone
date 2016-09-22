@@ -29,7 +29,9 @@ const io = require('socket.io')(http);
 const connections = [];
 
 io.on('connection', function(socket) {
+  socket.groups = {};
   connections.push(socket);
+  connections[connections.length - 1].user_id = socket.handshake.query.user_id;
   console.log('we have a connection');
   console.log("Query: ", socket.handshake.query);
   // socket.emit("connect");
@@ -39,6 +41,35 @@ io.on('connection', function(socket) {
       socket.join(userChannel);
       console.log("Joined channel", userChannel);
     // }
+  });
+//   function getAllRoomMembers(room, _nsp) {
+//     var roomMembers = [];
+//     var nsp = (typeof _nsp !== 'string') ? '/' : _nsp;
+//
+//     for( var member in io.nsps[nsp].adapter.rooms[room] ) {
+//         roomMembers.push(member);
+//     }
+//     console.log(roomMembers);
+//     return roomMembers;
+// }
+  socket.on('groups', function(group) {
+    let groupNum = 'group' + group;
+    const returnObj = {
+      groupUsers: [],
+      groupId: group,
+    };
+    socket.join(groupNum);
+    socket.groups[groupNum] = groupNum;
+    console.log("Joined " + groupNum);
+    for (let i = 0;  i < connections.length; i++) {
+      if (connections[i].groups[groupNum]) {
+        returnObj.groupUsers.push(connections[i].user_id);
+      }
+    }
+    // socket.emit('group-users', returnObj);
+    // let groupUsers = getAllRoomMembers('group' + group);
+    console.log("Users in group:", returnObj);
+
   });
   socket.on('new-message', function(msg) {
     msg.message_time = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
@@ -143,7 +174,7 @@ app.post('/api/group-users/join', groupCtrl.joinGroupByUserId);
 app.delete('/api/group-users/remove', groupCtrl.removeFromGroupByUserId);
 
 //Channel Endpoints
-app.get('/api/channels/group/:id', channelCtrl.getChannelsByParentGroup);
+app.get('/api/cha nnels/group/:id', channelCtrl.getChannelsByParentGroup);
 
 app.post('/api/channels/group/create', channelCtrl.createNewGroupChannel);
 

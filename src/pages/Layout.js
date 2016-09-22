@@ -28,6 +28,26 @@ class Layout extends React.Component {
    }
  }
 
+ // componentDidMount() {
+ //   console.log("We have mounted the component");
+ //   const self = this;
+ //   self.props.user.socket.on('recieve-message', function(msg) {
+ //     console.log("Message for you, sir.");
+ //     if (msg.is_private) {
+ //       console.log("Private message:",msg);
+ //       self.props.user.friends[msg.channel_index].privateChannel.messages.push(msg);
+ //       self.props.actions.addMessage(msg)
+ //
+ //     }
+ //     else {
+ //       console.log("Group message:",msg);
+ //       self.props.user.groups[msg.group_index].channels[msg.channel_index].messages.push(msg);
+ //       self.props.actions.addMessage(msg)
+ //
+ //     }
+ //   })
+ // }
+
   render(){
 
     const mainContainer = {width: "100vw", height:"100vh", margin:"0px", backgroundColor:"#1E2124", display:"flex", color:"#fff"};

@@ -24,15 +24,21 @@ class FriendsList extends React.Component{
     messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
-  componentDidMount() {
-    var self = this;
-    // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
-    self.props.user.socket.on('recieve-message', function(msg) {
-      console.log("This is a message: ", msg)
-      self.props.friend.privateChannel.messages.push(msg)
-      self.props.actions.addMessage(msg)
-    })
-  }
+  // componentDidMount() {
+  //   console.log("Component mounted")
+  //   var self = this;
+  //   // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
+  //   self.props.user.socket.on('recieve-message', function(msg) {
+  //     if (self.props.friend.privateChannel.id === msg.channel) {
+  //       console.log("This is a message: ", msg)
+  //       self.props.friend.privateChannel.messages.push(msg)
+  //       self.props.actions.addMessage(msg)
+  //     }
+  //     else {
+  //       console.log(msg.channel, self.props.friend.privateChannel.id);
+  //     }
+  //   })
+  // }
 
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
@@ -43,6 +49,7 @@ class FriendsList extends React.Component{
     this.state.messageBoard.channel = this.props.friend.privateChannel.id;
     this.state.messageBoard.is_private = true;
     this.state.messageBoard.user = this.props.user.userData;
+    this.state.messageBoard.channel_index = this.props.friend.privateChannel.channel_index;
     this.props.user.socket.emit('new-message', this.state.messageBoard);
     // this.props.actions.addMessage(this.state.messageBoard);
 
