@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as updateChat from '../actions/channelAction';
 import { Link } from "react-router";
-import configureStore from '../store';
 import {loadUser, authenticate} from '../actions/userAction';
-import store from '../app';
 
 
 class Landing extends React.Component{
@@ -14,7 +12,6 @@ class Landing extends React.Component{
      this.handleChange= this.handleChange.bind(this);
      this.onPasswordChange = this.onPasswordChange.bind(this);
      this.onEmailChange = this.onEmailChange.bind(this);
-
      this.state = {
        email: "",
        password: ""
@@ -39,14 +36,11 @@ handleChange () {
     let dataObj = {}
     dataObj.password = this.state.password;
     dataObj.email = this.state.email;
-    store.dispatch(authenticate(dataObj))
+    this.props.props.actions.authenticate(dataObj);
   }
-
 }
 
 render() {
-
-
   return (
     <div className="landing-container  flex-all-mid">
       <div className="login-container flex">
@@ -59,16 +53,15 @@ render() {
         </div>
         <div className="login-auth">
           <h3 className="flex-horz-cent margin-bottom">WELCOME BACK.</h3>
-
           <label>EMAIL</label>
           <input value={this.state.email}  onChange={this.onEmailChange} className="max-w"></input>
-
           <label>PASSWORD</label>
           <input type="password" value={this.state.password} onChange={this.onPasswordChange} className="max-w"></input>
-
-          <Link to="/@me" ><button onClick={this.handleChange}>
-            Login
-          </button></Link>
+          <Link to="/@me" >
+            <button onClick={this.handleChange}>
+              Login
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -79,13 +72,13 @@ render() {
 
 function mapDispatchToProps(dispatch){
     return {
-      // actions: bindActionCreators(updateChat,dispatch)
+      actions: bindActionCreators(authenticate,dispatch)
     };
 }
 
 function mapStateToProps(state, ownProps){
   return {
-    // users: state.user.friends
+    users: state.user.friends
   };
 }
 

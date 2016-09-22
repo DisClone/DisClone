@@ -6,16 +6,16 @@ import * as userObj from '../actions/userAction';
 import Landing from './Landing';
 import * as messageActions from '../actions/messageActions';
 import { loadState } from '../localstorage';
-// import { loadUser } from '../actions/userAction';
-import store from '../app';
+import { loadUser } from '../actions/userAction';
 
 class Layout extends React.Component {
   constructor(props) {
    super(props);
-   const persistedState = loadState();
+   const persistedState = parseInt(loadState());
 
    if (persistedState !== undefined) {
-     store.dispatch(userObj.loadUser());
+     console.log(this.props)
+     this.props.actions.loadUser(persistedState);
    }
    this.state = {
      persistedState: persistedState
@@ -82,10 +82,10 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state, ownProps){
-
   return {
     user: state.user,
     messages: state.messages
   };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
