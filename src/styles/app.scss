@@ -22,12 +22,6 @@ body{
     margin: auto;
     margin-bottom: 1rem;
   }
-  div:hover {
-    background-color: rgb(114, 137, 218);
-    border-radius: 15px;
-    padding: 0px;
-    border: 1px solid rgb(114, 137, 218);
-  }
 }
 
 .navigation {
@@ -165,12 +159,27 @@ textarea:-ms-input-placeholder {
   align-items: center;
   margin-bottom: 8px;
   padding: 5px 0px 5px 20px;
+  border-left: 2px solid transparent;
 }
 
 .dm-friends:hover {
     border-left: 2px solid #3A425A;
     background: linear-gradient(to right, #1E2124, #2E3136);
     color: white;
+}
+
+.dm-chat {
+  display: flex;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  border-bottom: 1px solid #3d424a;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
 }
 
 .settingsBar {
@@ -301,7 +310,21 @@ textarea:-ms-input-placeholder {
   padding-left: 10px;
 }
 
-
+.chat-name {
+  color: white;
+  font-size: 15px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: baseline;
+  p {
+    margin: 0;
+  }
+  p:nth-of-type(2) {
+    color: #5c616a;
+    font-size: 12px;
+    margin-left: 10px
+  }
+}
 .scroll {
   overflow-y: scroll;
   height: 100%;
@@ -416,11 +439,19 @@ textarea:-ms-input-placeholder {
 .avatar {
   width: 90%;
   margin: auto;
+  a {
+    cursor: default;
+  }
   img {
-  width: 45px;
-  height: 45px;
-  margin: 7.5px;
-  border-radius: 50%;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    margin: 7.5px;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.69, -1.89, 0.31, 2.81);
+  }
+  img:hover {
+    border-radius: 15px;
   }
 }
 

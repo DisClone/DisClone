@@ -7,25 +7,24 @@ import * as messageActions from '../../actions/messageActions';
 class FriendsList extends React.Component{
   constructor(){
     super();
-
     this.state = {
       messageBoard : {message_text:''},
-      // socket: window.io('http://localhost:3000'),
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   //takes in the element and assigns
   onMessageChange(e) {
       const messageBoard = this.state.messageBoard;
       messageBoard.message_text = e.target.value;
       this.setState({messageBoard: messageBoard});
   }
-  
+
   componentDidMount() {
     var self = this;
-    // self.props.user.socket.emit('channels', self.props.friend.privateChannel.id);
     self.props.user.socket.on('recieve-message', function(msg) {
+      console.log("got this far");
       self.props.friend.privateChannel.messages.push(msg)
       self.props.actions.addMessage(msg)
     })
@@ -43,19 +42,38 @@ class FriendsList extends React.Component{
       this.state.messageBoard.is_private = true;
       this.state.messageBoard.user = this.props.user.userData;
       this.props.user.socket.emit('new-message', this.state.messageBoard);
-      // this.props.actions.addMessage(this.state.messageBoard);
-
       input.value = "";
       this.state.messageBoard.message_text = "";
     }
   }
 
   messageRow(message, index) {
-    return <div key={index}> {this}  <br/> {message.message_text} </div>;
+    let picture = "";
+    let user = "";
+    let time = message.message_time.split(',');
+    time = time[2];
+
+    if (this[0][2] === message.author_id) {
+      picture = this[0][0];
+      user = this[0][1];
+    } else {
+      picture = this[1][0];
+      user = this[1][1];
+    }
+
+    return <div key={index}>
+    <div  className="dm-chat">
+    <img src={picture}/>
+      <div>
+        <div className="chat-name">
+          <p>{user}</p> <p>Today at {time}</p>
+        </div>{message.message_text}
+      </div>
+    </div>
+  </div>;
   }
 
   getFriend(id, users) {
-
     for (let i = 0; i < users.length; i++) {
       if (parseInt(id) === users[i].id) {
         return users[i].firstName;
@@ -66,6 +84,8 @@ class FriendsList extends React.Component{
 
   render(){
     let friend = "Chat with " + this.props.friend.display_name;
+    let friendData = [this.props.friend.avatar, this.props.friend.display_name, parseInt(this.props.friend.id)];
+    let userData = [this.props.user.userData.avatar, this.props.user.userData.display_name, this.props.user.userData.id];
 
     return(
       <div className="channelContainer">
@@ -77,7 +97,7 @@ class FriendsList extends React.Component{
         </div>
         <div className="messageBoard">
           <h2>This is the beginning of your direct message history with @{this.props.friend.display_name}</h2>
-            <div className="chatPost">{this.props.friend.privateChannel.messages.map(this.messageRow)}</div>
+            <div className="chatPost">{this.props.friend.privateChannel.messages.map(this.messageRow, [friendData, userData])}</div>
           <div className="channelChat">
           <div>
             <div className="chat-submit"
@@ -109,7 +129,6 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-
   let friend = {};
 
   for (let i = 0; i < state.user.friends.length; i++) {

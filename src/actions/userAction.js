@@ -6,6 +6,7 @@ import axios from 'axios';
 export function loadUserSuccess(user) {
   return { type: types.LOAD_USER_SUCCESS, user};
 }
+
 export function grabUsers(users) {
   return { type: types.GRAB_USERS, users};
 }

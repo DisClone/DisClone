@@ -35,7 +35,7 @@ create table channels (
 create table messages (
   id serial primary key,
   message_text varchar(400),
-  message_time varchar(40),
+  message_time varchar(50),
   is_group_message boolean,
   is_edited boolean,
   author_id integer references users(id),

@@ -30,15 +30,8 @@ const connections = [];
 
 io.on('connection', function(socket) {
   connections.push(socket);
-  console.log('we have a connection');
-  console.log("Query: ", socket.handshake.query);
-  // socket.emit("connect");
   socket.on('channels', function(userChannel) {
-    // console.log(userChannel);
-    // for (var i = 0; i < userChannels.length; i++) {
       socket.join(userChannel);
-      console.log("Joined channel", userChannel);
-    // }
   });
   socket.on('new-message', function(msg) {
     msg.message_time = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
@@ -64,15 +57,6 @@ io.on('connection', function(socket) {
       });
     }
 
-    console.log(msg);
-
-    // io.to("1").emit('recieve-message', msg);
-    // db.new_test_msg([msg.body, msg.user], function(err, response) {
-    //   console.log(err, response);
-    // });
-    // db.get_all_msgs(function(err, response) {
-    //   console.log(response);
-    // });
   });
   socket.on('test', function() {
     console.log('Mounted');

@@ -50,12 +50,36 @@ class ChannelMessage extends React.Component{
     }
 
   messageRow(message, index){
-    return <div key={index}> {this}  <br/> {message.message_text} </div>;
+    // let picture = "";
+    // let user = "";
+    let time = message.message_time.split(',');
+    time = time[2];
 
+    // if (this[0][2] === message.author_id) {
+    //   picture = this[0][0];
+    //   user = this[0][1];
+    // } else {
+    //   picture = this[1][0];
+    //   user = this[1][1];
+    // }
+    console.log(message);
+    return <div key={index}>
+    <div  className="dm-chat">
+    {/*<img src={picture}/>*/}
+      <div>
+        <div className="chat-name">
+          {message.message_text}{/*<p>{user}</p>*/}<p></p>
+          <p>Today at {time}</p>
+        </div>
+      </div>
+    </div>
+  </div>;
   }
 
   render(){
-
+    // let friend = "Chat with " + this.props.friend.display_name;
+    // let friendData = [this.props.friend.avatar, this.props.friend.display_name, parseInt(this.props.friend.id)];
+    // let userData = [this.props.user.userData.avatar, this.props.user.userData.display_name, this.props.user.userData.id];
     return(
       <div className="channelContainer">
         <div className="settingsBar">
@@ -73,7 +97,7 @@ class ChannelMessage extends React.Component{
               </ul>
            </div>
          </div>
-        <div className="messageBoard">
+        <div id="messageBoard">
           <div className="chatPost">{this.props.channel.messages.map(this.messageRow)}</div>
             <div className="channelChat">
               {/*<div className="chatPost">{this.props.messages.map(this.messageRow)}</div>*/}
@@ -111,7 +135,6 @@ function mapDispatchToProps(dispatch){
 //You'll notice the 'connect' in the export statement at the bottom. This is how we subscribe to our store.
 //the state parameter here is the state in our actual store or (updated state).
 function mapStateToProps(state, ownProps){
-
   let groupId = ownProps.group.Id;
   let channelId = parseInt(ownProps.props.params.channel);
   let currentChannel = {};
