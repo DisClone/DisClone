@@ -28,10 +28,20 @@ const io = require('socket.io')(http);
 
 const connections = [];
 
+io.on('disconnection', function(socket) {
+  db.users.set_user_offline(connections[socket.indexNum].user_id, (err, response) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  connections.splice(socket.indexNum, 1);
+});
+
 io.on('connection', function(socket) {
   socket.groups = {};
   connections.push(socket);
   connections[connections.length - 1].user_id = socket.handshake.query.user_id;
+  socket.indexNum = connections.length-1;
   console.log('we have a connection');
   console.log("Query: ", socket.handshake.query);
   // socket.emit("connect");

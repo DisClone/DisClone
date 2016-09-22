@@ -1,4 +1,4 @@
--- UPDATED USERS SCHEMA 9/7
+-- UPDATED USERS SCHEMA 9/21
 
 create table users (
   id serial primary key,
@@ -6,8 +6,11 @@ create table users (
   password varchar(300),
   email varchar(80),
   display_name varchar(40),
-  avatar varchar(255)
+  avatar varchar(255),
+  online boolean not null default 'false'
 );
+
+alter table users add column online boolean not null default 'false';
 
 create table groups (
   id serial primary key,

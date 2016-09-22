@@ -15,13 +15,18 @@ module.exports = {
           res.sendStatus(401);
         }
       }
-    })
+    });
 
   },
 
   getDataOnLogin(req, res, next) {
     let dataMonster = {};
     if (req.params.id) {
+      db.users.set_user_online(req.params.id, (err, response) => {
+        if (err) {
+          console.log(err);
+        }
+      });
       db.users.get_user_by_id(req.params.id, (err, response) => {
         if (err) {
           console.log(err);
