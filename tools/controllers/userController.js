@@ -51,7 +51,9 @@ module.exports = {
                   new BluePromise((resolve, reject) => {
 
                     for (let i = 0; i < dataMonster.groups.length; i++) {
-
+                      db.users.get_users_by_group_id(dataMonster.groups[i].id, (err, resp) => {
+                        dataMonster.groups[i].users = resp;
+                      });
                       db.channels.get_channels_by_parent_group(dataMonster.groups[i].id, (err, response) => {
 
                         dataMonster.groups[i].channels = response;
@@ -94,6 +96,7 @@ module.exports = {
                       }
                       db.users.get_all_users((err, response) => {
                         let userArr = response;
+
                         dataMonster.friends = [];
                         for (let i = 0; i < userArr.length; i++) {
                           if (userArr[i].id == req.params.id) {
@@ -101,13 +104,14 @@ module.exports = {
                             i--;
                           }
                         }
+                        const userArr2 = userArr;
                         if (err) {
                           console.log(err);
                           res.set(401).json("There was an error retrieving the user's friends");
                         }
                         else {
-                          for(let i = 0; i < userArr.length; i++) {
 
+                          for(let i = 0; i < userArr.length; i++) {
                             for (let k = 0; k < privateChannels.length; k++) {
                               if (privateChannels[k].private_recipient2 === userArr[i].id || privateChannels[k].private_recipient1 === userArr[i].id) {
                                 userArr[i].privateChannel = privateChannels[k];

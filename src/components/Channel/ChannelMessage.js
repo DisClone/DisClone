@@ -14,6 +14,7 @@ class ChannelMessage extends React.Component{
     };
     this.onMessageChange = this.onMessageChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.messageRow = this.messageRow.bind(this);
   }
   //takes in the element and assigns
   onMessageChange(e) {
@@ -21,14 +22,40 @@ class ChannelMessage extends React.Component{
     messageBoard.message_text = e.target.value;
     this.setState({messageBoard: messageBoard});
   }
-  componentDidMount() {
-    var self = this;
-    // self.props.socket.emit('channels', self.props.channel.id);
-    self.props.socket.on('recieve-message', function(msg) {
-      self.props.channel.messages.push(msg)
-      self.props.actions.addMessage(msg);
-    })
-  }
+// <<<<<<< HEAD
+//   componentDidMount() {
+//     var self = this;
+//     // self.props.socket.emit('channels', self.props.channel.id);
+//     self.props.socket.on('recieve-message', function(msg) {
+//       self.props.channel.messages.push(msg)
+//       self.props.actions.addMessage(msg);
+//     })
+//   }
+// =======
+  // componentDidMount() {
+  //   var self = this;
+  //   // self.props.socket.emit('channels', self.props.channel.id);
+  //   self.props.socket.on('recieve-message', function(msg) {
+  //     if (self.props.channel.id == msg.channel) {
+  //       console.log("This is a message: ", msg);
+  //       self.props.channel.messages.push(msg)
+  //       self.props.actions.addMessage(msg);
+  //     }
+  //     else {
+  //       console.log(msg, self.props.channel.id);
+  //     }
+  //   })
+
+  //   user.socket.on('group-users', function(users) {
+  //     console.log(users);
+  //     // for (let i = 0; i < user.groups.length; i++) {
+  //     //   if (user.groups[i].id === users.groupId) {
+  //     //     users.groups[i].online_users = users.groupUsers;
+  //     //   }
+  //     // }
+  //   });
+  // }
+// >>>>>>> master
 
   //---------------------------STEP 1---------------------------------
   //the actions: is defined at the bottom of the page within mapStateToProps
@@ -42,6 +69,8 @@ class ChannelMessage extends React.Component{
         this.state.messageBoard.channel = this.props.channel.id;
         this.state.messageBoard.is_private = false;
         this.state.messageBoard.user = this.props.userData;
+        this.state.messageBoard.group_index = this.props.group.group_index;
+        this.state.messageBoard.channel_index = this.props.channel.channel_index;
         this.props.socket.emit('new-message', this.state.messageBoard);
         // this.props.actions.addMessage(this.state.messageBoard);
         input.value = "";
@@ -50,19 +79,10 @@ class ChannelMessage extends React.Component{
     }
 
   messageRow(message, index){
-    // let picture = "";
-    // let user = "";
+
     let time = message.message_time.split(',');
     time = time[2];
 
-    // if (this[0][2] === message.author_id) {
-    //   picture = this[0][0];
-    //   user = this[0][1];
-    // } else {
-    //   picture = this[1][0];
-    //   user = this[1][1];
-    // }
-    console.log(message);
     return <div key={index}>
     <div  className="dm-chat">
     {/*<img src={picture}/>*/}
@@ -77,10 +97,8 @@ class ChannelMessage extends React.Component{
   }
 
   render(){
-    // let friend = "Chat with " + this.props.friend.display_name;
-    // let friendData = [this.props.friend.avatar, this.props.friend.display_name, parseInt(this.props.friend.id)];
-    // let userData = [this.props.user.userData.avatar, this.props.user.userData.display_name, this.props.user.userData.id];
-    return(
+
+  return(
       <div className="channelContainer">
         <div className="settingsBar">
           <div>

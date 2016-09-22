@@ -44,11 +44,11 @@ class ChannelNav extends React.Component{
 
   }
 
-function mapDispatchToProps(dispatch){
-    return {
-      actions: bindActionCreators(usersChat,dispatch)
-    };
-}
+// function mapDispatchToProps(dispatch){
+//     return {
+//       actions: bindActionCreators(usersChat,dispatch)
+//     };
+// }
 
 function mapStateToProps(state, ownProps){
 
@@ -67,4 +67,4 @@ function mapStateToProps(state, ownProps){
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelNav);
+export default connect(mapStateToProps)(ChannelNav);

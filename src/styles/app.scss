@@ -22,6 +22,12 @@ body{
     margin: auto;
     margin-bottom: 1rem;
   }
+  div:hover {
+    // background-color: rgb(114, 137, 218);
+    // border-radius: 15px;
+    // padding: 0px;
+    // border: 1px solid rgb(114, 137, 218);
+  }
 }
 
 .navigation {
@@ -443,12 +449,13 @@ textarea:-ms-input-placeholder {
     cursor: default;
   }
   img {
-    cursor: pointer;
-    width: 45px;
-    height: 45px;
-    margin: 7.5px;
-    border-radius: 50%;
-    transition: all 0.4s cubic-bezier(0.69, -1.89, 0.31, 2.81);
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  margin: 7.5px;
+  border-radius: 50%;
+  // padding: 0px 5px 5px 5px;
+  transition: all 0.4s cubic-bezier(0.69, -1.89, 0.31, 2.81);
   }
   img:hover {
     border-radius: 15px;
