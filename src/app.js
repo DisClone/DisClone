@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from "react";
 import ReactDOM from "react-dom";
-import { loadState, saveState} from "./localstorage";
+import { saveState} from "./localstorage";
 require('./styles/app.scss');
 
 //imports & initializing store
@@ -10,7 +10,6 @@ import configureStore from './store';
 import {loadUser} from './actions/userAction';
 import throttle from "lodash/throttle";
 
-const persistedState = loadState();
 // const store = configureStore();
 const store = configureStore();
 

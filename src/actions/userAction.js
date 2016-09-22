@@ -7,6 +7,7 @@ import * as messageActions from './messageActions';
 export function loadUserSuccess(user) {
   return { type: types.LOAD_USER_SUCCESS, user};
 }
+
 export function grabUsers(users) {
   return { type: types.GRAB_USERS, users};
 }
@@ -21,7 +22,7 @@ export function loadUser(user) {
   return function (dispatch){
     return axios({
     method: "GET",
-    url: "/api/login/all-data/1"
+    url: "/api/login/all-data/" + user
   }).then(response => {
     user = response.data;
     console.log(user);
