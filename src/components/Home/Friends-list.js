@@ -58,7 +58,7 @@ class FriendsList extends React.Component{
       this.state.messageBoard.author_id = this.props.user.userData.id;
       this.state.messageBoard.channel = this.props.friend.privateChannel.id;
       this.state.messageBoard.is_private = true;
-      this.state.messageBoard.user = this.props.user.userData;
+      this.state.messageBoard.user = this.props.userData;
       this.state.messageBoard.channel_index = this.props.friend.privateChannel.channel_index;
       this.props.user.socket.emit('new-message', this.state.messageBoard);
       input.value = "";
