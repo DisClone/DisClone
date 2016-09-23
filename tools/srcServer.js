@@ -86,6 +86,7 @@ io.on('connection', function(socket) {
           console.log(err);
         }
         else {
+          console.log("Private Message:", msg);
           io.to(msg.channel).emit('recieve-message', msg);
         }
       });
@@ -97,6 +98,7 @@ io.on('connection', function(socket) {
           console.log(err);
         }
         else {
+          console.log("Group Message:", msg);
           io.to(msg.channel).emit('recieve-message', msg);
         }
       });

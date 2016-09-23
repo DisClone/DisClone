@@ -18,7 +18,7 @@ let user;
 
 //THUNKS
 export function loadUser(user) {
-
+  console.log(user);
   return function (dispatch){
     return axios({
     method: "GET",
