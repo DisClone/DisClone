@@ -6,6 +6,8 @@ OVERVIEW
 
 Disclone is a Discord clone.  The dev team built Disclone to learn React, Redux, and Web Sockets. All the while strengthening skills in SQL, Express, Node, CSS, and HTML5.
 
+Disclone allows users to engage in private chats with friends, or in group chats through personal chat channels.
+
 MAIN TECHNOLOGIES
 
 <ul>
@@ -15,6 +17,12 @@ MAIN TECHNOLOGIES
   <li>PostgreSQL</li>
 </ul>
 
+## SITE STRUCTURE
+
+Disclone was created using React components. We also used redux to make data management cleaner.  Below you can see the different components outlined from a site screenshot.  
+
+<img src='/public/img/components.png' />
+
 ## LOG IN / LOG OUT
 
 Disclone has built in login/logout functionality.  It remembers if you are logged in even after closing the browser!  The login we created can be seen below.
@@ -23,7 +31,7 @@ Disclone has built in login/logout functionality.  It remembers if you are logge
 
 ## Friends List
 
-Users all get a friends list, where they can select a friend and start a private chat with them.  Individual conversations are all saved to a database so chats can be pulled up at any time.  All chat features on the site are implemented using websockets.   
+Users all get a friends list, where they can select a friend and start a private chat with them.  Individual conversations are all saved to a database so chats can be pulled up at any time.  The chat features of the site were built using websockets.   
 
 <img src='/public/img/FriendsList.png'/>
 
